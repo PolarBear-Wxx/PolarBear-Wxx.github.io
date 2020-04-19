@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hi,我是王同学</title>
+    <link>https://PolarBear-Wxx.github.io/</link>
+    <description>Recent content on Hi,我是王同学</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 Apr 2020 21:38:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://PolarBear-Wxx.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My first blog</title>
+      <link>https://PolarBear-Wxx.github.io/post/blog/</link>
+      <pubDate>Sat, 18 Apr 2020 21:38:32 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/blog/</guid>
+      <description>#记录我的博客开启之路</description>
+    </item>
+    
+  </channel>
+</rss>
