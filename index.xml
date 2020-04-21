@@ -6,10 +6,20 @@
     <description>Recent content on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Apr 2020 21:38:32 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 Apr 2020 08:07:30 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>评论区测试</title>
+      <link>https://PolarBear-Wxx.github.io/post/%E8%AF%84%E8%AE%BA%E5%8C%BA%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Tue, 21 Apr 2020 08:07:30 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/%E8%AF%84%E8%AE%BA%E5%8C%BA%E6%B5%8B%E8%AF%95/</guid>
+      <description>欢迎大家积极留言   本文主要用于测试刚推出的评论区功能 欢迎大家积极留言，感激不尽 文明用语哦！  &amp;hellip;(偷偷说，这次还被迫换了头像&amp;hellip;哼，自由，不存在的！)
+聊个话题吧：你觉得你什么时候能开学？哈哈哈</description>
+    </item>
     
     <item>
       <title>My first blog</title>
