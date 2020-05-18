@@ -6,10 +6,30 @@
     <description>Recent content in Posts on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Apr 2020 08:07:30 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 16:08:20 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>First Acquaintance with Red-Black-Tree</title>
+      <link>https://PolarBear-Wxx.github.io/post/first-acquaintance-with-rbtree/</link>
+      <pubDate>Mon, 18 May 2020 16:08:20 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/first-acquaintance-with-rbtree/</guid>
+      <description>笔记-初识红黑树  了解红黑树之前，先看一下2-3树，他们两者之间是等价的。
+2-3树：  满足二分搜索树的基本性质。 节点可以存放一个或者两个元素； 每个元素有两个或者三个孩子。 2-3树是一棵绝对平衡（从根节点到任意一个叶子节点所经过的节点数是相同的）的树。 添加元素时（先按二分搜索树的规则去找往哪加），不会添加到一个空的节点上去，而是和先它最后找到的那个叶子节点做一个融合，2节点到3节点没必要拆，3节点到4节点就可以拆了。 怎么拆才能保持绝对平衡呢？  插入2节点（一个元素），很简单，直接融合，成为3节点 插入3节点（两个元素），融合后形成4节点，然后拆分成3个2节点 插入3节点，（该3节点）父亲节点是2节点，&amp;hellip;&amp;hellip;（拿起笔画一画，哈哈哈） 插入3节点，父亲节点是3节点，&amp;hellip;&amp;hellip;.    红黑树和2-3树的等价性：  实际上我们不希望一个节点既可能是2节点又可能是3节点，我们希望一个节点就是一个可以存放一个元素的节点。 2-3树的3节点对应生成红黑树中的一个红节点。  红黑树   红黑树的节点或者是红色的，或者是黑色的。
+  根节点是黑色的。
+  任意一个叶子节点（最后的空节点）是黑色的。
+  如果一个节点是红色的，那么它的孩子节点都是黑色的。
+  从任意一个节点到叶子节点，经过的黑色节点数是一样的。
+  绝对“黑”平衡，本质上说，是因为2-3树保持着绝对平衡。
+  严格意义上讲，红黑树并不是平衡的，其最大高度可能达到2log(n)，即其所对应的2-3树都是3节点。
+    红黑树的所有红色节点都是向左倾斜的（因为我们从一个2-3树向红黑树转变时就是这样干的）。
+  虽然红黑树的查找，修改等操作的时间复杂度也是O(log(n))的，但其可能需要2log(n)，也就是说，好像还不如AVL？
+ 但是，这并不影响红黑树是一个非常重要的数据结构，因为红黑树的优势在添加和删除操作。 如果处理的数据是固定的，即不需要或很少添加或删除元素，而需要大量的查找操作，那就不建议红黑树了。    Java.util中的TreeMap和TreeSet就是用红黑树实现的。
+  BST、AVL、RBT性能比较  对于完全随机的数据，普通的二分搜索树很好用！  缺点：极端情况下（完全有序）退化成链表（或者高度不平衡）。   对于查询较多的使用情况，AVL很好用！  红黑树牺牲了平衡性（2log(n)的高度）。   红黑树的统计性能更优，所谓统计性能就是指综合‘’增删改查‘’所有的操作，红黑树优于“增删”，劣于“查”。 当然，他们三者都保持了“有序性”。  一个拓展：Splay Tree （伸展树）  局部性原理：刚被访问的内容下次高概率再次被访问。  </description>
+    </item>
     
     <item>
       <title>评论区测试</title>
