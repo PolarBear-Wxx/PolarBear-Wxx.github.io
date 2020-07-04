@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Linux常用命令 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux常用命令"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！   命令基本格式    命令提示符：例：[root@localhost ~]#
+其中：
+​	root：当前登录用户
+​	localhost ： 主机名
+​	~： 当前所在目录（家目录 ~ ：超级用户在 /root ；普通用户在/home/username/）
+​	#： 超级用户提示符，普通用户提示符是$
+  命令 [选项] [参数]
+注意：有时候不需要加选项和参数
+​	[]中的内容为可选项
+​	个别命令使用不遵循此格式；
+​	当有多个选项时，可以写在一起；
+​	简化选项与完整选项，例：-a 等于 &ndash;all
+  查询目录中的内容： ls
+ls [选项] [文件或目录]
+选项：
+​	-a	显示隐藏文件在内的所有文件（all）
+​	-l	显示详细信息（longlist）
+​	-d	查看目录属性（directory）
+​	-h	人性化显示文件大小（human）
+​	-i	显示inode
+  文件属性：-rw-r&ndash;r&ndash; （Linux中一切内容皆文件，所有内容以文件形式保存，包括硬件。）
+==&gt; -文件类型（- 文件、 d 目录、l 软连接文件、&hellip;&hellip;）"/>
+
+    <meta property="og:title" content="Linux常用命令" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！   命令基本格式    命令提示符：例：[root@localhost ~]#
+其中：
+​	root：当前登录用户
+​	localhost ： 主机名
+​	~： 当前所在目录（家目录 ~ ：超级用户在 /root ；普通用户在/home/username/）
+​	#： 超级用户提示符，普通用户提示符是$
+  命令 [选项] [参数]
+注意：有时候不需要加选项和参数
+​	[]中的内容为可选项
+​	个别命令使用不遵循此格式；
+​	当有多个选项时，可以写在一起；
+​	简化选项与完整选项，例：-a 等于 &ndash;all
+  查询目录中的内容： ls
+ls [选项] [文件或目录]
+选项：
+​	-a	显示隐藏文件在内的所有文件（all）
+​	-l	显示详细信息（longlist）
+​	-d	查看目录属性（directory）
+​	-h	人性化显示文件大小（human）
+​	-i	显示inode
+  文件属性：-rw-r&ndash;r&ndash; （Linux中一切内容皆文件，所有内容以文件形式保存，包括硬件。）
+==&gt; -文件类型（- 文件、 d 目录、l 软连接文件、&hellip;&hellip;）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" />
+<meta property="article:published_time" content="2020-07-04T22:38:30+08:00" />
+<meta property="article:modified_time" content="2020-07-04T22:38:30+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Linux常用命令</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 4, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<blockquote>
+<h4 id="命令基本格式">命令基本格式</h4>
+</blockquote>
+<ul>
+<li>
+<p>命令提示符：例：[root@localhost ~]#</p>
+<p>其中：</p>
+<p>​		root：当前登录用户</p>
+<p>​		localhost ：      主机名</p>
+<p>​		<strong>~：</strong>                     当前所在目录（家目录 ~ ：超级用户在 /root ；普通用户在/home/username/）</p>
+<p>​		<strong>#：</strong>                     超级用户提示符，普通用户提示符是<strong>$</strong></p>
+</li>
+<li>
+<p><strong>命令   [选项]   [参数]</strong></p>
+<p>注意：有时候不需要加选项和参数</p>
+<p>​			[]中的内容为可选项</p>
+<p>​			个别命令使用不遵循此格式；</p>
+<p>​			当有多个选项时，可以写在一起；</p>
+<p>​			简化选项与完整选项，例：-a 等于 &ndash;all</p>
+</li>
+<li>
+<p>查询目录中的内容： ls</p>
+<p>ls   [选项]   [<strong>文件或目录</strong>]</p>
+<p>选项：</p>
+<p>​		-a		显示<strong>隐藏文件</strong>在内的所有文件（all）</p>
+<p>​		-l		 显示详细信息（longlist）</p>
+<p>​		<strong>-d</strong>	    查看目录属性（directory）</p>
+<p>​		<strong>-h</strong>		人性化显示文件大小（human）</p>
+<p>​		<strong>-i</strong>		 显示inode</p>
+</li>
+<li>
+<p>文件属性：<strong>-rw-r&ndash;r&ndash;</strong>  （Linux中一切内容皆文件，所有内容以文件形式保存，包括硬件。）</p>
+<p>==&gt;  -文件类型（- 文件、 d 目录、l 软连接文件、&hellip;&hellip;）</p>
+<p>==&gt;  rw-			r&ndash;			r&ndash;</p>
+<p>​		u所有者   g所属组   o其他人</p>
+<p>==&gt; r读	w写	x执行</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="目录文件处理命令">目录、文件处理命令</h4>
+</blockquote>
+<blockquote>
+<p>Linux中一切内容皆文件（所有内容以文件形式保存，包括硬件）。</p>
+</blockquote>
+<ul>
+<li>
+<p>目录处理命令</p>
+<ul>
+<li>
+<p>建立目录：mkdir</p>
+<p>mkdir   -p   [目录名]</p>
+<p>​		<strong>-p		递归创建</strong></p>
+<p>​		命令英文原意：<strong>m</strong>a<strong>k</strong>e <strong>dir</strong>ectories</p>
+</li>
+<li>
+<p>切换所在目录：cd</p>
+<p>cd   [目录]</p>
+<p>​		命令英文原意：<strong>c</strong>hange <strong>d</strong>irectories</p>
+<p>​		简化操作：</p>
+<p>​							cd~		进入当前用户的家目录</p>
+<p>​							cd</p>
+<p>​							<strong>cd  -</strong>		进入上次目录</p>
+<p>​							cd  ..		进入上一级目录</p>
+<p>​							cd  .		进入当前目录</p>
+</li>
+<li>
+<p><strong>相对路径</strong>：参照当前所在目录，进行查找。</p>
+<p>如：[root@wxx ~]# cd ../etc</p>
+</li>
+<li>
+<p><strong>绝对路径</strong>：从<strong>根目录开始</strong>指定，一级一级递归查找。在任何目录下，都能进入指定位置。</p>
+<p>如：[root@wxx ~]# cd /etc</p>
+</li>
+<li>
+<p>查询所在目录位置：pwd</p>
+<p>命令英文原意：<strong>p</strong>rint <strong>w</strong>orking <strong>d</strong>irectory</p>
+</li>
+<li>
+<p>删除<strong>空目录</strong>：rmdir（不太好用）</p>
+<p>rmdir   目录名</p>
+<p>命令英文原意：<strong>r</strong>e<strong>m</strong>ove empty <strong>dir</strong>ectories</p>
+</li>
+<li>
+<p>删除文件或目录：rm</p>
+<p><strong>rm   -rf   文件或目录</strong></p>
+<p>命令英文原意：<strong>r</strong>e<strong>m</strong>ove</p>
+<p>选项：</p>
+<p>​		-r		删除目录（删文件也可以带）</p>
+<p>​		<strong>-f		强制</strong></p>
+</li>
+<li>
+<p>复制命令：cp</p>
+<p><strong>cp   [选项]   原文件或目录   目标目录</strong></p>
+<p>命令英文原意：<strong>c</strong>o<strong>p</strong>y</p>
+<p>选项：</p>
+<p>​		<strong>-r</strong>		复制目录</p>
+<p>​		<strong>-p</strong>		连带<strong>文件属性</strong>复制</p>
+<p>​		-d		若原文件是链接文件，则复制<strong>链接属性</strong></p>
+<p>​		-a		相当于 -pdr（复制文件的属性将和原文件完全一致，包括最后一次改动时间）</p>
+</li>
+<li>
+<p>剪切或改名命令：mv</p>
+<p><strong>mv   原文件或目录   目标文件或目录</strong></p>
+<p>命令英文原意：<strong>m</strong>o<strong>v</strong>e</p>
+</li>
+<li>
+<p>常用目录的作用</p>
+<ul>
+<li>
+<p>/			根目录</p>
+</li>
+<li>
+<p><strong>/bin</strong>        命令保存目录（普通用户就可以读取的命令，（根目录或usr目录下的）*/sbin &ndash;&gt; 超级用户命令保存目录）</p>
+</li>
+<li>
+<p>/boot      启动目录，启动相关文件</p>
+</li>
+<li>
+<p>/dev        <strong>设备文件</strong>保存目录</p>
+</li>
+<li>
+<p>/etc       <strong>配置文件</strong>保存目录</p>
+</li>
+<li>
+<p>/home    普通用户家目录</p>
+</li>
+<li>
+<p>/lib       系统库保存目录</p>
+</li>
+<li>
+<p><strong>/mnt</strong>      系统挂载目录</p>
+</li>
+<li>
+<p>/media   挂载目录</p>
+</li>
+<li>
+<p>/root       超级用户家目录</p>
+</li>
+<li>
+<p>/tmp    临时目录</p>
+</li>
+<li>
+<p>/sbin      命令保存目录（超级用户）</p>
+</li>
+<li>
+<p>/proc      直接写入内存的</p>
+</li>
+<li>
+<p>/sys</p>
+</li>
+<li>
+<p><strong>/usr        系统软件资源目录</strong></p>
+<p>​				/usr/bin/系统命令（普通用户）</p>
+<p>​				/usr/sbin/系统命令（超级用户）</p>
+</li>
+<li>
+<p>/var         系统相关文档内容</p>
+</li>
+<li>
+<p>可以在家目录root或home，以及tmp目录下随便放内容</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>链接命令：ln</p>
+<p><strong>ln   [-s]   原文件   目标文件</strong></p>
+<p>命令英文原意：<strong>l</strong>i<strong>n</strong>k</p>
+<p>功能描述：生成链接文件</p>
+<p>选项：-s   创建软链接</p>
+<ul>
+<li>硬连接特征：
+<ul>
+<li>拥有<strong>相同的 i 节点和存储 block 块</strong>，可以看做是同一个文件</li>
+<li>可通过 i 节点识别</li>
+<li>不能跨分区</li>
+<li>不能针对目录使用</li>
+<li>修改原文件或硬链接文件，另一个<strong>都改变</strong></li>
+<li><strong>删除原文件，硬链接文件仍能使用</strong></li>
+</ul>
+</li>
+<li>软链接特征：
+<ul>
+<li>类似 Windows 快捷方式</li>
+<li><strong>拥有自己的 i 节点和 block 块</strong>，但是数据中只保存原文件的<strong>文件名和 i 节点号</strong>，并没有实际的文件数据</li>
+<li>lrwxrwxrwx   l &ndash; &gt; 软链接   软链接文件权限都为777</li>
+<li>修改任意文件，另一个<strong>都改变</strong></li>
+<li><strong>删除原文件，软链接不能使用</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="搜索命令">搜索命令</h4>
+</blockquote>
+<ul>
+<li>
+<p>文件搜索命令：locate</p>
+<p><strong>locate   文件名</strong></p>
+<ul>
+<li>
+<p>在<strong>后台数据库</strong>中按文件名搜索，搜索速度更<strong>快</strong></p>
+</li>
+<li>
+<p>/var/lib/mlocate  &ndash;&gt; locate命令所搜索的后台数据库</p>
+</li>
+<li>
+<p><strong>updatedb</strong>  &ndash;&gt; 更新数据路</p>
+<p>/etc/updatedb.conf配置文件</p>
+<ul>
+<li>PRUNE_BIND_MOUNTS = &ldquo;yes&rdquo;  &ndash;&gt; 开启搜索限制</li>
+<li>PRUNEFS =                                     &ndash;&gt; 搜索时，不搜索的文件系统</li>
+<li>PRUNENAMES =                            &ndash;&gt; 搜索时，不搜索的文件类型</li>
+<li>PRUNEPATHS =                              &ndash;&gt; 搜索时，不搜索的路径</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>命令搜索命令：whereis 和 which</p>
+<p><strong>whereis   命令名</strong></p>
+<p>搜索<strong>命令所在路径</strong>及<strong>帮助文档所在位置</strong></p>
+<p>选项：</p>
+<p>​		-b		只查询可执行文件</p>
+<p>​		-m		只查找帮助文件</p>
+<p><strong>which   文件名</strong></p>
+<p>#搜索<strong>文件所在路径</strong>及<strong>别名</strong></p>
+<p>whoami、whatis</p>
+</li>
+<li>
+<p><strong>PATH</strong>环境变量：定义的是<strong>系统搜索命令的路径</strong></p>
+<p>echo   $PATH   查看</p>
+</li>
+<li>
+<p>文件搜索命令：find（十分强大，但不太快）</p>
+<p><strong>find   搜索范围   搜索条件</strong>   文件名</p>
+<ul>
+<li>
+<p>find   /   <strong>-name</strong>   insatll.log</p>
+<p>注意：</p>
+<ul>
+<li>避免大范围搜索，会非常耗费系统资源</li>
+<li>find是在系统当中搜索符合条件的<strong>文件名</strong>。如果需要匹配，使用通配符匹配，<strong>通配符是完全匹配</strong></li>
+<li>*   &ndash;&gt; 匹配任意内容</li>
+<li>？ &ndash;&gt; 匹配任意一个字符</li>
+<li>[]  &ndash;&gt; 匹配中括号中的任意一个字符</li>
+</ul>
+</li>
+<li>
+<p>find    /root   <strong>-iname</strong>   install.log    &mdash; 不区分大小写</p>
+</li>
+<li>
+<p>find   /root   <strong>-user</strong>   root                  &mdash; 按照所有者搜索</p>
+</li>
+<li>
+<p>find   /root   <strong>-nouser</strong>                       &mdash;  查找没有所有者的文件</p>
+</li>
+<li>
+<p>find   /var/log/   <strong>-mtime</strong>   +10</p>
+<p>#查找10天前修改的文件</p>
+<p>-10		10天<strong>内</strong>修改文件</p>
+<p>10		 10天<strong>当天</strong>修改的文件</p>
+<p>+10	   10天<strong>前</strong>修改的文件</p>
+<p><strong>a</strong>time	<strong>文件访问时间</strong></p>
+<p><strong>c</strong>time	<strong>改变文件属性</strong></p>
+<p><strong>m</strong>time  <strong>修改文件内容</strong></p>
+</li>
+<li>
+<p>find   .   <strong>-size</strong>   25k    （-25k、25k、 +25k）</p>
+<p>查找文件大小是25KB的文件</p>
+</li>
+<li>
+<p>find   .   <strong>-inum</strong>   262123</p>
+<p>#查找 i 节点是262123的文件</p>
+</li>
+<li>
+<p>find   /etc   -size    +20k   <strong>-a</strong>   -size   -50k</p>
+<p>查找/etc/目录下，大于20KB并且小于50KB的文件</p>
+<p><strong>-a</strong>   and   逻辑与，两个条件都满足</p>
+<p><strong>-o</strong>   or      逻辑或，两个条件满足一个即可</p>
+</li>
+<li>
+<p>find   /etc   -size    +20k   -a   -size   -50k   <strong>-exec</strong>   ls   -lh   <strong>{}   ;</strong></p>
+<p>#查找/etc/目录下，大于20KB并且小于50KB的文件，并显示详细信息</p>
+<p>-exec/-ok 命令 {} ; 对搜索结果执行操作</p>
+</li>
+</ul>
+</li>
+<li>
+<p>字符串搜索命令：grep</p>
+<p><strong>grep   [选项]   字符串   文件名</strong></p>
+<p>#在文件当中<strong>匹配</strong>符合条件的<strong>字符串</strong></p>
+<p>选项：</p>
+<p>​		<strong>-i</strong>		忽略大小写</p>
+<p>​		<strong>-v</strong>		<strong>排除指定字符串</strong></p>
+</li>
+<li>
+<p>find 命令与 grep 命令的区别</p>
+<ul>
+<li>find命令：在<strong>系统当中</strong>搜索符合条件的<strong>文件名</strong>，如果需要匹配，使用<strong>通配符</strong>匹配，通配符是<strong>完全匹配</strong></li>
+<li>grep命令：在<strong>文件当中</strong>搜索符合条件的<strong>字符串</strong>，如果需要匹配，使用<strong>正则表达式</strong>进行匹配，正则表达式是<strong>包含匹配</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="帮助命令">帮助命令</h4>
+</blockquote>
+<ul>
+<li>
+<p>man的<strong>级别</strong></p>
+<ul>
+<li>1：查看命令的帮助</li>
+<li>2：查看可被内核调用的函数的帮助</li>
+<li>3：查看函数和函数库帮助</li>
+<li>4：查看特殊文件的帮助（主要是/dev目录下的文件）</li>
+<li>5：查看配置文件的帮助</li>
+<li>6：查看游戏的帮助（基本没有）</li>
+<li>7：查看其它杂项的帮助</li>
+<li><strong>8</strong>：查看<strong>系统管理员可用命令</strong>的帮助</li>
+<li>9：查看和内核相关文件的帮助</li>
+</ul>
+</li>
+<li>
+<p>man   <strong>-f</strong>    命令</p>
+<ul>
+<li><strong>查看命令拥有哪些级别的帮助</strong></li>
+<li>相当于 <strong>whatis</strong>   命令</li>
+</ul>
+</li>
+<li>
+<p>man   <strong>-k</strong>   命令</p>
+<ul>
+<li><strong>查看和命令相关的所有帮助</strong></li>
+<li>相当于 <strong>apropos</strong> 命令</li>
+</ul>
+</li>
+<li>
+<p>用 man 查看命令的帮助文档时，可以输入: <strong>/-d</strong> (某个选项，-d只是个例子)来定位具体选项，然后“N”键下一个，“shift + N”上一个</p>
+</li>
+<li>
+<p>命令   &ndash;help</p>
+<ul>
+<li>获取命令<strong>选项</strong>的帮助</li>
+</ul>
+</li>
+<li>
+<p>help    shell内部命令</p>
+<ul>
+<li>
+<p>获取<strong>shell内部命令</strong>的帮助</p>
+</li>
+<li>
+<p>例如：whereis   cd    &mdash; 确定是否是shell内部命令</p>
+<p>然后，help   cd    &mdash; 获取内部命令帮助</p>
+</li>
+</ul>
+</li>
+<li>
+<p>info   命令</p>
+<ul>
+<li>详细命令帮助</li>
+<li>回车：进入子帮助页面（带有*号标记）</li>
+<li>u：进入上层页面</li>
+<li>n：进入下一个帮助小节</li>
+<li>p：进入上一个帮助小节</li>
+<li>q：退出</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="压缩命令">压缩命令</h4>
+</blockquote>
+<ul>
+<li>
+<p>常用压缩格式：.zip 、 .gz 、 .bz2 、 .tar.gz 、 .tar.bz2</p>
+</li>
+<li>
+<p>.zip格式压缩（适用于 Windows）</p>
+<p><strong>zip   压缩文件名   源文件</strong></p>
+<p>#压缩文件</p>
+<p>zip   <strong>-r</strong>   压缩文件名   源目录</p>
+<p>#压缩目录</p>
+<p><strong>unzip   压缩文件</strong></p>
+<p>#解压缩 .zip 文件</p>
+</li>
+<li>
+<p>.gz格式压缩</p>
+<p><strong>gzip   源文件</strong></p>
+<p>#压缩为 .gz 格式的压缩文件，<strong>源文件会消失</strong></p>
+<p>gzip   <strong>-c</strong>   原文件   <strong>&gt;</strong>   压缩文件</p>
+<p>#压缩为 .gz 格式，<strong>源文件保留</strong></p>
+<p>例如：gzip   -c   wxx   &gt;   wxx.gz</p>
+<p>gzip   <strong>-r</strong>   目录</p>
+<p>#压缩目录下所有的<strong>子文件</strong>，但是<strong>不能压缩目录</strong></p>
+<p>gzip   <strong>-d</strong>   压缩文件</p>
+<p>#解压缩文件</p>
+<p><strong>gunzip</strong>   压缩文件</p>
+<p>#解压缩文件</p>
+</li>
+<li>
+<p>.bz2格式压缩</p>
+<p><strong>bzip2   源文件</strong></p>
+<p>#压缩为 .bz2 格式，<strong>不保留源文件</strong></p>
+<p>bzip2   <strong>-k</strong>   源文件</p>
+<p>#压缩之后<strong>保留源文件</strong></p>
+<p>注意：bzip2命令<strong>不能作用于压缩目录</strong></p>
+</li>
+<li>
+<p>打包命令 tar</p>
+<p><strong>tar   -cvf   打包文件名   源文件</strong></p>
+<p>选项：</p>
+<p>​		-c：打包</p>
+<p>​		-v：显示过程</p>
+<p>​		-f：指定打包后的文件名</p>
+</li>
+<li>
+<p>.tar.gz压缩格式</p>
+<ul>
+<li>
+<p>其实是先打包，然后压缩</p>
+</li>
+<li>
+<p>tar   -zcvf   压缩包名.tar.gz   源文件</p>
+<p>选项：</p>
+<p>​		-z：压缩为 .tar.gz 格式</p>
+<p>tar   -zxvf   压缩包名.tar.gz   源文件</p>
+<p>选项：</p>
+<p>​		-zx：解压缩 .tar.gz 格式</p>
+</li>
+</ul>
+</li>
+<li>
+<p>.tar.bz2压缩格式</p>
+<ul>
+<li>
+<p>tar   -jcvf   压缩包名.tar.bz2   源文件</p>
+<p>选项：</p>
+<p>​		-jc：压缩为 .tar.bz2 格式</p>
+<p>tar   -jxvf   压缩包名.tar.bz2   源文件</p>
+<p>选项：</p>
+<p>​		-jx：解压缩 .tar.bz2 格式</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="开机关机命令">开机、关机命令</h4>
+</blockquote>
+<ul>
+<li>
+<p>[root@localhost ~]# shutdown   [选项]   时间</p>
+<p>选项：</p>
+<p>​		-c：取消前一个关机命令</p>
+<p>​		-h：关机（真实生产服务器下没事别乱关机，关了你就开不开，还得麻烦管理员）</p>
+<p>​		<strong>-r：重启</strong></p>
+</li>
+<li>
+<p>其他关机命令</p>
+<ul>
+<li>[root@localhost ~]# halt</li>
+<li>[root@localhost ~]# poweroff</li>
+<li>[root@localhost ~]# init 0</li>
+</ul>
+</li>
+<li>
+<p>其他重启命令</p>
+<ul>
+<li>[root@localhost ~]# reboot</li>
+<li>[root@localhost ~]# init 6</li>
+</ul>
+</li>
+<li>
+<p>系统运行级别</p>
+<ul>
+<li>0   关机</li>
+<li>1   单用户</li>
+<li>2   不完全多用户，不含NFS服务</li>
+<li>3   完全多用户</li>
+<li>4   未分配</li>
+<li>5   图形界面</li>
+<li>6   重启</li>
+</ul>
+</li>
+<li>
+<p>[root@localhost ~]# cat   /etc/initab</p>
+<p>#修改系统默认运行级别</p>
+<p>Id:3:initdefault:</p>
+</li>
+<li>
+<p>[root@localhost ~]# runlevel</p>
+<p>#查询系统运行级别</p>
+</li>
+<li>
+<p>退出登录命令</p>
+<p>[root@localhost ~]# logout</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="挂载命令">挂载命令</h4>
+</blockquote>
+<ul>
+<li>
+<p>查询与自动挂载</p>
+<ul>
+<li>
+<p>[root@localhost ~]# mount</p>
+<p>#查询系统中已挂载的设备</p>
+</li>
+<li>
+<p>[root@localhost ~]# mount    -a</p>
+<p>#依据配置文件/etc/fatab的内容，自动挂载</p>
+</li>
+</ul>
+</li>
+<li>
+<p>挂载命令格式</p>
+<ul>
+<li>
+<p>[root@localhost ~]# mount   [-t 文件系统]   [-o 特殊选项]   设备文件名   挂载点</p>
+<p>选项：</p>
+<p>​		-t：文件系统：加入文件系统类型来指定挂载的类型，可以是ext3、ext4、iso9660等文件系统</p>
+<p>​		-o：特殊选项：可以指定挂载的额外选项（这里就不一一列出了，随时可以查嘛）</p>
+<p>例如：[root@localhost ~]# mount   -o   remount,noexec   /home</p>
+<p>#重新挂载/home分区，并使用noexec权限</p>
+<p>你会发现，在/home目录下即使是可执行文件也不能执行了</p>
+</li>
+</ul>
+</li>
+<li>
+<p>挂载光盘</p>
+<ul>
+<li>
+<p>[root@localhost ~]# mount   /mnt/cdrom</p>
+<p>#建立挂载点</p>
+</li>
+<li>
+<p>[root@localhost ~]# mount   -t   iso9660   /dev/cdrom   /mnt/cdrom/</p>
+<p>#挂载光盘</p>
+</li>
+<li>
+<p>[root@localhost ~]# mount   /dev/sr0   /mnt/cdrom</p>
+</li>
+</ul>
+</li>
+<li>
+<p>卸载命令</p>
+<ul>
+<li>
+<p>[root@localhost ~]# umount   设备文件名或挂载点（一个就行）</p>
+<p>例如：[root@localhost ~]# umount   /mnt/cdrom</p>
+</li>
+</ul>
+</li>
+<li>
+<p>挂载U盘</p>
+<ul>
+<li>
+<p>[root@localhost ~]# fdisk   -l</p>
+<p>#查看U盘设备文件名</p>
+</li>
+<li>
+<p>[root@localhost ~]# mount   -t   vfat   /dev/sdb1   /mnt/usb/</p>
+</li>
+</ul>
+</li>
+<li>
+<p>注意：Linux 默认是不支持NTFS文件系统的，当然，肯定有招实现移动硬盘等NTFS类型的设备的挂载，但是，不建议。毕竟修改内核啥的太麻烦，而且，没必要，传文件用网络传输不就行了。</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="查看登录用户信息">查看登录用户信息</h4>
+</blockquote>
+<ul>
+<li>
+<p>w   [用户名]</p>
+<p>命令输出：</p>
+<ul>
+<li>USER：登录的用户名</li>
+<li>TTY：         登录终端</li>
+<li>FROM：  从哪个IP地址登录</li>
+<li>LOGIN@：登录时间</li>
+<li>IDLE：       用户闲置时间</li>
+<li>JCPU：      指的是和该终端连接的所有进程占用的时间。这个时间里并不包括过去的后台作业时间，但却包括当前正在运行的后台作业所占用的时间</li>
+<li>PCPU：     当前进程所占用的时间</li>
+<li>WHAT：    当前正在运行的命令</li>
+</ul>
+</li>
+<li>
+<p>who   [用户名]</p>
+<p>命令输出：</p>
+<ul>
+<li>用户名</li>
+<li>登录终端</li>
+<li>登录时间（登录来源ip地址）</li>
+</ul>
+</li>
+<li>
+<p>last</p>
+<p>#查询当前登录和过去登录的用户信息</p>
+<p>last 命令默认是读取 /var/log/wtmp 文件数据</p>
+<p>命令输出：</p>
+<ul>
+<li>用户名</li>
+<li>登录终端</li>
+<li>登录IP</li>
+<li>登录时间</li>
+<li>退出时间（在线时间）</li>
+</ul>
+</li>
+<li>
+<p>lastlog</p>
+<p>#查看所有用户的<strong>最后一次登录时间</strong></p>
+<p>lastlog 命令默认是读取 /var/log/lastlog 文件内容</p>
+<p>命令输出：</p>
+<ul>
+<li>用户名</li>
+<li>登录终端</li>
+<li>登录IP</li>
+<li>最后一次登录时间</li>
+</ul>
+</li>
+</ul>
+<p>2020-7-4</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>

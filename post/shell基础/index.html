@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Shell基础 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shell基础"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！   Shell概述    Shell是什么？
+ Shell是一个命令行解释器，他为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。 Shell还是一个功能强大的编程语言，易编写，易调试，灵活性较强。Shell是解释执行的脚本语言，在Shell中可以直接调用Linux系统命令。    Shell的分类
+ Bourne Shell：从1970年起的Unix就开始使用Bourne Shell，Bourne Shell的主文件名为sh。（B Shell基本已经淘汰了，比如它不支持上下左右键快速命令） C Shell：主要在BSD版的Unix系统中使用，其语法和C语言类似而得名。 Shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容。Bourne家族主要包括 sh、ksh、Bash、psh、zsh；C家族主要包括：csh、tcsh； Bash 与 sh 兼容，现在使用的linux就是使用Bash作为用户的基本Shell。    Linux支持的Shell
+可以去 /etc/shells 里看看
+   脚本的执行方式    echo输出命令
+echo [选项] [输出内容]
+选项：
+​	-e：支持反斜线控制的字符转换
+​	\a	输出警告音
+​	\b	退格键，也就是向左删除键
+​	\n	换行符
+​	\r	回车键
+​	\t	制表符，也就是 Tab 键
+​	\v	垂直制表符"/>
+
+    <meta property="og:title" content="Shell基础" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！   Shell概述    Shell是什么？
+ Shell是一个命令行解释器，他为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。 Shell还是一个功能强大的编程语言，易编写，易调试，灵活性较强。Shell是解释执行的脚本语言，在Shell中可以直接调用Linux系统命令。    Shell的分类
+ Bourne Shell：从1970年起的Unix就开始使用Bourne Shell，Bourne Shell的主文件名为sh。（B Shell基本已经淘汰了，比如它不支持上下左右键快速命令） C Shell：主要在BSD版的Unix系统中使用，其语法和C语言类似而得名。 Shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容。Bourne家族主要包括 sh、ksh、Bash、psh、zsh；C家族主要包括：csh、tcsh； Bash 与 sh 兼容，现在使用的linux就是使用Bash作为用户的基本Shell。    Linux支持的Shell
+可以去 /etc/shells 里看看
+   脚本的执行方式    echo输出命令
+echo [选项] [输出内容]
+选项：
+​	-e：支持反斜线控制的字符转换
+​	\a	输出警告音
+​	\b	退格键，也就是向左删除键
+​	\n	换行符
+​	\r	回车键
+​	\t	制表符，也就是 Tab 键
+​	\v	垂直制表符" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/shell%E5%9F%BA%E7%A1%80/" />
+<meta property="article:published_time" content="2020-07-04T22:49:16+08:00" />
+<meta property="article:modified_time" content="2020-07-04T22:49:16+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Shell基础</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 4, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<blockquote>
+<h4 id="shell概述">Shell概述</h4>
+</blockquote>
+<ul>
+<li>
+<p>Shell是什么？</p>
+<ul>
+<li>Shell是一个命令行解释器，他为用户提供了一个<strong>向Linux内核发送请求以便运行程序</strong>的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。</li>
+<li>Shell还是一个功能强大的编程语言，易编写，易调试，灵活性较强。Shell是<strong>解释执行</strong>的<strong>脚本语言</strong>，在Shell中可以直接调用Linux系统命令。</li>
+</ul>
+</li>
+<li>
+<p>Shell的分类</p>
+<ul>
+<li>Bourne Shell：从1970年起的Unix就开始使用Bourne Shell，Bourne Shell的主文件名为sh。（B Shell基本已经淘汰了，比如它不支持上下左右键快速命令）</li>
+<li>C Shell：主要在BSD版的Unix系统中使用，其语法和C语言类似而得名。</li>
+<li>Shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容。Bourne家族主要包括 sh、ksh、<strong>Bash</strong>、psh、zsh；C家族主要包括：csh、tcsh；</li>
+<li>Bash 与 sh 兼容，现在使用的linux就是使用Bash作为用户的基本Shell。</li>
+</ul>
+</li>
+<li>
+<p>Linux支持的Shell</p>
+<p>可以去 /etc/shells 里看看</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="脚本的执行方式">脚本的执行方式</h4>
+</blockquote>
+<ul>
+<li>
+<p>echo输出命令</p>
+<p><strong>echo   [选项]   [输出内容]</strong></p>
+<p>选项：</p>
+<p>​		-e：支持<strong>反斜线</strong>控制的<strong>字符转换</strong></p>
+<p>​				\a		输出警告音</p>
+<p>​				\b		退格键，也就是向左删除键</p>
+<p>​				\n		换行符</p>
+<p>​				\r		 回车键</p>
+<p>​				\t		 制表符，也就是 Tab 键</p>
+<p>​				\v		垂直制表符</p>
+<p>​				\0nnn按照八进制ASCII码表输出字符。其中0为数字零，nnn是三位八进制树</p>
+<p>​				\xhh   按照十六进制ASCII码表输出字符。其中hh是两位十六进制数</p>
+<p>在线ASCII码表：http://ascii.911cha.com/</p>
+<p>[root@localhost ~]# echo   -e   &ldquo;\e[1;31m  <strong>学习Linux真实太好啦</strong>   \e[0m &quot;</p>
+<p>#输出颜色：30m = 黑色， 31m = 红色，32m = 绿色，33m = 黄色，34m = 蓝色，35m = 洋红，36m = 青色，37m = 白色</p>
+</li>
+<li>
+<p>第一个脚本</p>
+<p>[root@localhost ~]# vi   hello.sh</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash              （ 所有bash脚本第一行都要有这句）
+</span><span style="color:#75715e"></span>  
+<span style="color:#75715e">#The first program       （ # 用于注释）</span>
+  
+echo -e <span style="color:#e6db74">&#34;\e[1;31m 学习Linux真实太好啦 \e[0m &#34;</span>
+</code></pre></div></li>
+<li>
+<p>脚本执行方式</p>
+<ul>
+<li>
+<p>赋予执行权限，直接运行</p>
+<p>chmod   755   hello.sh</p>
+<p>./hello.sh</p>
+</li>
+<li>
+<p>通过Bash调用执行</p>
+<p>bash   hello.sh</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="bash的基本功能">Bash的基本功能</h4>
+</blockquote>
+<ul>
+<li>
+<p>命令别名与快捷键</p>
+<ul>
+<li>
+<p>查看与设定别名</p>
+<p>alias</p>
+<p>#查看系统中所有的命令bm</p>
+<p>alias   别名='原命令&rsquo;</p>
+<p>#设定命令别名（临时的）</p>
+</li>
+<li>
+<p>别名永久生效与删除别名</p>
+<p>vi   ~/.bashrc</p>
+<p>#写入环境变量配置文件</p>
+<p>unalias   别名</p>
+<p>#删除别名</p>
+<p>source   */.bashrc   立即生效</p>
+</li>
+<li>
+<p>命令生效顺序</p>
+<ul>
+<li>
+<p>第一顺位执行用绝对路径或相对路径执行的命令</p>
+</li>
+<li>
+<p>第二顺位执行别名</p>
+</li>
+<li>
+<p>第三顺位执行Bash的内部命令</p>
+</li>
+<li>
+<p>第四顺位执行按照$PATH环境变量定义的目录查找顺序找到的第一个命令</p>
+<p>也就是说，alias   rm='rm -i&rsquo;  使得，rm 命令永远无法执行了，因为他代表 rm  -i</p>
+</li>
+</ul>
+</li>
+<li>
+<p>常用快捷键：</p>
+<ul>
+<li><strong>ctrl + c</strong>   强制终止当前命令</li>
+<li>ctrl + l   清屏</li>
+<li>ctrl + a   光标移到命令<strong>行首</strong></li>
+<li>ctrl + e   光标移到命令<strong>行尾</strong></li>
+<li>ctrl + u   从光标所在位置<strong>删除到行首</strong></li>
+<li><strong>ctrl + z   把命令放入后台</strong></li>
+<li>ctrl + r   在历命令中搜索</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>历史命令</p>
+<ul>
+<li>
+<p><strong>history</strong>   [选项]   [历史命令保存文件]</p>
+<p>选项：</p>
+<p>​		-c：清空历史命令</p>
+<p>​		-w：把缓存中的历史命令写入历史命令保存文件 ~/.bash_history</p>
+</li>
+<li>
+<p>历史命令默认会保存1000条，可以在环境标量配置文件 /etc/profile 中默认修改</p>
+</li>
+<li>
+<p>历史命令的调动</p>
+<ul>
+<li>上、下箭头调用以前的历史命令</li>
+<li>“!n” 重复执行第n条历史命令</li>
+<li>“!!” 重复执行上一条命令</li>
+<li>“!子串” 重复执行最后一条以<strong>该字串开头</strong>的命令</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>命令与文件补全：“Tab”键</p>
+</li>
+<li>
+<p>输入、输出重定向</p>
+<ul>
+<li>
+<p>标准输入输出</p>
+<table>
+<thead>
+<tr>
+<th align="center">设备</th>
+<th align="center">设备文件名</th>
+<th align="center">文件描述符</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">键盘</td>
+<td align="center">/dev/stdin</td>
+<td align="center">0</td>
+<td align="center">标准输入</td>
+</tr>
+<tr>
+<td align="center">显示器</td>
+<td align="center">/dev/stdout</td>
+<td align="center">1</td>
+<td align="center">标准输出</td>
+</tr>
+<tr>
+<td align="center">显示器</td>
+<td align="center">/dev/stderr</td>
+<td align="center">2</td>
+<td align="center">标准错误输出</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>输出重定向</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="center">符号</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">标准输出重定向</td>
+<td align="center">命令 &gt; 文件</td>
+<td align="center">以覆盖的方式，把命令的正确输出输出到指定的文件或设备当中</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">命令 &raquo; 文件</td>
+<td align="center">以追加的方式，把命令的正确输出输出到指定的文件或设备当中</td>
+</tr>
+<tr>
+<td align="left">标准错误输出重定向</td>
+<td align="center">错误命令 2&gt;文件</td>
+<td align="center">以覆盖的方式，把命令的错误输出输出到指定的文件或设备当中</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">错误命令 2&raquo;文件</td>
+<td align="center">以追加的方式，把命令的错误输出输出到指定的文件或设备当中</td>
+</tr>
+<tr>
+<td align="left">正确输出和错误输出同时保存</td>
+<td align="center">命令 &gt; 文件 2&gt;&amp;1</td>
+<td align="center">以覆盖的方式，把正确输出和错误输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">命令 &raquo; 文件 2&gt;&amp;1</td>
+<td align="center">以追加的方式，把正确输出和错误输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">命令 &amp;&gt;文件</td>
+<td align="center">以覆盖的方式，把正确输出和错误输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center"><strong>命令 &amp;&raquo;文件</strong></td>
+<td align="center">以追加的方式，把正确输出和错误输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center"><strong>命令&raquo;文件1 2&raquo;文件2</strong></td>
+<td align="center">正确的输出追加到文件1中，错误的输出追加到文件2中</td>
+</tr>
+</tbody>
+</table>
+<p>系统预留了一个设备 /dev/null ，可以当成黑洞，丢进去就没有了，例如：ls   &amp;&gt;/dev/null</p>
+</li>
+<li>
+<p>输入重定向(一般很少见到输入重定向)</p>
+<p>[root@localhost ~]# <strong>wc   [选项]   [文件名]</strong></p>
+<p>选项：</p>
+<p>​		-c：统计字节数</p>
+<p>​		-w：统计单词数</p>
+<p>​		-l： 统计行数</p>
+<ul>
+<li>wc  如果不加选项直接回车，是以键盘输入为输入，以 ctrl + d 结束输入，然后输出统计结果</li>
+<li>wc   &lt;   文件      以文件内容作为输入，输出统计结果（其实不加 &lt;  也一样的效果）</li>
+<li>wc   &laquo;  标识符     把标识符之间的内容作为命令的输入（基本不会用到，有点二感觉）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>多命令顺序执行</p>
+<table>
+<thead>
+<tr>
+<th align="center">多命令执行符</th>
+<th align="center">格式</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">;</td>
+<td align="center">命令1 ; 命令2</td>
+<td align="center">多个命令顺序执行，命令之间没有任何逻辑联系</td>
+</tr>
+<tr>
+<td align="center">&amp;&amp;</td>
+<td align="center">命令1 ：命令2</td>
+<td align="center">逻辑与:命令1正确执行，则命令2执行；命令1执行不正确，则命令2不执行</td>
+</tr>
+<tr>
+<td align="center">||</td>
+<td align="center">命令1 || 命令2</td>
+<td align="center">逻辑或：当命令1执行不正确，命令2才会执行；当命令1正确执行，则命令2不会执行</td>
+</tr>
+</tbody>
+</table>
+<p>举个🌰：[root@localhost ~]# date ; tar -zcvf etc.tar.gz /etc ; date</p>
+<p>#可用于统计 tar -zcvf etc.tar.gz /etc 的执行时长</p>
+<p>再举个🌰：[root@localhost ~]# 命令 &amp;&amp; echo yes ||echo no</p>
+<p>#用于显示命令是否正确执行</p>
+</li>
+<li>
+<p><strong>管道符</strong></p>
+<ul>
+<li>
+<p>命令格式：</p>
+<p>[root@localhost ~]# 命令1 | 命令2</p>
+<p>#命令1 的<strong>正确输出</strong>作为命令2的<strong>操作对象</strong></p>
+<p>例如：[root@localhost ~]# netstat -an | grep ESTABLISHED | wc -l</p>
+</li>
+</ul>
+</li>
+<li>
+<p>通配符</p>
+<table>
+<thead>
+<tr>
+<th align="center">通配符</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">？</td>
+<td align="center">匹配<strong>一个</strong>任意字符</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">匹配0个或<strong>任意多个</strong>任意字符，也就是可以匹配任何内容</td>
+</tr>
+<tr>
+<td align="center">[]</td>
+<td align="center">匹配中括号里任意一个字符，例如：[abc]代表一定匹配一个字符，或者是啊a，或者是b，或者是c</td>
+</tr>
+<tr>
+<td align="center">[-]</td>
+<td align="center">匹配中括号里任意一个字符，- 代表范围，例如：[a-z]代表匹配一个小写字母</td>
+</tr>
+<tr>
+<td align="center">[^]</td>
+<td align="center">逻辑非，表示匹配不是中括号里的一个字符，例如：[^0-9]代表匹配一个不是数字的字符</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>反引号与$()</p>
+<ul>
+<li>[root@localhost ~]# echo `ls`</li>
+<li>[root@localhost ~]# echo $(date)</li>
+</ul>
+</li>
+<li>
+<p>Shell中特殊符号</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">‘ ’</td>
+<td align="center">单引号。在单引号中所有的特殊字符，如“$”和“`”都没有特殊含义  |</td>
+</tr>
+<tr>
+<td align="center">“ ”</td>
+<td align="center">双引号。在双引号中特殊符号都没有特殊含义，<strong>但“$”、“`”和“\”例外</strong>，它们代表“调用变量的值”、“引用命令”、“转义符” |</td>
+</tr>
+<tr>
+<td align="center">` ` | 反引号。反引号括起来的内容是系统命令，在Bash中会先执行它。和$()作用一样，不过推荐使用$()，因为反引号容易看错 |</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">$()</td>
+<td align="center">和反引号一样，用来引用系统命令</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="center">在Shell脚本中，#开头的行代表注释</td>
+</tr>
+<tr>
+<td align="center">$</td>
+<td align="center">用于调用变量的值，例如：$PATH</td>
+</tr>
+<tr>
+<td align="center">\</td>
+<td align="center">转义符，跟在\之后的特殊字符将失去特殊含义，变为普通字符</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>2020-7-4</p>
+<p>ps：本人使用Typora记录笔记，在发布到网页时直接复制草稿内容。不幸的是，我在Typora的所见，并不是我在浏览器的所得，主要表现在表格部分和空格长度。对此，我表示抱歉和无奈。希望有大佬能帮我解决这个问题，感谢！</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>
