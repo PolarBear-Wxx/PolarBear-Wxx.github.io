@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Linux网络管理 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux网络管理"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！   网络基础    ISO/OSI七层模型
+ ISO：国际标准化组织（International Organization for Standardization，ISO） OSI：开放系统互联模型（Open System Interconnection Reference Model，缩写为 OSI） IOS：（苹果手机操作系统？）在计算机网络中，IOS是互联网操作系统，是思科公司为其网络设备开发的操作维护系统     层级 主要功能     应用层 用户接口   表示层 数据的表现形式、特定功能的实现如-加密   会话层 对应用会话的管理、同步   传输层 可靠与不可靠的传输、传输前的错误检测、流控   网络层 提供逻辑地址、选路   数据链路层 成帧、用MAC地址访问媒介、错误检测与修正   物理层 设备之间的比特流的传输、物理接口、电气特性      TCP/IP四层模型
+ 应用层：对应OSI参考模型的高层，为用户提供所需要的各种服务，例如：FTP、Telnet、DNS 、SMTP等。 传输层：对应OSI参考模型的传输层，为应用层实体提供端到端的通信功能，保证了数据包的顺序传送及数据的完整性。该层定义了两个主要的协议：传输控制协议（TCP：可靠的、面向连接的）和用户数据报协议（UDP：不可靠的，面向无连接的）。 网际互联层：对应OSI参考模型的网络层。主要解决主机到主机的通信问题。它所包含的协议设计数据包在整个网络上的逻辑传输。该层有三个主要协议：网际协议（IP）、互联网组管理协议（IGMP）和互联网控制报文协议（ICMP）。 网络接口层：与OSI参考模型中的物理层和数据链路层相对应。它负责监视数据在主机和网络之间的交换。事实上，TCP/IP本身并未定义该层的协议，而由参与互联的各网络使用自己的物理层和数据链路层协议，然后与TCP/IP的网络接入层进行连接。地址解析协议（ARP）工作在此层，即OSI参考模型的数据链路层。    TCP/IP模型与OSI模型的比较"/>
+
+    <meta property="og:title" content="Linux网络管理" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！   网络基础    ISO/OSI七层模型
+ ISO：国际标准化组织（International Organization for Standardization，ISO） OSI：开放系统互联模型（Open System Interconnection Reference Model，缩写为 OSI） IOS：（苹果手机操作系统？）在计算机网络中，IOS是互联网操作系统，是思科公司为其网络设备开发的操作维护系统     层级 主要功能     应用层 用户接口   表示层 数据的表现形式、特定功能的实现如-加密   会话层 对应用会话的管理、同步   传输层 可靠与不可靠的传输、传输前的错误检测、流控   网络层 提供逻辑地址、选路   数据链路层 成帧、用MAC地址访问媒介、错误检测与修正   物理层 设备之间的比特流的传输、物理接口、电气特性      TCP/IP四层模型
+ 应用层：对应OSI参考模型的高层，为用户提供所需要的各种服务，例如：FTP、Telnet、DNS 、SMTP等。 传输层：对应OSI参考模型的传输层，为应用层实体提供端到端的通信功能，保证了数据包的顺序传送及数据的完整性。该层定义了两个主要的协议：传输控制协议（TCP：可靠的、面向连接的）和用户数据报协议（UDP：不可靠的，面向无连接的）。 网际互联层：对应OSI参考模型的网络层。主要解决主机到主机的通信问题。它所包含的协议设计数据包在整个网络上的逻辑传输。该层有三个主要协议：网际协议（IP）、互联网组管理协议（IGMP）和互联网控制报文协议（ICMP）。 网络接口层：与OSI参考模型中的物理层和数据链路层相对应。它负责监视数据在主机和网络之间的交换。事实上，TCP/IP本身并未定义该层的协议，而由参与互联的各网络使用自己的物理层和数据链路层协议，然后与TCP/IP的网络接入层进行连接。地址解析协议（ARP）工作在此层，即OSI参考模型的数据链路层。    TCP/IP模型与OSI模型的比较" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" />
+<meta property="article:published_time" content="2020-07-08T22:46:50+08:00" />
+<meta property="article:modified_time" content="2020-07-08T22:46:50+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Linux网络管理</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 8, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<blockquote>
+<h4 id="网络基础">网络基础</h4>
+</blockquote>
+<ul>
+<li>
+<p>ISO/OSI七层模型</p>
+<ul>
+<li>ISO：国际标准化组织（International Organization for Standardization，ISO）</li>
+<li>OSI：开放系统互联模型（Open System Interconnection Reference Model，缩写为 OSI）</li>
+<li>IOS：（苹果手机操作系统？）在计算机网络中，IOS是互联网操作系统，是思科公司为其网络设备开发的操作维护系统</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">层级</th>
+<th align="center">主要功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">应用层</td>
+<td align="center">用户接口</td>
+</tr>
+<tr>
+<td align="center">表示层</td>
+<td align="center">数据的表现形式、特定功能的实现如-加密</td>
+</tr>
+<tr>
+<td align="center">会话层</td>
+<td align="center">对应用会话的管理、同步</td>
+</tr>
+<tr>
+<td align="center">传输层</td>
+<td align="center">可靠与不可靠的传输、传输前的错误检测、流控</td>
+</tr>
+<tr>
+<td align="center">网络层</td>
+<td align="center">提供逻辑地址、选路</td>
+</tr>
+<tr>
+<td align="center">数据链路层</td>
+<td align="center">成帧、用MAC地址访问媒介、错误检测与修正</td>
+</tr>
+<tr>
+<td align="center">物理层</td>
+<td align="center">设备之间的比特流的传输、物理接口、电气特性</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>TCP/IP四层模型</p>
+<ul>
+<li><strong>应用层</strong>：对应OSI参考模型的高层，为用户提供所需要的各种服务，例如：FTP、Telnet、DNS 、SMTP等。</li>
+<li><strong>传输层</strong>：对应OSI参考模型的传输层，为应用层实体提供<strong>端到端</strong>的通信功能，保证了<strong>数据包的顺序传送及数据的完整性</strong>。该层定义了两个主要的协议：传输控制协议（<strong>TCP：可靠的、面向连接的）和用户数据报协议（UDP：不可靠的，面向无连接的</strong>）。</li>
+<li><strong>网际互联层</strong>：对应OSI参考模型的<strong>网络层</strong>。主要解决<strong>主机到主机的通信问题</strong>。它所包含的协议<strong>设计数据包在整个网络上的逻辑传输</strong>。该层有三个主要协议：网际协议（IP）、互联网组管理协议（IGMP）和互联网控制报文协议（ICMP）。</li>
+<li><strong>网络接口层</strong>：与OSI参考模型中的<strong>物理层</strong>和<strong>数据链路层</strong>相对应。它负责监视数据在<strong>主机和网络</strong>之间的交换。事实上，TCP/IP本身并未定义该层的协议，而由参与互联的各网络使用自己的物理层和数据链路层协议，然后与TCP/IP的网络接入层进行连接。地址解析协议（ARP）工作在此层，即OSI参考模型的数据链路层。</li>
+</ul>
+</li>
+<li>
+<p>TCP/IP模型与OSI模型的比较</p>
+<ul>
+<li>共同点
+<ul>
+<li>都采用了层次结构的概念</li>
+<li>都能够提供面向连接和无连接两种通信服务机制</li>
+</ul>
+</li>
+<li>不同点
+<ul>
+<li>前者四层，后者七层</li>
+<li>对可靠性要求不同（TCP/IP更高）</li>
+<li>OSI模型是在协议开发前设计的，具有通用性。TCP/IP是先有协议集然后建立模型，不适用于非TCP/IP网络。</li>
+<li>实际市场应用不同（OSI模型只是理论上的模型，并没有成熟的产品，而TCP/IP已经成为“实际上的国际标准”）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>IP地址：（不太好总结啊，IP包头、IP地址分类啥的）IPv4是32位的，也就是大约四十二亿九千万个IP地址，而且有些还不能用，这显然不够啊。私有IP地址有效地解决了这个问题。</p>
+</li>
+<li>
+<p>子网掩码：必须配合IP地址使用，用来确定IP地址中哪一个数变化代表不同的<strong>网段</strong>，哪一个数变化代表不同的<strong>主机</strong>（子网掩码中所有的‘1’必须是连续的）。IP地址中跟255对应的部分代表网段，跟0对应的部分代表该网段里的主机。子网掩码前面的都是‘1’，后面都是‘0’，为啥这样搞？我们知道，二进制的<strong>与运算</strong>，无论0还是1，跟1与的结果都是它自己，跟0与的结果都是0。<strong>网络地址</strong>计算方式是<strong>子网掩码和IP地址相与</strong>，与出来是多少就是网络地址（网段部分没变）。而<strong>广播地址</strong>是先看子网掩码‘0’有多少位，有多少位就把IP地址的后多少位都换成‘1’，就是广播地址。网路地址和广播地址之间的，就是<strong>主机地址</strong>。</p>
+</li>
+<li>
+<p>端口作用（标称服务器上开启的端口和访问的是谁）</p>
+<ul>
+<li>
+<p>端口号是什么：通过IP可以知道主机（服务器或者客户端，就是通信的两端嘛）的位置，但是一台主机（无论是服务器还是客户端主机）一般会开启很多服务，我通过IP找到这台主机后，怎么找到具体的服务呢，唉，没错，看目标端口。端口号最主要的中作用就是，标称开启的端口和访问的是谁。也就是说，常见的端口号应该是固定的，当然，你可以改，但后果自负。</p>
+</li>
+<li>
+<p>端口号有多少种类：主要就是TCP端口、UDP端口。无论是TCP还是UDP，源端口和目标端口都是16位，也就是六万多，其中一万多是预留的，固定给指定服务的，剩下五万多留给开发人员使用。注意常见端口并没有进一步区分是TCP的还是UDP的，因为他们已经被预留了，不管TCP还是UDP都不能在分给其他服务用。</p>
+</li>
+<li>
+<p>常见的端口号有哪些（常识性知识，必须记住的）</p>
+<ul>
+<li>FTP（文件传输协议）：端口号 20、 21</li>
+<li>SSH（安全shell协议）：端口号 22（事实上的远程登录协议）</li>
+<li>telnet（远程登录协议）：端口号 23（不安全，不管是Windows服务器还是Linux服务器都禁止开启23端口，它是明文传输，后台都不加密的，截获直接看，谁敢用）</li>
+<li>DNS（域名系统）：端口号 53</li>
+<li>http（超文本传输协议）：端口号 80</li>
+<li>SMTP（简单邮件传输协议）：端口号 25（发信）</li>
+<li>POP3（邮局协议）：端口号 110（收信）</li>
+</ul>
+</li>
+<li>
+<p>netstat   -an</p>
+<p>#查看本机启用的端口</p>
+<p>选项：</p>
+<p>​		-a：查看所有连接和监听端口</p>
+<p>​		-n：显示IP地址和端口号，而不显示域名和服务器</p>
+</li>
+</ul>
+</li>
+<li>
+<p>DNS作用</p>
+<ul>
+<li>
+<p>DNS是什么：</p>
+<ul>
+<li>在互联网中，通过<strong>IP地址</strong>来进行通信</li>
+<li>IP地址用数字表示，记忆起来太困难了了</li>
+<li>人们对<strong>域名</strong>更加敏感，比如：http://www.imooc.com/</li>
+<li>于是乎，有了DNS（Domain Name System），它来把IP翻译成域名或者把域名翻译成IP</li>
+</ul>
+</li>
+<li>
+<p>从Hosts文件到DNS</p>
+<ul>
+<li>早期Hosts文件解析域名
+<ul>
+<li>名称解析效能下降</li>
+<li>主机维护困难</li>
+</ul>
+</li>
+<li>DNS服务
+<ul>
+<li>层次性</li>
+<li>分布式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>DNS服务的作用</p>
+<ul>
+<li>
+<p>将域名解析为IP地址</p>
+<ul>
+<li>客户机向DNS服务器发送域名查询请求</li>
+<li>DNS服务器告知客户机Web服务器的IP地址</li>
+<li>客户机与Web服务器通信</li>
+</ul>
+</li>
+<li>
+<p>域名空间结构（又称完全合格域名；域名用“ . ” 分割是为了便于分级管理）</p>
+<ul>
+<li>
+<p>根域：“ .  ”表示根域名，根域名的服务器只有13台（中国大陆一台都没有）</p>
+</li>
+<li>
+<p>顶级域：</p>
+<ul>
+<li>
+<p>组织域：也没多少，几十个</p>
+<table>
+<thead>
+<tr>
+<th align="center">顶级域</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">gov</td>
+<td align="center">政府部门</td>
+</tr>
+<tr>
+<td align="center">com</td>
+<td align="center">商业部门</td>
+</tr>
+<tr>
+<td align="center">edu</td>
+<td align="center">教育部门</td>
+</tr>
+<tr>
+<td align="center">org</td>
+<td align="center">民间团体组织</td>
+</tr>
+<tr>
+<td align="center">net</td>
+<td align="center">网络服务机构</td>
+</tr>
+<tr>
+<td align="center">mil</td>
+<td align="center">军事部门</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>国家或地区域</p>
+<table>
+<thead>
+<tr>
+<th align="center">顶级域</th>
+<th align="center">国家、地区</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">cn</td>
+<td align="center">中国</td>
+</tr>
+<tr>
+<td align="center">jp</td>
+<td align="center">日本</td>
+</tr>
+<tr>
+<td align="center">uk</td>
+<td align="center">英国</td>
+</tr>
+<tr>
+<td align="center">au</td>
+<td align="center">澳大利亚</td>
+</tr>
+<tr>
+<td align="center">hk</td>
+<td align="center">中国香港</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>二级域：个人或者企业向域名分配部门申请的，是买的（不贵，一年也就大概几十到一百），不是谁想用就用的。比如：imooc、baidu、IBM等</p>
+</li>
+<li>
+<p>主机名（三级域名）：申请到二级域名之后，自己规定的。比如：www（代表网页服务）、NEWS（新闻服务）等</p>
+</li>
+<li>
+<p>注意：<strong>三级域 + 二级域 + 顶级域 组成完整域名空间</strong>，它应该是全球唯一的（所以有时候会出现抢注域名的时间）！比如：www.imooc.com是全球唯一的，注册过就不能再被注册了，但是，注意啦，www.imooc.cn 或者 <a href="http://www.imooc.com.hk">www.imooc.com.hk</a> 不一定被注册啊，所以啊，大公司一般会把二级域名相关的域名全都注册了，尽量保证不被误导到其它网站去（无论访问那个都是访问自己的服务器）。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>DNS查询过程</p>
+<ul>
+<li>从查询方式上分（面试有可能问的）
+<ul>
+<li>递归查询：要么做出查询成功响应，要么做出查询失败响应。一般<strong>客户机和服务器</strong>之间是递归查询，即当客户机向DNS服务器发出请求后，若DNS服务器本身不能解析，则会向另外的DNS服务器发出查询请求，得到结果或转交给客户机。</li>
+<li>迭代查询：服务器收到一次迭代查询回复一次结果，这个结果不一定是目标IP与域名的映射关系，也可以是其他DNS服务器的地址</li>
+</ul>
+</li>
+<li>从查询内容上分
+<ul>
+<li>正向查询由域名查找IP地址</li>
+<li>反向查询由IP地址查找域名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>网关作用：</p>
+<ul>
+<li>网关（Gateway）又称网间连接器、协议转换器。</li>
+<li>网关在网络层以上实现网络互连，是最复杂的网络互联设备，仅用于两个高层协议不同的网络连接。</li>
+<li>网关既可以用于广域网互连，也可以用于局域网互连。</li>
+<li>网关是一种充当转换重任的服务器或路由器。</li>
+<li>网关的作用：
+<ul>
+<li>网关在所有内网计算机访问的不是本网段的数据报时使用（也就是说，只要你不适合局域网内的小伙伴通信，那就交给网关处理）。</li>
+<li>网关负责将内网IP转换为公网IP，公网IP转换为内网IP。（不同的局域网，也就是不同的内网里面的IP可以是一样的，所以需要通过网关转换为公网IP，而公网IP是唯一的）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>零碎知识点</p>
+<ul>
+<li>交换机是数字链路层的设备，它是“不认识” IP 的，当你把一台计算机的网线插到交换机的某个插口上，它会闪烁几下，此时，它就把这个计算机的硬件地址也就是MAC地址记录了下来，在<strong>局域网内</strong>的计算机通信可以由交换机直接通过MAC地址进行通信。</li>
+<li>如果不是一个局域网内呢，光靠交换机就不行了，这个时候呢，就要用到路由器。交换机用来在内网（一个局域网内）进行数据交换，而路由器用来进行不同网段（局域网）之间的数据交换。路由器就是一种网关！</li>
+<li>那么，网关是什么呢，它是一个计算机的硬件设备，一般情况下是个路由器，当然，你也可以买一个服务器，在服务器上搭建<strong>路由功能</strong>，用它来模拟路由器。换句话说，<strong>网关就是一个具有路由功能的设备</strong>，他可以是路由器，也可以是服务器或者一台PC。网关也会有自己的下一级网关，这就产生了路由问题。</li>
+<li>假设我的计算机没有配置网关和DNS服务器，只配了IP地址和子网掩码。那我能和公网通信吗，显然不能，但是，我可以在内网（局域网）通信。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="linux网络配置">Linux网络配置</h4>
+</blockquote>
+<ul>
+<li>
+<p>Linux配置IP地址的方法</p>
+<ul>
+<li>
+<p>ifconfig命令<strong>临时</strong>配置IP地址</p>
+<ul>
+<li>ifconfig命令：查看与配置网络状态命令（主要是查看）</li>
+<li>ifconfig   eth0   192.168.0.200   netmask   255.255.255.0</li>
+</ul>
+</li>
+<li>
+<p>setup工具永久配置IP地址（RedHat专有图形化工具，比较方便）</p>
+</li>
+<li>
+<p>修改<strong>网络配置文件</strong>（标准配置方式）</p>
+<ul>
+<li>
+<p>网卡信息文件</p>
+<p>[root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>主要元素：</p>
+<p>DEVICE=etho	网卡设备名</p>
+<p>BOOTPROTO=none	是否自动获取IP（none、static、dhcp）</p>
+<p>HWADDR=xx:xx:xx:xx:xx:xx	MAC地址</p>
+<p>NM_CONTROLLED=yes	是否可以由Network Manager图形管理工具托管</p>
+<p>ONBOOT=yes	是否随网络服务启动，eth0生效（默认no，记得改成yes）</p>
+<p>TYPE=Ethernet	类型为以太网</p>
+<p>UUID=“&hellip;&hellip;.”	唯一识别码</p>
+<p>IPADDR=192.168.0.100	IP地址</p>
+<p>NETMASK=255.255.255.0	子网掩码</p>
+<p>GATEWAY=192.168.0.1	网关</p>
+<p>DNS1=192.168.0.1	DNS</p>
+<p>IPV6INIT=no	IPv6没有启用</p>
+<p>USERCTL=no	不允许非root用户控制此网卡</p>
+</li>
+<li>
+<p>主机名文件</p>
+<p>[root@localhost ~]# vi /etc/sysconfig/network</p>
+<p>主要元素：</p>
+<p>NETWORKING=yes</p>
+<p>HOSTNAME=localhost.localdomin</p>
+<p>[root@localhost ~]# hostname [主机名]</p>
+<p>#查看与临时设置主机名命令（其实，主机名在linux当中没啥影响，linux不像Windows同一局域网内不能有重名）</p>
+</li>
+<li>
+<p>DNS配置文件</p>
+<p>[root@localhost ~]# vi /etc/resolv.conf</p>
+<p>nameserver xxx.xxx.xxx.xxx（可以多个，空格或换行分开）</p>
+<p>search localhost（这玩意没啥用）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>图形界面配置IP地址（额，服务器不会装图形界面的）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>虚拟机网络配置（毕竟虚拟机和真实机是有区别的）</p>
+<ul>
+<li>
+<p>步骤：</p>
+<ul>
+<li>
+<p>配置LinuxIP地址</p>
+<p>[root@localhost ~]# setup</p>
+<p>#修改并配置IP地址</p>
+</li>
+<li>
+<p>启动网卡</p>
+<p>[root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>把	ONBOOT=no</p>
+<p>改为	ONBOOT=yes</p>
+<p>#有些版本在setup里就可以设置为yes</p>
+<p>[root@localhost ~]# service network restart</p>
+<p>#重启网络服务</p>
+</li>
+<li>
+<p>修改UUID（新安装的系统没这个问题，克隆等一些操作得到的系统其UUID也和源系统一致）</p>
+<ul>
+<li>
+<p>1）vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>#删除MAC地址行</p>
+</li>
+<li>
+<p>2）rm -rf /etc/udev/rules.d/70-persistent-net.rules</p>
+<p>#删除网卡和MAC地址绑定文件</p>
+</li>
+<li>
+<p>3）重启系统（shutdown -r）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>设置虚拟机连接方式</p>
+<ul>
+<li>桥接：虚拟机利用真实网卡进行通信（优点：独立IP（但是要和主机在同一局域网同一网段，同一网段，也要注意桥接到主机用的网卡上，别主机用的无线，你给桥接到网线上去了），内、外网均可通信；缺点：占用局域网网段的一个IP地址，人多的实验课就不太行）</li>
+<li>NAT：使用VMnet8网卡，使用与真实机使用同一个IP地址（只能和自己的主机通信，不能连接到局域网内其他ip设备，<strong>但是可以连外网</strong>）</li>
+<li>Host-only：使用VMnet1与主机共享一个私有网络（只能和自己的主机通信，不能连接到局域网内其他ip设备）</li>
+</ul>
+</li>
+<li>
+<p>修改桥接网卡（主机用的无线就桥接到无线网卡，主机连得有线九桥街道有线网卡）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="linux网络命令">Linux网络命令</h4>
+</blockquote>
+<ul>
+<li>
+<p>ifconfig命令：查看与配置网络状态命令（缺点，看不到DNS和网关）</p>
+</li>
+<li>
+<p>关闭与启动网卡</p>
+<ul>
+<li>
+<p>ifdown	网卡设备名</p>
+<p>#禁用该网卡设备</p>
+</li>
+<li>
+<p>ifup   网卡设备明</p>
+<p>#启用该网卡设备</p>
+</li>
+</ul>
+</li>
+<li>
+<p>查询网络状态</p>
+<p>1） <strong>netstat	选项</strong></p>
+<p>选项：</p>
+<p>​		-t	列出TCP协议端口</p>
+<p>​		-u：	列出UDP协议端口</p>
+<p>​		-n：	不使用域名与服务名，而使用IP地址和端口号</p>
+<p>​		-l：	 仅列出在监听状态的网络服务</p>
+<p>​		-a：	列出所有的网络连接</p>
+<p>-tuln    查看当前计算机开启了哪些端口，从而判断当前开了哪些服务</p>
+<p>-an	可以查看当前有谁连接到我的服务器上</p>
+<p>[root@localhost ~]# netstat -an | grep ESTABLISHED | wc -l</p>
+<p>2）<strong>netstat	-rn</strong>（和route	-n 一样，<strong>最下面一个就是自己的网关</strong>）</p>
+<p>选项：</p>
+<p>​		-r：列出路由列表，功能和route命令一致</p>
+</li>
+<li>
+<p><strong>route命令</strong></p>
+<ul>
+<li>
+<p>route	-n</p>
+<p>#查看路由列表（可以看到网关）</p>
+</li>
+<li>
+<p>route add default gw 192.168.1.1（<strong>不要乱用，没什么作用，而且有可能导致网络出问题</strong>）</p>
+<p>#<strong>临时</strong>设定网关</p>
+<p>注意：一台服务器一般有两个网卡，一个连外网，一个连内网。局域网内的设备通信通过交换机就完成了，当要去外网时，连接的建立会先到交换机，交换机说，我不认识这个ip，然后交给内网网卡，内网网卡再交给外网网卡，外网网卡会告诉你下一级网关在哪，然后连到外网，而外网网卡的网关是你在买ip，所以，<strong>在一台服务器里，连内网的网卡是不能设置网关的</strong>。那<strong>连接外网的网卡可以随便设网关吗，当然也不行</strong>，你随便设一个，当需要连外网的时候，通过外网网卡到了一个你瞎编的网关，那还能正常上网吗。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>域名解析命令</p>
+<p>nslookup（查看DNS）命令用来翻译域名对应哪个IP</p>
+<ul>
+<li>
+<p>nslookup	[主机名或IP]</p>
+<p>#进行域名与IP地址解析</p>
+</li>
+<li>
+<p>[root@localhost ~]# nslookup</p>
+<p>&gt; server</p>
+<p>&gt; eixt（退出）</p>
+<p>#查看本机DNS服务器</p>
+</li>
+</ul>
+</li>
+<li>
+<p>ping命令</p>
+<ul>
+<li>
+<p>ping	[选项]	ip或域名</p>
+<p>#探测指定ip或域名的网络状况</p>
+<p>选项：</p>
+<p>​		-c	次数：指定ping包的次数</p>
+</li>
+</ul>
+</li>
+<li>
+<p>telnet命令（明文传输，不加密，默认telnet都是关闭的）</p>
+<p>telnet	[域名或ip]	[端口]</p>
+<p>#远程管理与端口探测命令</p>
+<p>telnet 192.168.0.106 80  探测是否正常连接到目标ip的某一端口是否开启</p>
+</li>
+<li>
+<p>traceroute（故障定位）</p>
+<p>traceroute	[选项]	ip或域名</p>
+<p>#路由跟踪命令</p>
+<p>选项：</p>
+<p>​		-n：使用IP，不使用域名，速度更快</p>
+</li>
+<li>
+<p>wget命令</p>
+<p>wget	下载地址</p>
+<p>#下载命令</p>
+</li>
+<li>
+<p>tcpdump命令（抓包）</p>
+<p>tcpdump	-i	eth0	-nnX	port	21</p>
+<p>选项：</p>
+<p>​		-i：	指定网卡接口</p>
+<p>​		-nn：	将数据包中的域名与服务转为IP和端口</p>
+<p>​		-X：	以十六进制和ASCII吗显示数据包内容</p>
+<p>​		port	指定监听的端口</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="远程登录">远程登录</h4>
+</blockquote>
+<ul>
+<li>SSH协议（安全外壳协议）原理（对称加密（单秘钥加密） &ndash;&gt; 非对称加密（公钥、私钥））</li>
+<li>SecureCRT远程管理工具（收费，还没Xshell强大，淘汰）</li>
+<li>Xshell工具和<strong>WinSCP文件传输工具</strong>（Windows和Linux互传文件，很方便）</li>
+</ul>
+<p>2020-7-8</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>

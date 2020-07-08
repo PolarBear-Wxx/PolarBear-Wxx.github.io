@@ -6,10 +6,21 @@
     <description>Recent content on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Jul 2020 22:49:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Jul 2020 22:46:50 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux网络管理</title>
+      <link>https://PolarBear-Wxx.github.io/post/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Wed, 08 Jul 2020 22:46:50 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</guid>
+      <description>小白笔记，大佬绕道，打扰了！   网络基础    ISO/OSI七层模型
+ ISO：国际标准化组织（International Organization for Standardization，ISO） OSI：开放系统互联模型（Open System Interconnection Reference Model，缩写为 OSI） IOS：（苹果手机操作系统？）在计算机网络中，IOS是互联网操作系统，是思科公司为其网络设备开发的操作维护系统     层级 主要功能     应用层 用户接口   表示层 数据的表现形式、特定功能的实现如-加密   会话层 对应用会话的管理、同步   传输层 可靠与不可靠的传输、传输前的错误检测、流控   网络层 提供逻辑地址、选路   数据链路层 成帧、用MAC地址访问媒介、错误检测与修正   物理层 设备之间的比特流的传输、物理接口、电气特性      TCP/IP四层模型
+ 应用层：对应OSI参考模型的高层，为用户提供所需要的各种服务，例如：FTP、Telnet、DNS 、SMTP等。 传输层：对应OSI参考模型的传输层，为应用层实体提供端到端的通信功能，保证了数据包的顺序传送及数据的完整性。该层定义了两个主要的协议：传输控制协议（TCP：可靠的、面向连接的）和用户数据报协议（UDP：不可靠的，面向无连接的）。 网际互联层：对应OSI参考模型的网络层。主要解决主机到主机的通信问题。它所包含的协议设计数据包在整个网络上的逻辑传输。该层有三个主要协议：网际协议（IP）、互联网组管理协议（IGMP）和互联网控制报文协议（ICMP）。 网络接口层：与OSI参考模型中的物理层和数据链路层相对应。它负责监视数据在主机和网络之间的交换。事实上，TCP/IP本身并未定义该层的协议，而由参与互联的各网络使用自己的物理层和数据链路层协议，然后与TCP/IP的网络接入层进行连接。地址解析协议（ARP）工作在此层，即OSI参考模型的数据链路层。    TCP/IP模型与OSI模型的比较</description>
+    </item>
     
     <item>
       <title>Shell基础</title>
