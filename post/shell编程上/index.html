@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Shell编程上 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shell编程上"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！  Shell和其它语言的对比：
+ php和java主要实现功能 Shell简化管理操作   Shell基础
+  Bash变量
+   什么是变量及变量分类
+ 变量是计算机内存的单元，其中存放的值可以改变 变量让你能够吧程序中准备使用的每一段数据都赋给一个简短、易于记忆的名字，因此他们十分有用 变量命名规则：  变量名必须以字母或下划线打头，名字中间只能由字母、数字和下划线组成 变量名的长度不得超过255个字符（鸡肋啊这条） 变量名在有效的范围必须是唯一的 在Bash中，变量的默认类型都是字符串型 在任何系统当中，目录名、文件名、变量名都要有含义（别乱起名）   变量按照存储数据分类  字符串型（Shell中默认都是字符串，这点很别扭） 整型 浮点型（就是小数，其他语言可能还分单精度、双精度） 日期型 其他      用户自定义变量：变量是用户自己定义的
+  变量名=变量值
+ 等号两边不能有空格，例如：x=5 如果变量值中有空格要用双引号括起来（单引号也行，区别见Shell基础），例如：x=“bian liang”    变量调用
+echo $变量名（方法之一）
+  变量叠加
+x=123
+x=**“$x”**456（这个更好记一些）
+x=$(x)789
+echo $x
+123456789
+  变量查看
+set
+#查询系统下所有已存在的变量
+选项：
+​	-u：如果设定此选项，调用未声明变量时会报错（默认无任何提示）"/>
+
+    <meta property="og:title" content="Shell编程上" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！  Shell和其它语言的对比：
+ php和java主要实现功能 Shell简化管理操作   Shell基础
+  Bash变量
+   什么是变量及变量分类
+ 变量是计算机内存的单元，其中存放的值可以改变 变量让你能够吧程序中准备使用的每一段数据都赋给一个简短、易于记忆的名字，因此他们十分有用 变量命名规则：  变量名必须以字母或下划线打头，名字中间只能由字母、数字和下划线组成 变量名的长度不得超过255个字符（鸡肋啊这条） 变量名在有效的范围必须是唯一的 在Bash中，变量的默认类型都是字符串型 在任何系统当中，目录名、文件名、变量名都要有含义（别乱起名）   变量按照存储数据分类  字符串型（Shell中默认都是字符串，这点很别扭） 整型 浮点型（就是小数，其他语言可能还分单精度、双精度） 日期型 其他      用户自定义变量：变量是用户自己定义的
+  变量名=变量值
+ 等号两边不能有空格，例如：x=5 如果变量值中有空格要用双引号括起来（单引号也行，区别见Shell基础），例如：x=“bian liang”    变量调用
+echo $变量名（方法之一）
+  变量叠加
+x=123
+x=**“$x”**456（这个更好记一些）
+x=$(x)789
+echo $x
+123456789
+  变量查看
+set
+#查询系统下所有已存在的变量
+选项：
+​	-u：如果设定此选项，调用未声明变量时会报错（默认无任何提示）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%8A/" />
+<meta property="article:published_time" content="2020-07-10T23:44:13+08:00" />
+<meta property="article:modified_time" content="2020-07-10T23:44:13+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Shell编程上</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 10, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<p>Shell和其它语言的对比：</p>
+<ol>
+<li>php和java主要实现功能</li>
+<li>Shell简化管理操作</li>
+</ol>
+<blockquote>
+<p><a href="https://polarbear-wxx.github.io/post/shell%E5%9F%BA%E7%A1%80/">Shell基础</a></p>
+</blockquote>
+<blockquote>
+<p>Bash变量</p>
+</blockquote>
+<ul>
+<li>
+<p>什么是变量及变量分类</p>
+<ul>
+<li>变量是计算机内存的单元，其中存放的<strong>值可以改变</strong></li>
+<li>变量让你能够吧程序中准备使用的每一段数据都赋给一个<strong>简短、易于记忆</strong>的名字，因此他们十分有用</li>
+<li>变量命名规则：
+<ul>
+<li>变量名必须以<strong>字母或下划线打头</strong>，名字中间只能由字母、数字和下划线组成</li>
+<li>变量名的长度不得超过255个字符（鸡肋啊这条）</li>
+<li><strong>变量名在有效的范围必须是唯一的</strong></li>
+<li><strong>在Bash中，变量的默认类型都是字符串型</strong></li>
+<li>在任何系统当中，目录名、文件名、变量名都要有含义（别乱起名）</li>
+</ul>
+</li>
+<li>变量按照存储数据分类
+<ul>
+<li><strong>字符串型</strong>（Shell中默认都是字符串，这点很别扭）</li>
+<li>整型</li>
+<li>浮点型（就是小数，其他语言可能还分单精度、双精度）</li>
+<li>日期型</li>
+<li>其他</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>用户自定义变量：变量是用户自己定义的</p>
+<ul>
+<li>
+<p>变量名=变量值</p>
+<ul>
+<li>等号两边不能有空格，例如：x=5</li>
+<li>如果变量值中有空格要用双引号括起来（单引号也行，区别见<a href="https://polarbear-wxx.github.io/post/shell%E5%9F%BA%E7%A1%80/">Shell基础</a>），例如：x=“bian liang”</li>
+</ul>
+</li>
+<li>
+<p>变量调用</p>
+<p>echo <strong>$</strong>变量名（方法之一）</p>
+</li>
+<li>
+<p><strong>变量叠加</strong></p>
+<p>x=123</p>
+<p>x=**“$x”**456（这个更好记一些）</p>
+<p>x=$(x)789</p>
+<p>echo $x</p>
+<p>123456789</p>
+</li>
+<li>
+<p>变量查看</p>
+<p>set</p>
+<p>#查询系统下所有已存在的变量</p>
+<p>选项：</p>
+<p>​		-u：如果设定此选项，调用未声明变量时会报错（默认无任何提示）</p>
+</li>
+<li>
+<p>删除变量</p>
+<p><strong>unset	变量名</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>环境变量：这种变量中主要保存的是和系统操作环境相关的数据（定义每个用户的操作环境）。变量可以自定义，但是对<strong>系统生效的环境变量名和变量作用</strong>是<strong>固定</strong>的（可以可变值，不然成常量了）</p>
+<ul>
+<li>
+<p>环境变量和用户自定义变量的区别？</p>
+<ul>
+<li>用户自定义变量是局部变量，只在当前的Shell中生效</li>
+<li>环境变量是全局变量，在当前Shell和这个Shell的所有子Shell中生效（pstree 命令 查看进程树）</li>
+</ul>
+</li>
+<li>
+<p>设置环境变量（用户可以自定义，但是&hellip;&hellip;）</p>
+<p>export	变量名=变量值（变量名尽量大写）</p>
+<p>或</p>
+<p>变量名=变量名</p>
+<p>export 变量名</p>
+</li>
+<li>
+<p>查看环境变量</p>
+<ul>
+<li>
+<p>set</p>
+<p>#查看所有变量</p>
+</li>
+<li>
+<p>env</p>
+<p>#查看环境变量</p>
+</li>
+</ul>
+</li>
+<li>
+<p>常用环境变量</p>
+<ul>
+<li>HOSTNAME：主机名</li>
+<li>SHELL：当前的shell</li>
+<li>TERM：终端环境</li>
+<li>HISTSIZE：历史命令条数</li>
+<li>SSH_CLIENT：当前操作环境是用ssh连接的，这里记录客户端ip</li>
+<li>SSH_TTY：ssh连接的终端时pts/1</li>
+<li>USER：当前登录的用户</li>
+</ul>
+</li>
+<li>
+<p>PATH环境变量</p>
+<p>PATH变量：系统查找命令的路径（命令的执行是需要完整路径的，但是记住命令的路径并且每次都打那么长的字可不划算）</p>
+<p>echo $PATH</p>
+<p>#查看PATH的值</p>
+<p>PATH=&quot;$PATH&rdquo;:/root/sh</p>
+<p>#增加PATH变量的值</p>
+</li>
+<li>
+<p>PS1变量：命令提示符设置（env看不到这个变量）</p>
+<ul>
+<li>\d：显示日期，格式为“星期	月	日”</li>
+<li>\H：显示完整的主机名。如默认主机名“localhost.localdomain”</li>
+<li>\t：显示24小时制时间，格式为“HH：MM：SS”</li>
+<li>\A：显示24小时制时间，格式为“HH：MM”</li>
+<li>\u：显示当前用户名</li>
+<li>\w：显示当前所在目录的完整名称</li>
+<li>\W：显示当前所在目录的最后一个目录</li>
+<li>\$：提示符。如果是root用户会显示提示符为“#”，如果是普通用户会显示提示符为“$”</li>
+<li>例如：[root@localhost ~]# PS1=‘[\u@\A \w]\$ ’（试试看 &gt;_&lt; ）</li>
+</ul>
+</li>
+<li>
+<p>当前语系查询</p>
+<p>locale</p>
+<p>#查询当前系统语系</p>
+<p>LANG：定义系统主语系的变量</p>
+<p>LC_ALL：定义整体语系的变量</p>
+<p>echo $LANG</p>
+<p>#查看系统当前语系</p>
+<p>locale -a | more</p>
+<p>#查看Linux支持的所有语系</p>
+<p>查看系统默认语系</p>
+<p>cat /etc/sysconfig/i18n（下次开机之后系统的语系）</p>
+</li>
+<li>
+<p>Linux中文支持</p>
+<p>前提条件，正确安装的中文字体和中文语系（安装的时候选择中文这两个前提就满足了）</p>
+<ul>
+<li>如果有图形界面，可以正确支持中文显示</li>
+<li>如果使用第三方远程工具，只要语系设定正确，可以支持中文显示（毕竟第三方远程工具基本都装在windows或者mac上，中文显示当然么的问题）</li>
+<li>如果使用纯字符界面，必须使用第三方插件（如zhcon等）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>位置参数变量：这种变量主要是用来<strong>向脚本当中传递</strong>参数或数据的，变量名不能自定义，变量作用是固定的（预定义变量的一种）</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">位置参数变量</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$n</td>
+<td align="center">n为数字，$0代表命令本身，$1-$9代表第一到第九个参数，十以上的参数需要用大括号包含，如${10}</td>
+</tr>
+<tr>
+<td align="center">$*</td>
+<td align="center">这个变量代表命令行中所有的参数，$*把所有的参数看成一个整体</td>
+</tr>
+<tr>
+<td align="center">$@</td>
+<td align="center">这个变量也代表命令行中所有的参数，不过$@把每个参数区别对待</td>
+</tr>
+<tr>
+<td align="center">$#</td>
+<td align="center">这个变量代表命令行中所有参数的个数</td>
+</tr>
+</tbody>
+</table>
+<p>例1：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+num1<span style="color:#f92672">=</span>$1
+num2<span style="color:#f92672">=</span>$2
+sum1<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span> $num1 <span style="color:#f92672">+</span> $num2 <span style="color:#66d9ef">))</span>
+
+echo $sum1
+</code></pre></div><p>[root@localhost ~]# cd</p>
+<p>[root@localhost ~]# mkdir BashLib</p>
+<p>[root@localhost ~]# vi canshu1.sh</p>
+<p>上面那块代码</p>
+<p>[root@localhost ~]# chmod 755 canshu1.sh</p>
+<p>[root@localhost ~]# ./canshu1.sh   45   67</p>
+<p>显然，这种向脚本当中传递值的方式只适合脚本编写人员使用，不适合不知道脚本内容的用户使用</p>
+<p>例2：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#/bin/bash</span>
+
+echo <span style="color:#e6db74">&#34;A total of </span>$#<span style="color:#e6db74"> parameters&#34;</span>
+<span style="color:#75715e">#使用$#代表所有参数的个数</span>
+echo <span style="color:#e6db74">&#34;The parameter is: </span>$*<span style="color:#e6db74">&#34;</span>
+<span style="color:#75715e">#使用$*代表所以的参数</span>
+echo <span style="color:#e6db74">&#34;The parameters is: </span>$@<span style="color:#e6db74">&#34;</span>
+<span style="color:#75715e">#使用$@也代表所有参数</span>
+</code></pre></div><p>[root@localhost ~]# vi canshu2.sh</p>
+<p>如上</p>
+<p>[root@localhost ~]# chmod 755 canshu2.sh</p>
+<p>[root@localhost ~]# ./canshu2.sh 11 22 33 44</p>
+<p>例3：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#/bin/bash</span>
+
+<span style="color:#66d9ef">for</span> i in <span style="color:#e6db74">&#34;</span>$*<span style="color:#e6db74">&#34;</span>
+<span style="color:#75715e">#S*中的所有参数看成是一个整体，所以这个for循环只会循环一次</span>
+			<span style="color:#66d9ef">do</span>
+					echo <span style="color:#e6db74">&#34;The parameters is: </span>$i<span style="color:#e6db74">&#34;</span>
+			<span style="color:#66d9ef">done</span>
+			
+<span style="color:#66d9ef">for</span> y in <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
+<span style="color:#75715e">#$@中的每个参数都看成是独立的，所以“$@”中有几个参数，就会循环几次</span>
+			<span style="color:#66d9ef">do</span>
+					echo <span style="color:#e6db74">&#34;The parameters is: </span>$i<span style="color:#e6db74">&#34;</span>
+			<span style="color:#66d9ef">done</span>
+</code></pre></div><p>[root@localhost ~]# vi canshu3.sh</p>
+<p>如上</p>
+<p>[root@localhost ~]# chmod 755 canshu3.sh</p>
+<p>[root@localhost ~]# ./canshu2.sh 11 22 33 44</p>
+<ul>
+<li>预定义变量：是Bash中已经定义好的变量，变量名不能自定义，变量作用也是固定的</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">预定义变量</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$?</td>
+<td align="center">最后一次执行的命令的返回状态。如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0（具体是哪个数字，由命令自己决定），则证明上一个命令执行不正确</td>
+</tr>
+<tr>
+<td align="center">$$</td>
+<td align="center">当前进程的进程号（PIN）</td>
+</tr>
+<tr>
+<td align="center">$!</td>
+<td align="center"><strong>后台运行</strong>的最后一个进程的进程号（PID）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>接收键盘输入</p>
+<p><strong>read [选项] [变量名]</strong></p>
+<p>选项：</p>
+<p>​		-p “提示信息” ：在等待read输入时，输出提示信息</p>
+<p>​		-t 秒数：read命令会一直等待用户的输入，使用此选项可以指定等待时间</p>
+<p>​		-n 字符数：read命令只接受指定的字符数，就会执行</p>
+<p>​		-s：隐藏输入的数据，适用于机密信息的输入</p>
+</li>
+</ul>
+<p>例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#/bin/bash</span>
+
+read -p <span style="color:#e6db74">&#34;Please input your name: &#34;</span> -t <span style="color:#ae81ff">30</span> name
+echo $name
+
+read -p <span style="color:#e6db74">&#34;Please input your passwd: &#34;</span> -t <span style="color:#ae81ff">30</span> name -s passwd
+echo -e <span style="color:#e6db74">&#34;/n&#34;</span>
+echo $passwd
+
+read -p <span style="color:#e6db74">&#34;Please input your sex [M/F]: &#34;</span> -t <span style="color:#ae81ff">30</span> sex
+echo -e <span style="color:#e6db74">&#34;/n&#34;</span>
+echo $sex
+</code></pre></div><blockquote>
+<p>Shell运算符</p>
+</blockquote>
+<p>Shell变量的缺点:</p>
+<p>​	1)	弱类型</p>
+<p>​	2)	默认字符串型</p>
+<ul>
+<li>
+<p>declare命令</p>
+<ul>
+<li>
+<p>declare声明变量类型</p>
+<p>[root@localhost ~]# declare [+/-] [选项] 变量名</p>
+<p>选项：</p>
+<p>​		-：	给变量设定类型属性</p>
+<p>​		+：	取消变量的类型属性</p>
+<p>​		-a：	将变量声明为数组型</p>
+<p>​		-i：	将变量声明为整数型（integer）</p>
+<p>​		-x：	将变量声明为环境变量</p>
+<p>​		-r：	将变量声明为只读变量(注意，一旦定义成只读，除了读任何操作都不行了，包括删除都删不掉，不过还好，不写在文件里的话是临时的)</p>
+<p>​		-p：	显示指定变量的被声明的类型</p>
+<p>​		。。。（小数啦等等等）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>例1：</p>
+<p>[root@localhost ~]# aa=11</p>
+<p>[root@localhost ~]# bb=22</p>
+<p>[root@localhost ~]# echo $cc</p>
+<p>[root@localhost ~]# declare -i cc=$aa+$bb</p>
+<p>[root@localhost ~]# echo $cc</p>
+<p>[root@localhost ~]# declare -p cc</p>
+<p>例2：</p>
+<p>#定义数组</p>
+<p>[root@localhost ~]# movie[0]=zp</p>
+<p>#Shell中的变量是弱类型的，其实他判断是不是数组是看有没有中括号和下标，这里没有用 declare -a 指明也没事</p>
+<p>[root@localhost ~]# movie[1]=tp</p>
+<p>[root@localhost ~]# declare -a movie[2]=live</p>
+<p>查看数组</p>
+<p>[root@localhost ~]# echo ${movie}</p>
+<p>#不写下标默认第一个</p>
+<p>[root@localhost ~]# echo ${movie[2]}</p>
+<p>#指定下标</p>
+<p>[root@localhost ~]# echo ${movie[*]}</p>
+<p>#'*&rsquo; 代表所有</p>
+<ul>
+<li>
+<p>数值运算的方法</p>
+<ul>
+<li>
+<p>方法1：前面declare的时候讲过，用“ declare -i ”定义成整型（数值型）就可以运算了</p>
+</li>
+<li>
+<p>方法2：expr 或 let 数值运算工具</p>
+<p>例：</p>
+<p>[root@localhost ~]# aa=1</p>
+<p>[root@localhost ~]# bb=2</p>
+<p>[root@localhost ~]# dd=$(expr $aa + $bb)</p>
+<p>#dd的值是aa和bb的和。注意“ + ”号左右两侧必须有空格</p>
+</li>
+<li>
+<p>方法3：“$((运算式))”  或 <strong>“$[运算式]”</strong>（就你了，哈哈哈）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>变量测试（通用性不高，基本只有Shell语言用；逻辑复杂，不好记；格式复杂多样，语法简单；一般在脚本优化时用 ）</p>
+</li>
+</ul>
+<blockquote>
+<p>环境变量配置文件</p>
+</blockquote>
+<ul>
+<li>
+<p>环境变量配置文件简介</p>
+<ul>
+<li>
+<p>source命令</p>
+<p>[root@localhost ~]# source 配置文件</p>
+<p>或[root@localhost ~]# .  配置文件（ .  相当于 source）</p>
+<p>修改配置文件后，必须注销重新登录才能生效，使用source命令可以不用重新登录</p>
+</li>
+<li>
+<p>PATH、HISTSIZE、PS1、HOSTNAME等环境变量写入对应的环境变量配置文件（开机加载，永久生效）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>环境变量配置文件的功能</p>
+<ul>
+<li>
+<p>登录时加载的五组环境变量配置文件</p>
+<ul>
+<li>/etc/profile	的作用：（查看文件脚本看作用）
+<ul>
+<li>USER变量：</li>
+<li>LOGNAME变量：</li>
+<li>MAIL变量：</li>
+<li>PATH变量：</li>
+<li>HOSTNAME变量：</li>
+<li>HISTSIZE变量：</li>
+<li>umask：</li>
+<li>调用/etc/profile.d/*.sh文件</li>
+</ul>
+</li>
+<li>/etc/profile.d/*.sh</li>
+<li>~/.bash_profile    的作用：
+<ul>
+<li>调用了~/.bashrc文件</li>
+<li>在PATH变量后面加入了 “:$HOME/bin” 这个目录</li>
+</ul>
+</li>
+<li>~/.bahsrc</li>
+<li>/etc/bashrc</li>
+<li>etc目录下的配置文件都所有用户起作用，放在“家目录”下的则只对当前用户起作用</li>
+</ul>
+</li>
+<li>
+<p>杂知识点</p>
+<ul>
+<li>
+<p>umask</p>
+<p>#查看系统默认权限</p>
+<p>注意：</p>
+<p>1）文件最高权限为666</p>
+<p>2）目录最高权限为777</p>
+<p>3）权限不能使用数字进行换算，而必须使用字母</p>
+<p>4）umask定义的权限，是系统默认权限中<strong>准备丢弃</strong>的权限</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>其他配置文件</p>
+<ul>
+<li>注销时生效的环境变量配置文件
+<ul>
+<li>~/.bash_logout（默认是空的，退出就退出了，不执行任何命令，比如删除明文输入的历史命令）</li>
+</ul>
+</li>
+<li>~/.bash_history（保存历史命令，存在硬盘里的，放多点没事）</li>
+<li>Shell登录信息
+<ul>
+<li><strong>本地终端</strong>欢迎（警告）信息：/etc/issue</li>
+<li><strong>远程终端</strong>欢迎信息：/etc/issue.net
+<ul>
+<li>转义符在这个文件中不能使用</li>
+<li>是否显示此欢迎信息，有ssh的配置文件 /etc/ssh/sshd_config决定，加入 “Banner /etc/issue.net” 行才能显示（记得重启SSH服务）</li>
+</ul>
+</li>
+<li>登录后欢迎信息：/etc/motd
+<ul>
+<li>不管是本地登录，还是远程登录，都可以显示此欢迎信息（还是写这方便）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>2020-7-10</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>

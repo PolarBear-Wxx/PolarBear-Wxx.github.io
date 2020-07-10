@@ -6,10 +6,37 @@
     <description>Recent content on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Jul 2020 22:46:50 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jul 2020 23:44:13 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shell编程上</title>
+      <link>https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%8A/</link>
+      <pubDate>Fri, 10 Jul 2020 23:44:13 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%8A/</guid>
+      <description>小白笔记，大佬绕道，打扰了！  Shell和其它语言的对比：
+ php和java主要实现功能 Shell简化管理操作   Shell基础
+  Bash变量
+   什么是变量及变量分类
+ 变量是计算机内存的单元，其中存放的值可以改变 变量让你能够吧程序中准备使用的每一段数据都赋给一个简短、易于记忆的名字，因此他们十分有用 变量命名规则：  变量名必须以字母或下划线打头，名字中间只能由字母、数字和下划线组成 变量名的长度不得超过255个字符（鸡肋啊这条） 变量名在有效的范围必须是唯一的 在Bash中，变量的默认类型都是字符串型 在任何系统当中，目录名、文件名、变量名都要有含义（别乱起名）   变量按照存储数据分类  字符串型（Shell中默认都是字符串，这点很别扭） 整型 浮点型（就是小数，其他语言可能还分单精度、双精度） 日期型 其他      用户自定义变量：变量是用户自己定义的
+  变量名=变量值
+ 等号两边不能有空格，例如：x=5 如果变量值中有空格要用双引号括起来（单引号也行，区别见Shell基础），例如：x=“bian liang”    变量调用
+echo $变量名（方法之一）
+  变量叠加
+x=123
+x=**“$x”**456（这个更好记一些）
+x=$(x)789
+echo $x
+123456789
+  变量查看
+set
+#查询系统下所有已存在的变量
+选项：
+​	-u：如果设定此选项，调用未声明变量时会报错（默认无任何提示）</description>
+    </item>
     
     <item>
       <title>Linux网络管理</title>
