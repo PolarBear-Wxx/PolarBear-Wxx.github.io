@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Shell编程下 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shell编程下"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！   流程控制语句
+   条件判断式语句
+  按照文件类型进行判断
+   测试选项 作用     -b 文件 判断该文件是否存在，并且是否为块设备文件（是块设备文件为真）   -c 文件 判断该文件是否存在，并且是否为字符设备文件（是字符设备文件为真）   -d 文件 判断该文件是否存在，并且是否为目录文件（是目录文件为真）   -e 文件 判断该文件是否存在（存在为真）   -f 文件 判断该文件是否存在，并且是否为普通文件（是普通文件为真）   -L 文件 判断该文件是否存在，并且是否为符号链接文件（是符号链接文件为真）   -p 文件 判断该文件是否存在，并且是否为管道文件（是管道文件为真）   -s 文件 判断该文件是否存在，并且是否为非空（非空为真）   -S 文件 判断该文件是否存在，并且是否为套接字文件（是套接字文件为真）    两种判断格式：
+  test -e /root/install."/>
+
+    <meta property="og:title" content="Shell编程下" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！   流程控制语句
+   条件判断式语句
+  按照文件类型进行判断
+   测试选项 作用     -b 文件 判断该文件是否存在，并且是否为块设备文件（是块设备文件为真）   -c 文件 判断该文件是否存在，并且是否为字符设备文件（是字符设备文件为真）   -d 文件 判断该文件是否存在，并且是否为目录文件（是目录文件为真）   -e 文件 判断该文件是否存在（存在为真）   -f 文件 判断该文件是否存在，并且是否为普通文件（是普通文件为真）   -L 文件 判断该文件是否存在，并且是否为符号链接文件（是符号链接文件为真）   -p 文件 判断该文件是否存在，并且是否为管道文件（是管道文件为真）   -s 文件 判断该文件是否存在，并且是否为非空（非空为真）   -S 文件 判断该文件是否存在，并且是否为套接字文件（是套接字文件为真）    两种判断格式：
+  test -e /root/install." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%8B/" />
+<meta property="article:published_time" content="2020-07-11T21:50:59+08:00" />
+<meta property="article:modified_time" content="2020-07-11T21:50:59+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Shell编程下</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 11, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<blockquote>
+<p>流程控制语句</p>
+</blockquote>
+<ul>
+<li>
+<p>条件判断式语句</p>
+<ul>
+<li>
+<p>按照文件类型进行判断</p>
+<table>
+<thead>
+<tr>
+<th align="center">测试选项</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-b 文件</td>
+<td align="center">判断该文件是否存在，并且是否为块设备文件（是块设备文件为真）</td>
+</tr>
+<tr>
+<td align="center">-c 文件</td>
+<td align="center">判断该文件是否存在，并且是否为字符设备文件（是字符设备文件为真）</td>
+</tr>
+<tr>
+<td align="center"><strong>-d 文件</strong></td>
+<td align="center"><strong>判断该文件是否存在，并且是否为目录文件（是目录文件为真）</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>-e 文件</strong></td>
+<td align="center"><strong>判断该文件是否存在（存在为真）</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>-f 文件</strong></td>
+<td align="center"><strong>判断该文件是否存在，并且是否为普通文件（是普通文件为真）</strong></td>
+</tr>
+<tr>
+<td align="center">-L 文件</td>
+<td align="center">判断该文件是否存在，并且是否为符号链接文件（是符号链接文件为真）</td>
+</tr>
+<tr>
+<td align="center">-p 文件</td>
+<td align="center">判断该文件是否存在，并且是否为管道文件（是管道文件为真）</td>
+</tr>
+<tr>
+<td align="center">-s 文件</td>
+<td align="center">判断该文件是否存在，并且是否为非空（非空为真）</td>
+</tr>
+<tr>
+<td align="center">-S 文件</td>
+<td align="center">判断该文件是否存在，并且是否为套接字文件（是套接字文件为真）</td>
+</tr>
+</tbody>
+</table>
+<p>两种判断格式：</p>
+<ul>
+<li>
+<p>test -e /root/install.log</p>
+</li>
+<li>
+<p><strong>[ -e /root/install.log ]</strong></p>
+</li>
+<li>
+<p>例如：</p>
+<p>[ -d /root ] &amp;&amp; echo &ldquo;yes&rdquo; || echo &ldquo;no&rdquo;</p>
+<p>#第一个判断命令如果正确执行，则打印“yes”，否则打印“no”</p>
+</li>
+</ul>
+</li>
+<li>
+<p>按照文件权限进行判断（判断不够具体，比如只要有写权限就真，不能针对具体用户）</p>
+<table>
+<thead>
+<tr>
+<th align="center">测试选项</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-r 文件</td>
+<td align="center">判断该文件是否存在，并且是否该文件拥有读权限（有读权限为真）</td>
+</tr>
+<tr>
+<td align="center">-w 文件</td>
+<td align="center">判断该文件是否存在，并且是否该文件拥有写权限（有写权限为真）</td>
+</tr>
+<tr>
+<td align="center">-x 文件</td>
+<td align="center">判断该文件是否存在，并且是否该文件拥有执行权限（有执行权限为真）</td>
+</tr>
+<tr>
+<td align="center">-u 文件</td>
+<td align="center">判断该文件是否存在，并且是否该文件拥有SUID权限（有SUID权限为真）</td>
+</tr>
+<tr>
+<td align="center">-g 文件</td>
+<td align="center">判断该文件是否存在，并且是否该文件拥有SGID权限（有SGID权限为真）</td>
+</tr>
+<tr>
+<td align="center">-k 文件</td>
+<td align="center">判断该文件是否存在，并且是否该文件拥有SBit权限（有SBit权限为真）</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>两个文件之间进行比较</p>
+<table>
+<thead>
+<tr>
+<th align="center">测试选项</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">文件1 -nt 文件2</td>
+<td align="center">判断文件1的修改时间是否比文件2的新（如果新为真）</td>
+</tr>
+<tr>
+<td align="center">文件1 -ot 文件2</td>
+<td align="center">判断文件1的修改时间是否比文件2的旧（如果旧为真）</td>
+</tr>
+<tr>
+<td align="center">文件1 -ef 文件2</td>
+<td align="center">判断文件1是否和文件2的Inode号一致，可以理解为两个文件是否为同一个文件。用这个判断硬链接是很好的方法</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>两个整数之间的比较（Shell会自动把字符串型转为整型）</p>
+<table>
+<thead>
+<tr>
+<th align="center">测试选项</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">整数1 -eq 整数2</td>
+<td align="center">判断整数1是否和整数2相等（相等为真）</td>
+</tr>
+<tr>
+<td align="center">整数1 -ne 整数2</td>
+<td align="center">判断整数1是否和整数2不相等（不相等为真）</td>
+</tr>
+<tr>
+<td align="center">整数1 -gt 整数2</td>
+<td align="center">判断整数1是否大于整数2（大于为真）</td>
+</tr>
+<tr>
+<td align="center">整数1 -lt 整数2</td>
+<td align="center">判断整数1是否小于整数2（小于为真）</td>
+</tr>
+<tr>
+<td align="center">整数1 -ge 整数2</td>
+<td align="center">判断整数1是否大于等于整数2（大于等于为真）</td>
+</tr>
+<tr>
+<td align="center">整数1 -le 整数2</td>
+<td align="center">判断整数1是否大于等于整数2（大于等于为真）</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>字符串的判断</p>
+<table>
+<thead>
+<tr>
+<th align="center">测试选项</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-z 字符串</td>
+<td align="center">判断字符串是否为空（为空返回真）</td>
+</tr>
+<tr>
+<td align="center">-n 字符串</td>
+<td align="center">判断字符串是否为非空（非空返回真）</td>
+</tr>
+<tr>
+<td align="center">字串1 == 子串2</td>
+<td align="center">判断字符串1是否和字符串2相等（相等返回真）</td>
+</tr>
+<tr>
+<td align="center">字串1 != 子串2</td>
+<td align="center">判断字符串1是否和字符串2不相等（不相等返回真）</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>多重条件判断</p>
+<table>
+<thead>
+<tr>
+<th align="center">测试选项</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">判断1 -a 判断2</td>
+<td align="center">逻辑与，判断1和判断2都成立，结果才为真</td>
+</tr>
+<tr>
+<td align="center">判断1 -o 判断2</td>
+<td align="center">逻辑或，有一个成立，结果就为真</td>
+</tr>
+<tr>
+<td align="center">！判断</td>
+<td align="center">逻辑非，使原始的判断式取反</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>单分支if语句（Shell的语法和大多数语言还是有很多不同的，比较别扭）</p>
+<ul>
+<li>
+<p>语法：</p>
+<p>if	[ 条件判断式 ]	; then</p>
+<p>​	  程序</p>
+<p>fi</p>
+<p>或者</p>
+<p>if	[条件判断式]</p>
+<p>​	  then</p>
+<p>​	  程序</p>
+<p>fi</p>
+<p>注意：</p>
+<p>&ndash; if 语句使用 fi 结尾，和一般语言使用大括号结尾不同</p>
+<p>&ndash; [条件判断式] 就是使用test命令判断，所以<strong>中括号和条件判断式之间必须有空格</strong></p>
+<p>&ndash; then 后面跟符合条件之后执行的程序，可以放在 [] 之后，用“；” 分割。也可以换行写入，就不需要“；”了</p>
+<p>例1：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!bin/bash
+</span><span style="color:#75715e"></span>    
+tset<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>env | grep <span style="color:#e6db74">&#34;USER&#34;</span> | cut -d <span style="color:#e6db74">&#34;=&#34;</span> -f2<span style="color:#66d9ef">)</span>
+    
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$test<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> root <span style="color:#f92672">]</span>
+            <span style="color:#66d9ef">then</span>
+            echo <span style="color:#e6db74">&#34;Current user is root.&#34;</span>
+<span style="color:#66d9ef">fi</span>
+</code></pre></div></li>
+<li>
+<p>例：判断分区使用率</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!bin/bash
+</span><span style="color:#75715e"></span>    
+test<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>df -h | grep sda5 | awk <span style="color:#e6db74">&#39;{print $5}&#39;</span> | cut -d <span style="color:#e6db74">&#34;%&#34;</span> -f 1<span style="color:#66d9ef">)</span>
+    
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$test<span style="color:#e6db74">&#34;</span> -ge <span style="color:#e6db74">&#34;90&#34;</span> <span style="color:#f92672">]</span>
+            <span style="color:#66d9ef">then</span>
+            echo <span style="color:#e6db74">&#34;/ is full&#34;</span>
+<span style="color:#66d9ef">fi</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>双分支if语句</p>
+<ul>
+<li>
+<p>语法：</p>
+<p>if	[ 条件判断式 ]</p>
+<p>​	  then</p>
+<p>​		  条件成立时，执行的程序</p>
+<p>​	  else</p>
+<p>​		 条件不成立时，执行的程序</p>
+<p>fi</p>
+</li>
+<li>
+<p>例1：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!bin/bash
+</span><span style="color:#75715e"></span>    
+read -t <span style="color:#ae81ff">30</span> -p <span style="color:#e6db74">&#34;Please input a dir: &#34;</span> dir
+    
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -d <span style="color:#e6db74">&#34;</span>$dir<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>
+                <span style="color:#66d9ef">then</span>
+                                echo <span style="color:#e6db74">&#34;your input is a dir&#34;</span>
+                <span style="color:#66d9ef">then</span>
+                                echo <span style="color:#e6db74">&#34;your input is not a dir&#34;</span>
+<span style="color:#66d9ef">fi</span>
+</code></pre></div></li>
+<li>
+<p>例2：判断apache（脚本名要是带 “httpd” 字串会有惊喜奥）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>    
+test<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>ps aux | grep httpd | grep -v grep<span style="color:#66d9ef">)</span>
+<span style="color:#75715e">#截取httpd进程，并把结果赋予变量test</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$test<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>
+<span style="color:#75715e">#如果test的值不为空，则执行then中命令</span>
+        <span style="color:#66d9ef">then</span>
+                echo <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74"> httpd is ok!&#34;</span> &gt;&gt; /tmp/autostart-acc.log
+        <span style="color:#66d9ef">else</span>
+                /etc/rc.d/init.d/httpd start &amp;&gt;/dev/null
+                echo <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74"> restart httpd !!&#34;</span> &gt;&gt; /tmp/autostart-err.log
+<span style="color:#66d9ef">fi</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>多分支if语句</p>
+<ul>
+<li>
+<p>语法：</p>
+<p>if	[条件判断式1]</p>
+<p>​	  then</p>
+<p>​			当条件判断式1成立时，执行程序1</p>
+<p>elif	[条件判断式2]</p>
+<p>​	  then</p>
+<p>​			当条件判断式2成立时，执行程序2</p>
+<p>&hellip;此处省略若干条件&hellip;</p>
+<p>else</p>
+<p>​			当以上条件判断式都不成立时，执行程序此程序</p>
+<p>fi</p>
+</li>
+<li>
+<p>例1：计算器（有时间尝试一下）</p>
+</li>
+<li>
+<p>例2：判断用户输入的是什么文件</p>
+</li>
+</ul>
+</li>
+<li>
+<p>case语句</p>
+<ul>
+<li>
+<p>case 语句和 if&hellip;elif&hellip;else 语句一样都是多分支条件语句，不同的是，case 语句只能判断一种条件关系，而 if 语句可以判断多种条件关系</p>
+</li>
+<li>
+<p>语法：</p>
+<p>case $变量名 in</p>
+<p>​	&ldquo;值1&rdquo;)</p>
+<p>​			如果变量的值等于1，则执行程序1</p>
+<p>​			；；</p>
+<p>​	&ldquo;值1&rdquo;)</p>
+<p>​			如果变量的值等于1，则执行程序</p>
+<p>​			；；</p>
+<p>&hellip;此处省略其他分支&hellip;</p>
+<p>​	“*”）</p>
+<p>​			如果以上都不是，则执行此程序</p>
+<p>​			；；</p>
+<p>esac</p>
+</li>
+</ul>
+</li>
+<li>
+<p>for循环</p>
+<ul>
+<li>
+<p>语法一：</p>
+<p>for	变量	in	值1	值2	值3&hellip;</p>
+<p>​		do</p>
+<p>​				程序</p>
+<p>​		done</p>
+<ul>
+<li>例1：解压缩</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>    
+cd /root/test
+ls *.tar.gz &gt; ls.log
+ls *.tgz &gt;&gt; ls.log
+    
+<span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span> cat ls.log <span style="color:#66d9ef">)</span>
+                <span style="color:#66d9ef">do</span>
+                        tar -zxf $i $&gt;/dev/null
+                <span style="color:#66d9ef">done</span>
+rm -rf ls.log
+</code></pre></div></li>
+<li>
+<p>语法二：</p>
+<p>for	((初始值;循环控制条件;变量变化))</p>
+<p>​		do</p>
+<p>​				程序</p>
+<p>​		done</p>
+<ul>
+<li>例2：批量添加删除指定数量的用户（待）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>while循环和until循环</p>
+<ul>
+<li>
+<p>while 循环</p>
+<ul>
+<li>
+<p>while 循环是<strong>不定循环</strong>，也称作<strong>条件循环</strong>。只要条件判断式成立，循环就会一直继续，直到条件判断式不成立，循环才会停止。这就和 for 的<strong>固定循环</strong>不要一样了。</p>
+</li>
+<li>
+<p>语法：</p>
+<p>while	[条件判断式]</p>
+<p>​		do</p>
+<p>​				程序</p>
+<p>​		done</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>      
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $i -le <span style="color:#ae81ff">100</span> <span style="color:#f92672">]</span>
+          <span style="color:#66d9ef">do</span>
+                  s<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span> $s <span style="color:#f92672">+</span> $i <span style="color:#66d9ef">))</span>
+                  i<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span> $i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">))</span>
+          <span style="color:#66d9ef">done</span>
+      			
+echo $s
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>until 循环</p>
+<ul>
+<li>until 循环，和 while 循环相反，until 循环时只要条件判断式不成立则进行循环，并执行循环程序。一旦循环条件成立，则终止循环。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>总结：</p>
+<p>​		shell主要用来<strong>简化管理员操作</strong>，比如办公自动化。shell编程更多的是考虑程序功能实现，而不是效率。shell编程相对于java、php等语言较为简单，是因为它不需要面对大量用户的访问，只是管理员自己写自己用，不需要太重视效率和代码简洁，实现功能就完事了。</p>
+<p>2020-7-11</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>

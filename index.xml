@@ -6,10 +6,23 @@
     <description>Recent content on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Jul 2020 17:40:39 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jul 2020 21:50:59 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shell编程下</title>
+      <link>https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%8B/</link>
+      <pubDate>Sat, 11 Jul 2020 21:50:59 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%8B/</guid>
+      <description>小白笔记，大佬绕道，打扰了！   流程控制语句
+   条件判断式语句
+  按照文件类型进行判断
+   测试选项 作用     -b 文件 判断该文件是否存在，并且是否为块设备文件（是块设备文件为真）   -c 文件 判断该文件是否存在，并且是否为字符设备文件（是字符设备文件为真）   -d 文件 判断该文件是否存在，并且是否为目录文件（是目录文件为真）   -e 文件 判断该文件是否存在（存在为真）   -f 文件 判断该文件是否存在，并且是否为普通文件（是普通文件为真）   -L 文件 判断该文件是否存在，并且是否为符号链接文件（是符号链接文件为真）   -p 文件 判断该文件是否存在，并且是否为管道文件（是管道文件为真）   -s 文件 判断该文件是否存在，并且是否为非空（非空为真）   -S 文件 判断该文件是否存在，并且是否为套接字文件（是套接字文件为真）    两种判断格式：
+  test -e /root/install.</description>
+    </item>
     
     <item>
       <title>Shell编程中</title>
@@ -17,7 +30,7 @@
       <pubDate>Sat, 11 Jul 2020 17:40:39 +0800</pubDate>
       
       <guid>https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%AD/</guid>
-      <description>小白笔记，大佬绕道，打扰了   正则表达式
+      <description>小白笔记，大佬绕道，打扰了！   正则表达式
    正则表达式
   正则表达式是用于描述字符排列和匹配模式的一种语法规则，它主要用于字符串的模式分割、匹配、查找及替换操作
   正则表达式与通配符：（绝大多数的语言都支持正则表达式，但是没有通配符的概念）
