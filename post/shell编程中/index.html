@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Shell编程中 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shell编程中"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了   正则表达式
+   正则表达式
+  正则表达式是用于描述字符排列和匹配模式的一种语法规则，它主要用于字符串的模式分割、匹配、查找及替换操作
+  正则表达式与通配符：（绝大多数的语言都支持正则表达式，但是没有通配符的概念）
+ 正则表达式用来在文件中匹配符合条件的字符串，正则是包含匹配。grep、awk、sed等命令可以支持正则表达式 通配符用来匹配符合条件的文件名，通配符是完全匹配。ls、find、cp这些命令不支持正则表达式，所以只能使用Shell自己的通配符来进行匹配了    通配符
+*：	匹配任意内容
+？：	匹配任意一个内容
+[]：	匹配中括号中的一个字符
+  基础正则表达式（扩展正则表达式就不具体说了，比如 ？、（），不同语言的正则表达式还是有些区别的）
+   元字符 作用     * 前一个字符匹配 0 次或任意多次   . 匹配除了换行符外任意一个字符   ^ 匹配行首。例如：^hello会匹配以hello开头的行   $ 匹配行尾。例如：^hello会匹配以hello结尾的行   [] 匹配中括号中指定的任意一个字符。例如：[0-9]、[aoeiu]、[a-z][0-9]   [^] 匹配除中括号的字符外的任意一个字符。例如，[^0-9]匹配任意一个非数字字符；[^a-zA-Z]   \ 转义符。用于取消特殊符号的含义   \{n\} 其前面的字符恰好出现n次（由于正则是包含匹配，可能更多次）。例如：[0-9]\{4\}匹配4位数字，[1][3-8][0-9]\{9\}匹配手机号码   \{n,\} 其前面的字符出现不小于 n 次。例如：[0-9]\{2,\}表示两位及以上的数字   \{n,m\} 其前面的字符至少出现n次，最多出现m次。例如：[a-z]\{6,8\}匹配6到8位的小写字母      “*” 前一个字符匹配0次，或任意多次（和通配符的区别还是挺大的）"/>
+
+    <meta property="og:title" content="Shell编程中" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了   正则表达式
+   正则表达式
+  正则表达式是用于描述字符排列和匹配模式的一种语法规则，它主要用于字符串的模式分割、匹配、查找及替换操作
+  正则表达式与通配符：（绝大多数的语言都支持正则表达式，但是没有通配符的概念）
+ 正则表达式用来在文件中匹配符合条件的字符串，正则是包含匹配。grep、awk、sed等命令可以支持正则表达式 通配符用来匹配符合条件的文件名，通配符是完全匹配。ls、find、cp这些命令不支持正则表达式，所以只能使用Shell自己的通配符来进行匹配了    通配符
+*：	匹配任意内容
+？：	匹配任意一个内容
+[]：	匹配中括号中的一个字符
+  基础正则表达式（扩展正则表达式就不具体说了，比如 ？、（），不同语言的正则表达式还是有些区别的）
+   元字符 作用     * 前一个字符匹配 0 次或任意多次   . 匹配除了换行符外任意一个字符   ^ 匹配行首。例如：^hello会匹配以hello开头的行   $ 匹配行尾。例如：^hello会匹配以hello结尾的行   [] 匹配中括号中指定的任意一个字符。例如：[0-9]、[aoeiu]、[a-z][0-9]   [^] 匹配除中括号的字符外的任意一个字符。例如，[^0-9]匹配任意一个非数字字符；[^a-zA-Z]   \ 转义符。用于取消特殊符号的含义   \{n\} 其前面的字符恰好出现n次（由于正则是包含匹配，可能更多次）。例如：[0-9]\{4\}匹配4位数字，[1][3-8][0-9]\{9\}匹配手机号码   \{n,\} 其前面的字符出现不小于 n 次。例如：[0-9]\{2,\}表示两位及以上的数字   \{n,m\} 其前面的字符至少出现n次，最多出现m次。例如：[a-z]\{6,8\}匹配6到8位的小写字母      “*” 前一个字符匹配0次，或任意多次（和通配符的区别还是挺大的）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/shell%E7%BC%96%E7%A8%8B%E4%B8%AD/" />
+<meta property="article:published_time" content="2020-07-11T17:40:39+08:00" />
+<meta property="article:modified_time" content="2020-07-11T17:40:39+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Shell编程中</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 11, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了</h3>
+<hr>
+<blockquote>
+<p>正则表达式</p>
+</blockquote>
+<ul>
+<li>
+<p>正则表达式</p>
+<ul>
+<li>
+<p>正则表达式是用于描述字符排列和匹配模式的一种<strong>语法规则</strong>，它主要用于<strong>字符串</strong>的<strong>模式分割</strong>、<strong>匹配</strong>、<strong>查找</strong>及<strong>替换</strong>操作</p>
+</li>
+<li>
+<p>正则表达式与通配符：（绝大多数的语言都支持正则表达式，但是没有通配符的概念）</p>
+<ul>
+<li>正则表达式用来在<strong>文件中</strong>匹配符合条件的字符串，正则是<em><!-- raw HTML omitted --><strong>包含匹配</strong><!-- raw HTML omitted --></em>。grep、awk、sed等命令可以支持正则表达式</li>
+<li>通配符用来匹配符合条件的<strong>文件名</strong>，通配符是<strong>完全匹配</strong>。ls、find、cp这些命令不支持正则表达式，所以只能使用Shell自己的通配符来进行匹配了</li>
+</ul>
+</li>
+<li>
+<p>通配符</p>
+<p>*：	匹配任意内容</p>
+<p>？：	匹配任意一个内容</p>
+<p>[]：	匹配中括号中的一个字符</p>
+</li>
+<li>
+<p>基础正则表达式（扩展正则表达式就不具体说了，比如 ？、（），不同语言的正则表达式还是有些区别的）</p>
+<table>
+<thead>
+<tr>
+<th align="center">元字符</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">*</td>
+<td align="center">前一个字符匹配 0 次或任意多次</td>
+</tr>
+<tr>
+<td align="center">.</td>
+<td align="center">匹配除了换行符外任意一个字符</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="center">匹配行首。例如：^hello会匹配以hello开头的行</td>
+</tr>
+<tr>
+<td align="center">$</td>
+<td align="center">匹配行尾。例如：^hello会匹配以hello结尾的行</td>
+</tr>
+<tr>
+<td align="center">[]</td>
+<td align="center">匹配中括号中指定的任意一个字符。例如：[0-9]、[aoeiu]、[a-z][0-9]</td>
+</tr>
+<tr>
+<td align="center">[^]</td>
+<td align="center">匹配除中括号的字符外的任意一个字符。例如，[^0-9]匹配任意一个非数字字符；[^a-zA-Z]</td>
+</tr>
+<tr>
+<td align="center">\</td>
+<td align="center">转义符。用于取消特殊符号的含义</td>
+</tr>
+<tr>
+<td align="center">\{n\}</td>
+<td align="center">其前面的字符恰好出现n次（由于正则是包含匹配，可能更多次）。例如：[0-9]\{4\}匹配4位数字，[1][3-8][0-9]\{9\}匹配手机号码</td>
+</tr>
+<tr>
+<td align="center">\{n,\}</td>
+<td align="center">其前面的字符出现不小于 n 次。例如：[0-9]\{2,\}表示两位及以上的数字</td>
+</tr>
+<tr>
+<td align="center">\{n,m\}</td>
+<td align="center">其前面的字符至少出现n次，最多出现m次。例如：[a-z]\{6,8\}匹配6到8位的小写字母</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>“*” 前一个字符匹配0次，或任意多次（和通配符的区别还是挺大的）</p>
+<p>“a*”</p>
+<p>#匹配所有内容，包括空白行（其实就丧失了作用）</p>
+<p>“aa*”</p>
+<p>#匹配至少包含一个 a 的行</p>
+<p>“aaa*”</p>
+<p>#匹配至少包含两个连续 a 的字符串</p>
+<p>“aaaaa*”</p>
+<p>#匹配至少包含四个连续 a 的字符串</p>
+</li>
+<li>
+<p>“.” 匹配除了换行符外任意一个字符</p>
+<p>“s..d”</p>
+<p>#匹配在s和d之间有两个字符的单词</p>
+<p>&ldquo;s.*d&rdquo;</p>
+<p>#匹配在s和d字母之间有任意字符</p>
+<p>&ldquo;.*&rdquo;</p>
+<p>#匹配所有内容</p>
+</li>
+<li>
+<p>“^” 匹配行首，“$” 匹配行尾</p>
+<p>“^M”</p>
+<p>#匹配以大写“M”开头的行</p>
+<p>“n$”</p>
+<p>#匹配以小写“n”结尾的行</p>
+<p>“^$”</p>
+<p>#匹配空白行</p>
+</li>
+</ul>
+</li>
+<li>
+<p>几个例子</p>
+<p>[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}</p>
+<p>#匹配日期格式 YYYY-MM-DD</p>
+<p>[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}</p>
+<p>#匹配IP地址</p>
+</li>
+</ul>
+</li>
+<li>
+<p>字符截取命令</p>
+<ul>
+<li>
+<p>cut字段提取命令</p>
+<p>[root@localhost ~]# cut [选项] 文件名</p>
+<p>选项：</p>
+<p>​		-f 列号：	提取第几列（可以用逗号分开不同列号）</p>
+<p>​		-d 分隔符：	按照指定分隔符分割列（cut命令默认的分隔符是<strong>制表符</strong>，所以在以空格“制表”的文件里就不太好用了；如果找不到制表符，它会认为制表符在行尾呢，也就是，它会输出整行）</p>
+</li>
+<li>
+<p>printf命令（其实跟字符截取没啥关系，但是awk中会用到，就说一下；最原始的输出命令，echo等都用了它；不支持数据流输入，也就是不支持管道输入）</p>
+<p>printf	‘输出类型输出格式’	输出内容</p>
+<p>输出类型：</p>
+<p>​	%ns：输出字符串。n 是数字指代输出几个字符</p>
+<p>​	%ni：输出整数。n 是数字指代输出几个数字</p>
+<p>​	%m.nf：输出浮点数。m 和 n 是数字，指代输出的整数位数和小数位数</p>
+<p>​					如%8.2f 代表共输出8位数，其中2位是小数，6位是整数</p>
+<p>输出格式：</p>
+<p>​	\a：输出警告声音</p>
+<p>​	\b：输出退格键，也就是Backspace键</p>
+<p>​	\f：清除屏幕</p>
+<p>​	\n：换行</p>
+<p>​	\r：回车，也就是Enter键</p>
+<p>​	\t：水平输出退格键，也就是Tab键</p>
+<p>​	\v：垂直输出退格键，也就是Tab键</p>
+<p>printf	‘%s’	$(cat student.txt)</p>
+<p>#不调整输出格式</p>
+<p>printf	&lsquo;%s\t%s\t%s\t%s\n&rsquo;	$(cat student.txt)</p>
+<p>#调整格式输出</p>
+<p>在awk命令的输出中支持print和printf命令</p>
+<p>print：print会在每个输出之后自动加入一个换行符（Linux默认没有print命令）</p>
+<p>printf：printf是标准格式输出命令，并不会自动加入换行符，如果需要换行，需要手工加入换行符</p>
+</li>
+<li>
+<p>awk命令（很强大，甚至可以支持逻辑运算，所以，很复杂，可以叫做 awk 编程，有的书专讲awk都有好几百页，啥时候用啥时候查吧）</p>
+<p>awk	‘条件1{动作1}条件2{动作2}&hellip;’	文件名</p>
+<p>条件（Pattern）：</p>
+<p>&ndash; 一般使用关系表达式作为条件</p>
+<p>&ndash; x &gt; 10判断变量 x 是否大于10</p>
+<p>&ndash; x &gt;= 10 大于等于</p>
+<p>&ndash; x &lt;= 10 小于等于</p>
+<p>动作（Action）：</p>
+<p>&ndash; 格式化输出（printf、print）</p>
+<p>&ndash; 流程控制语句</p>
+<p>例：</p>
+<p>awk &lsquo;{printf $2 &ldquo;\t&rdquo; $4 &ldquo;\n&rdquo;}&rsquo; student.txt</p>
+<p>df -h | awk &lsquo;{print $1 “\t” $3}&rsquo;</p>
+<p>awk &lsquo;BEGIN{printf &ldquo;This is a transcript \n&rdquo;} {printf $2 &ldquo;\t&rdquo; $4 &ldquo;\n&rdquo;}&rsquo; student.txt</p>
+<p>awk &lsquo;END{printf &ldquo;This is a transcript \n&rdquo;} {printf $2 &ldquo;\t&rdquo; $4 &ldquo;\n&rdquo;}&rsquo; student.txt</p>
+<p>FS内置命令（指定分隔符，前面一定要加BEGIN）</p>
+<p>关系运算符</p>
+</li>
+<li>
+<p>sed命令（字符替换）</p>
+<ul>
+<li>
+<p>sed是一种几乎包括在所有UNIX平台（包括Linux）的轻量级<strong>流编辑器</strong>。sed主要用来将<strong>数据进行选取、替换、删除、新增</strong>的命令。</p>
+</li>
+<li>
+<p>sed [选项] [动作] 文件名</p>
+<p>选项：</p>
+<p>​		-n：一般sed命令会把所有数据都输出到屏幕，如果加入此选择则只会把经过sed命令处理的行输出到屏幕</p>
+<p>​		-e：允许对输入数据应用多条sed命令编辑</p>
+<p>​		-i：用sed的修改结果直接修改读取数据的文件，而不是由屏幕输出</p>
+<p>动作：（单引号里面，前面加数字指定行位置）</p>
+<p>​		a：追加，在当前行后添加一行或多行</p>
+<p>​		c：行替换，用c后面的字符串替换原数据行</p>
+<p>​		i：插入，在当前行插入一行或多行。</p>
+<p>​		d：删除，删除指定的行，如，如，sed ‘2d’ student.txt；如，sed ‘2,4p’ student.txt（删除2到4行）</p>
+<p>​		p：打印，输出指定的行（记得前面加 -n），如，sed -n ‘2p’ student.txt</p>
+<p>​		s：字串替换，用一个字符串替换另一个字符串。格式为“行范围s/旧字串/新字串/g”（和vim中的替换格式类似）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>sort &ndash; 排序命令</p>
+<ul>
+<li>
+<p>sort [选项] 文件名</p>
+<p>选项：</p>
+<p>​		-f：忽略大小写</p>
+<p>​		-n：以数值型进行排序，默认使用字符串型排序</p>
+<p>​		-r：反向排序</p>
+<p>​		-t：指定分隔符，默认是制表符</p>
+<p>​		-k n[,m]：按照指定的字段范围排序。从第n字段开始，m字段结束（默认到行尾）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>wc命令 &ndash; 统计命令</p>
+<p>wc [选项] 文件名</p>
+<p>选项：</p>
+<p>​		-l：只统计行数</p>
+<p>​		-w：只统计单词数</p>
+<p>​		-m：只统计字符数</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>2020-7-11</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>
