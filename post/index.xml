@@ -6,10 +6,36 @@
     <description>Recent content in Posts on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Jul 2020 21:50:59 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2020 20:41:00 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux软件安装管理</title>
+      <link>https://PolarBear-Wxx.github.io/post/linux%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Sun, 12 Jul 2020 20:41:00 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/linux%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86/</guid>
+      <description>小白笔记，大佬绕道，打扰了！  软件包管理简介   软件包分类
+  源码包（Windows中软件都是编译过；Linux在刚开始的时候，所有的软件都是源码包，开源理念嘛）
+&amp;ndash; 脚本安装包：所谓的脚本安装包，就是把复杂的软件包安装过程写成了程序脚本，初学者可以执行程序脚本实现一键安装。但实际安装的还是源码包或二进制包。优点：安装简单、快捷；缺点：完全丧失了自定义性。
+1）源码包的优点是：
+ 开源，如果有足够的能力，可以修改源代码 可以自由选择所需的功能 软件是编译安装，所以更加适合自己的系统，更加稳定也效率更高（why？） 卸载方便  2）源码包的缺点：
+ 安装过程步骤较多，尤其安装较大的软件合集时（如LAMP环境搭建），容易出现拼写错误 编译过程时间较长，比二进制安装时间长 因为是编译安装，一旦报错，新手很难解决    二进制包（又称RPM包、系统默认包（系统光盘里其实包含了几乎所有的rpm包，不是系统哈））
+1）二进制包的优点
+ 包管理系统简单，只通过几个命令就可以实现包的安装、升级、查询和卸载 安装速度比源码包安装快得多  2）二进制包的缺点
+ 经过编译，不再可以看到源代码 功能选择不如源码包灵活 依赖性      rmp命令管理（自己解决依赖性问题）   RPM包命名规则
+  RPM包在系统光盘中（/mnt/cdrom/Packages）
+  RPM包命令规则
+httpd-2.2.15-15.el6.centos.1.i686.rpm
+&amp;ndash; httpd 软件包名
+&amp;ndash; 2.2.15 软件版本
+&amp;ndash; 15软件发布的次数
+&amp;ndash; el6.centos 适合的Linux平台
+&amp;ndash; i686 适合的硬件平台
+&amp;ndash; rpm rpm包扩展名</description>
+    </item>
     
     <item>
       <title>Shell编程下</title>

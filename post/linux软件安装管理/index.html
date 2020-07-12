@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Linux软件安装管理 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux软件安装管理"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！  软件包管理简介   软件包分类
+  源码包（Windows中软件都是编译过；Linux在刚开始的时候，所有的软件都是源码包，开源理念嘛）
+&ndash; 脚本安装包：所谓的脚本安装包，就是把复杂的软件包安装过程写成了程序脚本，初学者可以执行程序脚本实现一键安装。但实际安装的还是源码包或二进制包。优点：安装简单、快捷；缺点：完全丧失了自定义性。
+1）源码包的优点是：
+ 开源，如果有足够的能力，可以修改源代码 可以自由选择所需的功能 软件是编译安装，所以更加适合自己的系统，更加稳定也效率更高（why？） 卸载方便  2）源码包的缺点：
+ 安装过程步骤较多，尤其安装较大的软件合集时（如LAMP环境搭建），容易出现拼写错误 编译过程时间较长，比二进制安装时间长 因为是编译安装，一旦报错，新手很难解决    二进制包（又称RPM包、系统默认包（系统光盘里其实包含了几乎所有的rpm包，不是系统哈））
+1）二进制包的优点
+ 包管理系统简单，只通过几个命令就可以实现包的安装、升级、查询和卸载 安装速度比源码包安装快得多  2）二进制包的缺点
+ 经过编译，不再可以看到源代码 功能选择不如源码包灵活 依赖性      rmp命令管理（自己解决依赖性问题）   RPM包命名规则
+  RPM包在系统光盘中（/mnt/cdrom/Packages）
+  RPM包命令规则
+httpd-2.2.15-15.el6.centos.1.i686.rpm
+&ndash; httpd 软件包名
+&ndash; 2.2.15 软件版本
+&ndash; 15软件发布的次数
+&ndash; el6.centos 适合的Linux平台
+&ndash; i686 适合的硬件平台
+&ndash; rpm rpm包扩展名"/>
+
+    <meta property="og:title" content="Linux软件安装管理" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！  软件包管理简介   软件包分类
+  源码包（Windows中软件都是编译过；Linux在刚开始的时候，所有的软件都是源码包，开源理念嘛）
+&ndash; 脚本安装包：所谓的脚本安装包，就是把复杂的软件包安装过程写成了程序脚本，初学者可以执行程序脚本实现一键安装。但实际安装的还是源码包或二进制包。优点：安装简单、快捷；缺点：完全丧失了自定义性。
+1）源码包的优点是：
+ 开源，如果有足够的能力，可以修改源代码 可以自由选择所需的功能 软件是编译安装，所以更加适合自己的系统，更加稳定也效率更高（why？） 卸载方便  2）源码包的缺点：
+ 安装过程步骤较多，尤其安装较大的软件合集时（如LAMP环境搭建），容易出现拼写错误 编译过程时间较长，比二进制安装时间长 因为是编译安装，一旦报错，新手很难解决    二进制包（又称RPM包、系统默认包（系统光盘里其实包含了几乎所有的rpm包，不是系统哈））
+1）二进制包的优点
+ 包管理系统简单，只通过几个命令就可以实现包的安装、升级、查询和卸载 安装速度比源码包安装快得多  2）二进制包的缺点
+ 经过编译，不再可以看到源代码 功能选择不如源码包灵活 依赖性      rmp命令管理（自己解决依赖性问题）   RPM包命名规则
+  RPM包在系统光盘中（/mnt/cdrom/Packages）
+  RPM包命令规则
+httpd-2.2.15-15.el6.centos.1.i686.rpm
+&ndash; httpd 软件包名
+&ndash; 2.2.15 软件版本
+&ndash; 15软件发布的次数
+&ndash; el6.centos 适合的Linux平台
+&ndash; i686 适合的硬件平台
+&ndash; rpm rpm包扩展名" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/linux%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86/" />
+<meta property="article:published_time" content="2020-07-12T20:41:00+08:00" />
+<meta property="article:modified_time" content="2020-07-12T20:41:00+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Linux软件安装管理</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 12, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<h4 id="软件包管理简介">软件包管理简介</h4>
+<ul>
+<li>
+<p>软件包分类</p>
+<ul>
+<li>
+<p><strong>源码包</strong>（Windows中软件都是编译过；Linux在刚开始的时候，所有的软件都是源码包，开源理念嘛）</p>
+<p>&ndash; 脚本安装包：所谓的脚本安装包，就是把复杂的软件包安装过程写成了程序脚本，初学者可以执行程序脚本实现一键安装。但实际安装的还是源码包或二进制包。优点：安装简单、快捷；缺点：完全丧失了自定义性。</p>
+<p>1）源码包的优点是：</p>
+<ul>
+<li>开源，如果有足够的能力，可以修改源代码</li>
+<li>可以自由选择所需的功能</li>
+<li>软件是编译安装，所以更加适合自己的系统，<strong>更加稳定也效率更高</strong>（why？）</li>
+<li>卸载方便</li>
+</ul>
+<p>2）源码包的缺点：</p>
+<ul>
+<li>安装过程步骤较多，尤其安装较大的软件合集时（如LAMP环境搭建），容易出现拼写错误</li>
+<li><strong>编译过程时间较长</strong>，比二进制安装时间长</li>
+<li>因为是编译安装，一旦报错，新手很难解决</li>
+</ul>
+</li>
+<li>
+<p><strong>二进制包</strong>（又称RPM包、系统默认包（<strong>系统光盘</strong>里其实包含了几乎所有的rpm包，不是系统哈））</p>
+<p>1）二进制包的优点</p>
+<ul>
+<li>包管理系统简单，只通过几个命令就可以实现包的安装、升级、查询和卸载</li>
+<li>安装速度比源码包安装快得多</li>
+</ul>
+<p>2）二进制包的缺点</p>
+<ul>
+<li>经过编译，不再可以看到源代码</li>
+<li>功能选择不如源码包灵活</li>
+<li><strong>依赖性</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="rmp命令管理自己解决依赖性问题">rmp命令管理（自己解决依赖性问题）</h4>
+<ul>
+<li>
+<p>RPM包命名规则</p>
+<ul>
+<li>
+<p>RPM包在系统光盘中（/mnt/cdrom/Packages）</p>
+</li>
+<li>
+<p>RPM包命令规则</p>
+<p>httpd-2.2.15-15.el6.centos.1.i686.rpm</p>
+<p>&ndash; httpd 软件<strong>包名</strong></p>
+<p>&ndash; 2.2.15 软件版本</p>
+<p>&ndash; 15软件发布的次数</p>
+<p>&ndash; el6.centos 适合的Linux平台</p>
+<p>&ndash; i686 适合的硬件平台</p>
+<p>&ndash; rpm rpm包扩展名</p>
+</li>
+<li>
+<p>RPM包依赖性（难顶）</p>
+<ul>
+<li>树形依赖：a &ndash;&gt; b &ndash;&gt; c</li>
+<li>环形依赖：a &ndash;&gt; b &ndash;&gt; c &ndash;&gt; a（理论上是悖论，怎么解决：把这三个包写在一个命令里）</li>
+<li>模块依赖：模块依赖（<em>.so.</em> &ndash;&gt; 库文件），查询网站：www.rpmfind.net</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>安装命令（一定要先进入Packages目录）</p>
+<ul>
+<li>
+<p>包全名和包名：</p>
+<ul>
+<li>包全名：操作的包是没有安装的软件包时（安装、升级等），使用包全名。而且要注意路径</li>
+<li>包名：操作已经安装的软件包时（卸载、查询），使用包名，是搜索 /var/lib/rpm/ 中的数据库</li>
+</ul>
+</li>
+<li>
+<p>RPM安装（手工的命令安装，是基本安装方法，虽然没有 yum 的自动化好用，但是需要掌握）</p>
+<p><strong>rpm	-ivh	包全名</strong></p>
+<p>选项：</p>
+<p>​		-i：安装（install）</p>
+<p>​		-v：显示详细信息（verbose）</p>
+<p>​		-h：显示进度（hash）</p>
+<p>​		&ndash;nodeps：不检测依赖性（在服务器上决不允许使用的，依赖没处理，装上也没用，逗自己玩呢）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>升级与卸载</p>
+<ul>
+<li>
+<p>RPM包升级</p>
+<p>rpm	-Uvh	<strong>包全名</strong>（升级可以理解为没有安装，也要用包全名，如果你没装过，这个命令就成了安装命令）</p>
+<p>选项：</p>
+<p>​		-U：升级（upgrade）</p>
+</li>
+<li>
+<p>卸载</p>
+<p>rpm	-e	包名</p>
+<p>选项：</p>
+<p>​		-e：卸载（erase）</p>
+<p>​		&ndash;nodeps：不检测依赖性（实际工作当中是不许使用的，当然，没卸载依赖包，再装的时候也不用再装依赖包了）</p>
+<p>rpm包之所以有卸载命令，是因为，在装rpm包的时候是没有指定安装路径的，一个rpm包的文件会装的到处都是，如果一个一个去找文件都装哪了再删除，太麻烦。如果用卸载命令，就不用自己找了。源码包安装就没有卸载命令，因为安装时候就要指定安装路径，卸载时，只要把安装文件删干净就完事了。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>RPM包<strong>查询</strong></p>
+<ul>
+<li>
+<p>查询是否安装</p>
+<p>rpm	-q	包名</p>
+<p>#查询包是否安装</p>
+<p>选项：</p>
+<p>​		-q：查询（query）</p>
+<p>rpm	-qa</p>
+<p>#查询所有已经安装的RPM包</p>
+<p>选项：</p>
+<p>​		-a：所有（all）</p>
+<p>例如：[root@localhost ~]# rpm -qa | grep httpd</p>
+</li>
+<li>
+<p>查询软件包详细信息</p>
+<p>rpm 	-qi	包名</p>
+<p>选项：</p>
+<p>​		-i：查询软件信息（information）</p>
+<p>​		-p：查询未安装包信息（package）（必须在Package目录下， -qip &hellip;）</p>
+</li>
+<li>
+<p>查询包中文件的安装位置</p>
+<p>rpm	-ql 包名</p>
+<p>选项：</p>
+<p>​		-l：列表（list）</p>
+<p>​		-p：查询未安装包信息（package）（即使没装也可以看看它打算装在哪，用包全名）</p>
+<p>下面这个表格只是大致，并不是所有作者都严格遵循的</p>
+<table>
+<thead>
+<tr>
+<th align="center">RPM包默认安装路径</th>
+<th align="center">解释说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">/etc/</td>
+<td align="center">配置文件安装目录</td>
+</tr>
+<tr>
+<td align="center">/usr/bin/</td>
+<td align="center">可执行的命令安装目录</td>
+</tr>
+<tr>
+<td align="center">/usr/lib/</td>
+<td align="center">程序所使用的函数库保存位置</td>
+</tr>
+<tr>
+<td align="center">/usr/share/doc/</td>
+<td align="center">基本的软件使用手册保存位置</td>
+</tr>
+<tr>
+<td align="center">/usr/share/man/</td>
+<td align="center">帮助文件保存位置</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>查询系统文件属于哪个RPM包</p>
+<p>rpm	-qf	<strong>系统文件名</strong>（前提是这个文件必须是通过rpm包装出来的，才可以反向查询）</p>
+<p>选项：</p>
+<p>​		-f：查询系统文件属于哪个软件包（file）</p>
+</li>
+<li>
+<p>查询软件包的依赖性</p>
+<p>rpm	-qR	包名（不实用，列出的依赖太多，连bash都依赖，不如直接安装让它报错）</p>
+<p>选项：</p>
+<p>​		-R：查询软件包的依赖性（requires）</p>
+<p>​		-p：查询未安装包信息（package）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>RPM包<strong>校验</strong></p>
+<ul>
+<li>
+<p>rpm	-V	已安装的包名（如果安装文件没被动手脚，这个命令没啥反映）</p>
+<p>选项：</p>
+<p>​		-V：校验指定RPM包中的文件（verify）</p>
+<p>验证内容中的8个信息的具体内容如下：</p>
+<ul>
+<li>S：文件大小是否改变</li>
+<li>M：文件的类型或文件的权限是否被改变</li>
+<li>5：文件的MD5校验和是否改变（就是文件的内容是否改变）</li>
+<li>D：设备的主从代码是否改变</li>
+<li>L：文件路径是否改变</li>
+<li>U：文件的属主（所有者）是否改变</li>
+<li>G：文件的属组是否改变</li>
+<li>T：文件的修改时间是否改变</li>
+</ul>
+</li>
+<li>
+<p>RPM包中文件提取（重要系统文件丢失时给找回来）</p>
+<p>rpm2cpio	包全名	|	cpio	-idv	.文件绝对路径</p>
+<p>&ndash; rpm2cpio</p>
+<p>#将rpm包转换为cpio格式的命令</p>
+<p>&ndash; cpio</p>
+<p>#是一个标准工具，它用于创建软件档案文件和从档案文件中提取文件</p>
+<p>[root@localhost ~]# cpio	信息	&lt;	[文件|设备]</p>
+<p>选项：</p>
+<p>​		-i：copy-in模式，还原</p>
+<p>​		-d：还原时自动新建目录</p>
+<p>​		-v：显示还原过程</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="yum在线管理自动解决依赖性问题">yum在线管理（自动解决依赖性问题）</h4>
+<ul>
+<li>
+<p>不管是 rpm 安装还是 yum 安装，安装的都是 rmp 包，只不过 yum 是在线安装方法（yum 服务器，当然，不联网也行，本地也可以 yum 安装），更方便一些，但是 yum 只能够安装和卸载，不能查询或者校验。也就是说，即使你用 yum 装好了，需要查询或者校验的时候，还得用 rpm 命令。</p>
+<p>好处：将所有软件包放到<strong>官方服务器</strong>上，当进行 yum 在线安装时，可以<strong>自动解决依赖性问题（这太关键了，rpm手动安装处理依赖性简直反人类）</strong>。</p>
+<p>缺点：redhat 认为 yum 是售后服务，它的 yum 在线安装需要付费。。。（所以我选择 centos，哈哈哈）</p>
+</li>
+<li>
+<p>yum 源文件</p>
+<p>vim	/etc/yum.repos.d/CentOS-Base.repo</p>
+<p>&ndash; [base]：容器名称，一定要放在[]中，写什么不重要</p>
+<p>&ndash; name：容器说明，可以自己随便写</p>
+<p>&ndash; mirrorlist：镜像站点，这个可以注释掉（和baseurl有一个能用就行）</p>
+<p>&ndash; baseurl：我们的 yum 源服务器的地址。默认是CentOS官方的 yum 源服务器，是可以使用的，如果你觉得慢可以改成你喜欢的 yum 源地址</p>
+<p>&ndash; enabled：此容器是否生效，如果不写或写成 enable=1都是生效，写成 enable=0则不生效。</p>
+<p>&ndash; gpgcheck：如果是1是指RPM的数字证书生效，如果是0则不生效（尽量开着，能帮你检测是不是官方正版RPM包）</p>
+<p>&ndash; gpgkey：数字证书的公钥文件保存位置。不用修改</p>
+</li>
+<li>
+<p>光盘搭建 yum 源（在没有更新需求的情况下，本地的更稳定，效率也更高，毕竟不用网络传输了，就在本地）</p>
+<ul>
+<li>
+<p>疑问：如果没有网络，如何使用 yum 源？</p>
+<p>答：别忘了光盘中是包含所有RPM包的，如果不能用 yum 在线下载安装rpm包，还可以用光盘啊，即光盘搭建 yum 源。</p>
+</li>
+<li>
+<p>挂载光盘：</p>
+<p>mkdir /mnt/cdrpm</p>
+<p>#建立挂载点</p>
+<p>mount /dev/sr0 /mnt/cdrom</p>
+<p>#挂载光盘</p>
+</li>
+<li>
+<p>使网路 yum 源失效</p>
+<p>cd /etc/yum.repos.d/</p>
+<p>#进入 yum 源目录</p>
+<p>mv CentOS-Base.repo CentOS-Base.repo.bak</p>
+<p>#修改 yum 源文件后缀名，使其失效</p>
+</li>
+<li>
+<p>让光盘 yum 源生效</p>
+<p>vim	CentOS-Media.repo</p>
+<p>&ndash; baseurl=file:///mnt/cdrom	#地址为你自己的光盘挂载地址，并注释掉下面两个不存在的地址</p>
+<p>&ndash; enable=1	#从0改成1，使其生效</p>
+<p>其他不用动</p>
+</li>
+</ul>
+</li>
+<li>
+<p>yum 命令</p>
+<ul>
+<li>
+<p>查询</p>
+<p>yum	list</p>
+<p>#查询所有可用软件包列表</p>
+<p>yum	search	关键字</p>
+<p>#搜索服务器上所有和关键字相关的包</p>
+</li>
+<li>
+<p>安装</p>
+<p>yum	-y	install	<strong>包名</strong>（在用 yum 安装的时候，就不需要写包全名了）</p>
+<p>选项：</p>
+<p>​		install：安装</p>
+<p>​		-y：自动回答 yes</p>
+<p>例如：yum -y install gcc	#安装 C语言编译器（这个很重要啊，因为<strong>Linux中的源码包全都是用C语言写的</strong>，一定要装；注意装第一个gcc的时候就用 yum 装，不要骑驴找驴，用 gcc 源码包装，当然升级 gcc 就另一说了）</p>
+</li>
+<li>
+<p>升级（事实上，在服务器上升级是要付出代价的，比如暂停服务器；而且，你确保你升级的软件包安全稳定吗？Linux追求的是稳定和安全，所以没事别升级，除非出现了严重漏洞。而且，可以明确的告诉你，升级不是你想的那么随意，软件的升级很有可能是跟着Linux内核动的，也就是说，只要你敢用yum -y update 这条命令，服务器就敢崩）</p>
+<p>yum	-y	update	包名</p>
+<p>选项：</p>
+<p>​		update：升级</p>
+<p>​		-y：自动回答 yes</p>
+<p>前提：</p>
+<p>​		你的 yum 源里有更高版本的rpm包</p>
+</li>
+<li>
+<p>卸载</p>
+<p>yum	-y	remove	包名</p>
+<p>选项：</p>
+<p>​		remove：卸载</p>
+<p>​		-y：自动回答 yes</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>注意：服务器使用最小化安装，用什么软件装什么软件，尽量不卸载</strong>！为什么？还是“依赖”问题！我们知道，rpm软件包安装的时候需要按要求依次安装依赖，卸载的时候同样会依次卸载依赖（<strong>安装有依赖性，卸载也有依赖性</strong>），那么问题来了，你怎么知道你卸载的这个依赖不会被其他软件依赖，甚至被系统依赖？也就是说，你用 yum -y remove 命令卸载一个软件，它连问你都没问你（问你也没用，好像你知道啥该卸载啥不能卸载似的；rpm 命令还好点，至少会问问你，你心里有点数，yum 就不同了，直接卸载），咔咔咔，一通操作给你卸载完了，那么恭喜你，你的系统大概率也要崩掉了。</p>
+</li>
+<li>
+<p>yum<strong>软件组管理命令</strong></p>
+<ul>
+<li>
+<p>yum	grouplist</p>
+<p>#列出所有可用的软件组列表</p>
+<ul>
+<li>
+<p>yum	groupinstall</p>
+<p>#安装指定软件组，组名可以由grouplist查询出来</p>
+<ul>
+<li>
+<p>yum	groupremove	软件组名（必须是英文，哈哈哈，Xshell支持中文此时成了败笔，不过，可以设置回去嘛，问题不大）</p>
+<p>#卸载指定软件组</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="源码包管理">源码包管理</h4>
+<ul>
+<li>
+<p>源码包和RPM包的区别</p>
+<ul>
+<li>
+<p>安装之前的区别：概念上的区别</p>
+</li>
+<li>
+<p>安装之后的区别：<strong>安装位置不同</strong></p>
+<ul>
+<li>
+<p>RPM包安装位置在默认位置中，这个RPM<strong>包的作者觉得哪里合适就装哪里</strong>，但是一般情况下还是有规律的，前面的表格已经提到。事实上，rmp 是可以指定安装位置的，“[root@localhost ~]# rpm &ndash;help | grep prefix“ 中的 “&ndash;prefix=&lt;dir&gt;” 的 “dir” 其实就是指定默认安装位置的。其实，指定安装位置反而不好，可能会导致文件在不该在的位置，从而导致系统找不到。但是，不指定安装位置又会导致文件到处都是，这一个那一个，所以 rpm 有删除命令。 安装在默认位置的好处就是：配置文件就在 /etc/下，启动程序就在指定的目录，usr/bin 或者 usr/sbin 下，需要的话就可以用对应的方式来启动，管理更加方便，符合系统要求。</p>
+</li>
+<li>
+<p>安装位置不同带来的影响</p>
+<p><strong>RPM包安装的服务</strong>可以使用系统服务管理命令（service）来管理，例如RPM包安装的apache的启动方法是：</p>
+<p>&ndash; /etc/rc.d/init.d/httpd start（标准启动命令；如果使用指定的安装位置，这个位置找不到了，自己去找启动命令多麻烦，众软件还不统一）</p>
+<p>或者</p>
+<p>&ndash; service httpd start（但是，service 是Redhat专有的，实际上， service 也是在搜索上面那个位置）</p>
+<p>而源码包安装的服务则不能被服务管理命令管理，因为没有安装到默认路径中。所以只能用绝对路径进行服务的管理（可以设置个别名嘛，还可以把绝对路径写到/etc/rc.d/init.d/下用service命令），例如：/usr/local/apache2/bin/apachectl start</p>
+</li>
+<li>
+<p>源码包安装位置</p>
+<p>安装在指定位置当中，一般是 <strong>/usr/local/软件名/</strong></p>
+<p><strong>源码包一定要指定安装位置</strong>，因为源码包没有卸载命令，如果不指定，那它会像 rpm 包安装一样，装的到处都是，那在卸载的时候，又不能用rpm -e那样的删除命令，就麻烦了。所以，指定安装位置，卸载的时候，直接把这个目录干掉就完事了（几乎不会有任何垃圾文件残留，Windows出来挨打）。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>源码包安装过程</p>
+<ul>
+<li>
+<p>安装准备</p>
+<ul>
+<li>
+<p>安装C语言编译器</p>
+</li>
+<li>
+<p>下载源码包</p>
+<p>例如: <a href="http://mirror.bit.edu.cn/apache/httpd">http://mirror.bit.edu.cn/apache/httpd</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>安装注意事项</p>
+<ul>
+<li>源代码保存位置：/usr/local/src/</li>
+<li>软件安装位置：/usr/local/</li>
+<li>如何确定安装过程报错：
+<ul>
+<li>安装过程停止</li>
+<li>并出现error、warning 或 no 的提示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>安装过程</p>
+<ul>
+<li>
+<p>下载源码包</p>
+</li>
+<li>
+<p>解压缩下载的源码包</p>
+</li>
+<li>
+<p>进入解压缩目录</p>
+</li>
+<li>
+<p>./configure   软件配置与检查（基本所有源码包都会有这个文件，就算没有也会有类似文件）</p>
+<p>&ndash; 定义需要的功能选项</p>
+<p>#./configure &ndash;help 可以查看有哪些可以自定义的功能，一般情况下大多数都用不到，但是有一个比较常用：指定安装位置</p>
+<p>#./configure &ndash;prefix=usr/local/apache2    :指定安装位置，源码包安装一定要指定</p>
+<p>&ndash; 检测系统环境是否符合安装要求</p>
+<p>&ndash; 把定义好的功能选项和检测系统环境的信息都写入Makefile文件，用于后续的编辑</p>
+</li>
+<li>
+<p>make   编译</p>
+<p>make	clean	（万一报错了，就用这个清除）</p>
+</li>
+<li>
+<p>make    install    编译安装（这步要是报错了，直接删了安装目录）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>在哪找启动程序：</p>
+<p>源码包下面有个 INSTALL 文件，里面会告诉你在哪找，（其实还会告诉你怎么装）</p>
+</li>
+<li>
+<p>源码包程序删除</p>
+<p>没有卸载命令，直接删除安装目录就行了。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="脚本安装包以安装nginx为例">脚本安装包(以安装Nginx为例)</h4>
+<ul>
+<li>
+<p>强大的Nginx服务器</p>
+<p>Nginx是一款轻量级的Web服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，有俄国公司在2004年发布</p>
+</li>
+<li>
+<p>准备工作</p>
+<ul>
+<li>关闭RPM包安装的httpd和MySQL（释放 80 端口）</li>
+<li>保证 yum 源正常使用</li>
+<li>关闭 SELinux（美国国家安全局写的） 和防火墙</li>
+<li>推荐个网站：lnmp.org（安装Nginx）</li>
+</ul>
+</li>
+<li>
+<p>一键安装脚本分析</p>
+<ul>
+<li>所谓的一键安装包，实际上还是安装的源码包与RPM包，只是把安装过程写成了脚本，便于初学者安装</li>
+<li>优点：简单、快速、方便</li>
+<li>缺点：不能定义安装软件的版本；不能定义所需要的软件功能；源码包的优势丧失</li>
+</ul>
+</li>
+<li>
+<p>脚本一键安装包：wget -c <a href="http://soft.vpser.net/lnmp/lnmp1.0-full.tar.gz">http://soft.vpser.net/lnmp/lnmp1.0-full.tar.gz</a> &amp;&amp; tar zxvf lnmp1.0-full.tar.gz &amp;&amp; cd lnmp1.0-full &amp;&amp; ./centos.sh（老版本）</p>
+</li>
+</ul>
+<p>2020-7-12</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>
