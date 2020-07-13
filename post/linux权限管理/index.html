@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Linux权限管理 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux权限管理"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！  ​	为了降低误操作、密码泄露等风险，服务器会为用户严格定义权限等级。一般情况下，服务器应该只有一个管理员，通常是部门负责人，甚至是所有的工程师都应该是普通用户。
+文件基本权限   基本权限的修改
+  chmod 命令
+chmod	[选项]	模式	文件名
+选项：
+​	-R	递归
+模式：
+​	[ugoa] [&#43;-=] [rwx]
+​	[mode=421]
+例子：
+chmod	u&#43;x	cangls.av
+#赋予拥有者执行权限
+chmod	g&#43;w,o&#43;w	furong.av
+#赋予所属组和其他用户写权限
+chmod	a=rwx	fengjie.av
+#赋予所以人读、写、执行权限
+  权限的数字表示
+r &mdash;- 4；w &mdash;- 2；x &mdash;- 1
+rwxr-xr-x &mdash;- 755
+    权限的作用
+  权限对文件的作用
+  r：读取文件内容（cat、more、head、tail）
+  w：编辑、新增、修改文件内容（vi、echo）
+但是，写权限不包含删除文件。想不到吧？实际上，数据是文件的内容，我有写权限就可以去动文件中的数据，但是，请注意，文件是目录的内容，要想有删除文件的权限，你需要有对它的上一级目录的写权限。
+  x：可执行"/>
+
+    <meta property="og:title" content="Linux权限管理" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！  ​	为了降低误操作、密码泄露等风险，服务器会为用户严格定义权限等级。一般情况下，服务器应该只有一个管理员，通常是部门负责人，甚至是所有的工程师都应该是普通用户。
+文件基本权限   基本权限的修改
+  chmod 命令
+chmod	[选项]	模式	文件名
+选项：
+​	-R	递归
+模式：
+​	[ugoa] [&#43;-=] [rwx]
+​	[mode=421]
+例子：
+chmod	u&#43;x	cangls.av
+#赋予拥有者执行权限
+chmod	g&#43;w,o&#43;w	furong.av
+#赋予所属组和其他用户写权限
+chmod	a=rwx	fengjie.av
+#赋予所以人读、写、执行权限
+  权限的数字表示
+r &mdash;- 4；w &mdash;- 2；x &mdash;- 1
+rwxr-xr-x &mdash;- 755
+    权限的作用
+  权限对文件的作用
+  r：读取文件内容（cat、more、head、tail）
+  w：编辑、新增、修改文件内容（vi、echo）
+但是，写权限不包含删除文件。想不到吧？实际上，数据是文件的内容，我有写权限就可以去动文件中的数据，但是，请注意，文件是目录的内容，要想有删除文件的权限，你需要有对它的上一级目录的写权限。
+  x：可执行" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/linux%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" />
+<meta property="article:published_time" content="2020-07-13T15:53:04+08:00" />
+<meta property="article:modified_time" content="2020-07-13T15:53:04+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Linux权限管理</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 13, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<p>​	为了降低误操作、密码泄露等风险，服务器会为用户严格定义权限等级。一般情况下，服务器应该只有一个管理员，通常是部门负责人，甚至是所有的工程师都应该是普通用户。</p>
+<h4 id="文件基本权限">文件基本权限</h4>
+<ul>
+<li>
+<p>基本权限的修改</p>
+<ul>
+<li>
+<p>chmod 命令</p>
+<p>chmod	[选项]	模式	文件名</p>
+<p>选项：</p>
+<p>​		-R	递归</p>
+<p>模式：</p>
+<p>​		[ugoa] [+-=] [rwx]</p>
+<p>​		[mode=421]</p>
+<p>例子：</p>
+<p>chmod	u+x	cangls.av</p>
+<p>#赋予拥有者执行权限</p>
+<p>chmod	g+w,o+w	furong.av</p>
+<p>#赋予所属组和其他用户写权限</p>
+<p>chmod	a=rwx	fengjie.av</p>
+<p>#赋予所以人读、写、执行权限</p>
+</li>
+<li>
+<p>权限的数字表示</p>
+<p>r &mdash;- 4；w &mdash;- 2；x &mdash;- 1</p>
+<p>rwxr-xr-x &mdash;- 755</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>权限的作用</strong></p>
+<ul>
+<li>
+<p>权限对文件的作用</p>
+<ul>
+<li>
+<p>r：读取文件内容（cat、more、head、tail）</p>
+</li>
+<li>
+<p>w：编辑、新增、修改文件内容（vi、echo）</p>
+<p><strong>但是，写权限不包含删除文件</strong>。想不到吧？实际上，数据是文件的内容，我有写权限就可以去动文件中的数据，但是，请注意，<strong>文件是目录的内容</strong>，要想有删除文件的权限，你需要有<strong>对它的上一级目录的写权限</strong>。</p>
+</li>
+<li>
+<p>x：可执行</p>
+</li>
+</ul>
+</li>
+<li>
+<p>权限对目录的作用</p>
+<ul>
+<li>r：可以查询目录下的文件名（ls）</li>
+<li>w：具有修改目录结构的权限。如新建文件和目录，删除此目录下文件和目录，重命名此目录下文件和目录，剪切（touch、rm、mv、cp）</li>
+<li>x：<strong>可以进入目录（cd）</strong></li>
+</ul>
+</li>
+<li>
+<p>对文件来讲：最高权限是 x</p>
+</li>
+<li>
+<p>对目录来讲：最高权限是 w，对于目录来说，有意义的权限只有 <strong>0、5、7</strong> ，4 没有意义啊，你都进不去，你咋读</p>
+</li>
+</ul>
+</li>
+<li>
+<p>其他权限命令</p>
+<ul>
+<li>
+<p>修改文件的所有者</p>
+<p>chown	用户名	文件名</p>
+<p>#实际工作中如果想让一个普通用户对一个文件拥有 7 权限，那最好的方法就是把这个文件的所有者改为该用户</p>
+</li>
+<li>
+<p>修改文件的所属组</p>
+<p>chgrp	组名	文件名</p>
+<p>#Linux中在建立一个新用户的同时，会默认建立一个同名的用户组</p>
+<p>#其实，用 chown 也能改所属组，例如：chown	<strong>root:root</strong>	filename，所有者和所属组都改了</p>
+</li>
+</ul>
+</li>
+<li>
+<p>让用户对文件及目录拥有一定的权限</p>
+<p>要求：</p>
+<p>例如：</p>
+<p>&ndash; 拥有一个 课件 目录</p>
+<p>&ndash; 让老师拥有所有的权限 &ndash; 7</p>
+<p>&ndash; 让本课程学生有查看的权限 &ndash; 5</p>
+<p>&ndash; 让其他所有人不许查看这个目录 &ndash; 0</p>
+<p>[root@localhost /]# mkdir kejian</p>
+<p>[root@localhost /]# useradd teacher</p>
+<p>[root@localhost /]# passwd jiaoshi</p>
+<p>[root@localhost /]# groupadd student</p>
+<p>[root@localhost /]# useradd st1</p>
+<p>[root@localhost /]# useradd st2</p>
+<p>[root@localhost /]# groupadd -a st1 student</p>
+<p>[root@localhost /]# groupadd -a st2 student</p>
+<p>[root@localhost /]# <strong>chown teacher:student kejian</strong></p>
+<p>[root@localhost /]# <strong>chmod 750 kejian</strong></p>
+</li>
+<li>
+<p>分配文件基本权限是，核心原则：<strong>在最小权限情况下能够实现要求即可！</strong></p>
+</li>
+</ul>
+<h4 id="文件默认权限">文件默认权限</h4>
+<ul>
+<li>
+<p>查看默认权限的命令</p>
+<ul>
+<li>
+<p>umask</p>
+<p>查看默认权限</p>
+<p>0022</p>
+<p>&ndash; 第一位0：文件特殊权限</p>
+<p>&ndash; 022：文件默认权限</p>
+</li>
+<li>
+<p>文件的默认权限</p>
+<ul>
+<li>文件默认不能建立为执行文件，必须手工赋予执行权限</li>
+<li>所有文件默认权限<strong>最大为 666</strong></li>
+<li>默认权限需要<strong>换算成字母再相减</strong></li>
+<li>建立文件之后的默认权限，为 666 减去 umask 值</li>
+</ul>
+</li>
+<li>
+<p>目录的默认权限</p>
+<ul>
+<li>目录默认权限<strong>最大为 777</strong></li>
+<li>默认权限需要换算成字母再减</li>
+<li>建立目录之后的默认权限，为 777 减去 umask 值</li>
+</ul>
+</li>
+<li>
+<p>修改 umask 值</p>
+<ul>
+<li>
+<p>临时修改</p>
+<p>[root@localhost /]# umask 0002</p>
+</li>
+<li>
+<p>永久修改</p>
+<p>[root@localhost /]# vi /etc/profile</p>
+<p>#从这个文件也可以看出来，当用户id大于199（普通用户大于500）时，umask 默认值为 0002</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="acl权限">ACL权限</h4>
+<ul>
+<li>
+<p>ACL权限简介与开启</p>
+<ul>
+<li>
+<p>文件的所有者、所属组都只能有一个，这很有可能不够用啊。这个时候，就要用到 ACL 权限了，也就是说，ACL权限是解决用户对文件或目录的<strong>身份不够用</strong>的问题的。</p>
+</li>
+<li>
+<p>查看分区 ACL 权限是否开启</p>
+<p>[root@localhost ~]# dumpe2fs -h /dev/sda5</p>
+<p>#dumpe2fs 命令是查询指定分区详细文件系统信息的命令</p>
+<p>Default mount options:	user_xattr	acl   &ndash;&gt;   开启状态</p>
+<p>选项：</p>
+<p>​		-h：仅显示超级块中信息，而不显示磁盘块组的详细信息</p>
+</li>
+<li>
+<p>如果AVL权限没开，临时开启分区ACL权限</p>
+<p>[root@localhost ~]# mount -o remount,acl /</p>
+<p>#重新挂载根分区，并挂载加入 acl 权限</p>
+</li>
+<li>
+<p>永久开启分区 ACL 权限（修改配置文件喽）</p>
+<p>[root@localhost ~]# vi /etc/fstab（一定要小心，这玩意影响系统启动，一旦改错一个字，系统有可能就起不来了）</p>
+<p>UUID=c2ca6f57-b15c-43ea-bca0-f239083d8bd2 / ext4</p>
+<p>default,acl	1  1</p>
+<p>加入acl</p>
+<p>[root@localhost ~]# mount -o remount /</p>
+<p>#重新挂载文件系统或重启系统，使修改生效</p>
+</li>
+<li>
+<p><strong>查看和设定 ACL 权限</strong></p>
+<ul>
+<li>
+<p>查看ACL命令</p>
+<p>[root@localhost ~]# getfacl 文件名</p>
+<p>#查看acl权限</p>
+</li>
+<li>
+<p>设定 ACL 权限</p>
+<p>[root@localhost ~]# setfacl 选项 文件名</p>
+<p>选项：</p>
+<p>​		-m：设定 ACL 权限</p>
+<p>​		-x：删除指定的 ACL 权限</p>
+<p>​		-b：删除所有的 ACL 权限</p>
+<p>​		-d：设定默认 ACL 权限</p>
+<p>​		-k：删除默认 ACL 权限</p>
+<p>​		-R：递归设定 ACL 权限</p>
+<p>例如：</p>
+<p>[root@localhost /]# setfacl -m u:wxx:rx av	#给用户 lw 设定对 av 的 rx 的权限</p>
+<p>[root@localhost ~]# setfacl -m g:agroup:rwx /av	#为组 agroup 分配 ACL 权限</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>最大有效权限与删除ACL权限</p>
+<ul>
+<li>
+<p>最大有效权限 mask</p>
+<p>mask是用来指定最大有效权限的。如果我给用户赋予了 ACL 权限，是需要和 maks 的权限 “相与” 才能得到用户的真正权限。</p>
+</li>
+<li>
+<p>修改最大有效权限</p>
+<p>[root@localhost ~]# setfacl -m m:rx 文件名</p>
+<p>#设定 mask 权限为 r-x。使用 “ m:权限” 格式</p>
+</li>
+<li>
+<p>删除 ACL 权限</p>
+<p>[root@localhost ~]# setfacl -x u:用户名 文件名</p>
+<p>#删除指定用户的 ACL 权限</p>
+<p>[root@localhost ~]# setfcal -x g:组名 文件名</p>
+<p>#删除指定用户组的 ACL 权限</p>
+<p>[root@localhost ~]# setfacl -b 文件名</p>
+<p>#删除文件的所有 ACL 权限</p>
+</li>
+</ul>
+</li>
+<li>
+<p>默认ACL权限和递归ACL权限</p>
+<ul>
+<li>
+<p>递归 ACL 权限（能少用递归权限还是尽量少用的好）</p>
+<p>递归是父目录在设定 ACL 权限时，所有的<!-- raw HTML omitted -->现存的<!-- raw HTML omitted -->子文件和子目录<strong>也会拥有</strong>相同的 ACL 权限**（会导致权限溢出，因为文件和目录的允许最大权限不同）</p>
+<p>setfacl -m u:用户名:权限 -R 目录名</p>
+</li>
+<li>
+<p>默认 ACL 权限</p>
+<p>默认 ACL 权限的作用是如果给父目录设定了默认 ACL 权限，那么<strong>在此之后</strong>父目录中所<strong>有新建的子文件</strong>都会继承父目录的 ACL 权限。</p>
+<p>setfacl -m d:u:用户名:权限 目录名</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="文件特殊权限这些权限名称都是tony老师自己编的">文件特殊权限（这些权限名称都是Tony老师自己编的）</h4>
+<ul>
+<li>
+<p>说在前头：这一组权限都是非常不安全的，这些权限在系统当中存在的原因是，系统需要这些权限来完成一些特殊的功能。如果以后乱用了这些权限，把这些权限赋在了不该赋的文件或命令上，它会造成极其严重的后果，甚至等同于把服务器拱手送人，所以，请小心，这些权限<strong>不允许手动去改</strong>，了解即可。</p>
+</li>
+<li>
+<p>SetUID（针对可执行文件）</p>
+<ul>
+<li>
+<p>只有可以执行的二进制程序才能设定 SUID 权限</p>
+</li>
+<li>
+<p>命令执行者要对该程序拥有 x （执行）权限（s=S+x，S是没有效果的）</p>
+</li>
+<li>
+<p>命令执行者在<strong>执行该程序时获得该程序文件属主的身份</strong>（在执行程序的过程中灵魂附体为文件的属主）</p>
+</li>
+<li>
+<p>SetUID 权限只在该程序<strong>执行过程中</strong>有效，也就是说<strong>身份改变只在程序执行过程中有效</strong></p>
+</li>
+<li>
+<p>举个例子：ll /usr/bin/passwd   看一下</p>
+<p>passwd 命令拥有 SetUID 权限，所以普通用户可以修改自己的密码</p>
+<p>[root@localhost ~]# ll /usr/bin/passwd</p>
+<p>-rw<strong>s</strong>r-xr-x. 1 root root 25980 2月 22 2012 /usr/bin/passwd</p>
+<p>Cat 命令没有 SetUID 权限，所以普通用户不能查看 /etc/shadow 文件内容</p>
+<p>[root@localhost ~]# /bin/cat</p>
+<p>-rwxr-xr-x 1 root root 47976 6月 22 2012 /bin/cat</p>
+</li>
+<li>
+<p>设定 SetUID 的方法</p>
+<ul>
+<li>4代表 SUID
+<ul>
+<li>chmod 4755 文件名（取消就死 0755 ）（4 &ndash; u &ndash; SetUID、2 &ndash; g &ndash; SetGID、1 &ndash; o &ndash; Sticky BIT）</li>
+<li>chmod u+s 文件名（取消就是 u-s ）（ u+/-s 、g+/-s 、o+/-t）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>危险的 SetUID（系统有的就够了，永远不要手动赋予）</p>
+<ul>
+<li>关键命令应严格控制写权限。比如 “/”、“/usr” 等</li>
+<li>用户的密码设置要严格遵守密码三原则</li>
+<li>对系统中默认应该应该具有 SetUID 权限的文件做一列表，定时检查有没有这之外的文件被设置了 SetUID 权限（可以写个脚本干这件事）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>SetGID（文件和目录都行）</p>
+<ul>
+<li>SetGID 针对文件的作用
+<ul>
+<li>只有可执行的二进制程序才能 设置 SGID 权限</li>
+<li>命令执行者要对该程序拥有 x（执行）权限</li>
+<li>命令执行在执行程序的时候，组身份升级为该程序文件的属组</li>
+<li>SetGID 权限同样只在该程序执行过程中有效，也就是说组身份改变只在程序执行过程中有效</li>
+<li>参考 /usr/bin/locate 命令</li>
+</ul>
+</li>
+<li>SetGID 针对目录的作用
+<ul>
+<li>普通用户必须对此目录拥有 r 和 x 权限，才能进去此目录</li>
+<li>普通用户在此目录中的有效组会变成此目录的属组</li>
+<li>若普通用户对此目录拥有 w 权限时，新建的文件的默认属组是这个目录的属组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Sticky BIT（仅对目录有效）</p>
+<ul>
+<li>SBIT 粘着位作用
+<ul>
+<li>粘着位目前只对目录有效</li>
+<li>普通用户如该目录拥有 w 和 x 权限，即普通用户可以在此目录拥有写入权限（这也就是说，这种目录的权限得是 777 这多危险啊）</li>
+<li>如果没有粘着位，因为普通用户拥有 w 权限，所以可以删除此目录下所有文件，<strong>包括其他用户建立的文件</strong>。一旦赋予了粘着位，除了 root 可以删除所有文件，普通用户就算拥有 w 权限，也<strong>只能删除自己建立的文件，但是不能删除其他用户建立的文件</strong>。是不是觉得还挺好的？别忘了，这玩意要求权限是 777 ，普通用户是不可以删别人建的文件，但可以“写”啊，这尼玛，进去一顿骚操作，是没给别人删了（换句话说，我不删你文件，我把你的文件内容清空，那你岂不是更难受），那也被改的不成样子了。</li>
+</ul>
+</li>
+<li>举个🌰：ll /tmp（tmp 就是 这样的，他的权限是 777）</li>
+</ul>
+</li>
+</ul>
+<h4 id="不可改变位权限对-root-用户生效">不可改变位权限（对 root 用户生效）</h4>
+<ul>
+<li>
+<p>为了防止 SBIT 中不删你文件，改你文件的情况，有了不可改变位权限</p>
+</li>
+<li>
+<p>chattr 命令格式</p>
+<p>chattr	[+-=]	[选项]	文件或目录名</p>
+<p>&ndash; +：增加权限</p>
+<p>&ndash; -：删除权限</p>
+<p>&ndash; =：等于某权限</p>
+<p>选项：（很多，这里就说两个）</p>
+<p>i：等价于 insert，如果对文件设置 i 属性，那么不允许对文件进行删除、改名，也不能添加和修改数据；如果对目录设置 i 属性，那么只能修改目录下文件的数据，但不允许建立和删除文件（说白了，目录和文件都是文件，目录的内容是文件名等信息，文件的内容是数据，数据不是目录的内容）</p>
+<p>a：等价于 appent，如果对文件设置 a 属性，那么不允许对文件进行删除和修改数据，只能添加数据；如果对目录设置 a 属性，那么只能在目录中建立和修改文件，但是不允许删除。</p>
+</li>
+<li>
+<p>查看文件系统属性</p>
+<p>[root@localhost ~]# lsatter	选项	文件名</p>
+<p>选项：</p>
+<p>​		-a：显示所有文件和目录</p>
+<p>​		-d：若目标是目录，仅列出目录本身的属性，而不是子文件的</p>
+</li>
+</ul>
+<h4 id="sudo权限用户操作系统命令的权限严格来说命令也是文件上面的都是用户操作文件的权限">sudo权限（用户操作系统命令的权限（严格来说，命令也是文件。。。），上面的都是用户操作文件的权限）</h4>
+<ul>
+<li>
+<p>sudo 权限</p>
+<ul>
+<li>root 把本来<strong>只能超级用户执行</strong>的<strong>命令</strong>赋予<strong>普通用户</strong>执行</li>
+<li>sudo 的<strong>操作对象是系统命令</strong></li>
+<li>实际上，Linux 系统中的普通用户的权利是很小的，就比如， ifconfig 命令普通用户都无权执行（毕竟这个命令能设定ip啊）</li>
+</ul>
+</li>
+<li>
+<p>sudo 使用</p>
+<ul>
+<li>
+<p>[root@localhost ~]# visudo（注意，就是没有空格的）</p>
+<p>#实际修改的是 /etc/sudoers</p>
+<p>文档中给了例子：</p>
+<p>root	ALL=(ALL)	ALL    （可使用的身份可以省略不写，不写就默认为root了，直接 ALL=/sbin/shutdown -r now 是可以的）</p>
+<p>#用户名	被管理主机的地址=（可使用的身份）	授权命令（一定要写绝对路径）</p>
+<p>%wheel	ALL=(ALL)	ALL</p>
+<p>%组名	被管理主机的地址=（可使用的身份）	授权命令（绝对路径）</p>
+<p>举个🌰：</p>
+<p>[root@localhost ~]# visudo</p>
+<p>加一行：user1 ALL=/sbin/shutdown -r now</p>
+<p>然后，user 用户就可以 ：[user1@localhost ~]# sudo /sbin/shutdown -r now</p>
+<p>[root@localhost ~]# su - user1</p>
+<p>[user1@localhost ~]# sudo -l</p>
+<p>#查看可用的sudo命令</p>
+<p>[user1@localhost ~]# sudo /sbin/shutdown -r now</p>
+<p>#普通用户执行sudo赋予的命令</p>
+<p>注意啊，你可以赋予普通用户创建用户的权限，但是<strong>千万别脑子一热顺带赋予普通用户设置密码的权限啊</strong>，那你就完了，他连root密码都能改了，你将不再是那个<strong>把内裤穿在外面的男人</strong>了！那怎么办呢，我们知道，<strong>命令越简洁，命令的权利就越大</strong>，所以啊，<strong>把你赐给普通用户的命令写具体点</strong>。比如，普通用户不是嫌只给创建新用户权限不给设置密码权限很鸡肋吗，那好，给，不过要做点手脚：user1 ALL=/usr/bin/passwd [A-Za-z]*,	!/usr/bin/passwd “”   !/usr/bin/passwd root。还有就是，把 vi 的权限赋给普通用户也是会出现上面那个问题，人家可以修改 shadow 文件了啊，也能改密码，说白了，你在用 acl 赋予某些命令 的执行权限的之后，普通用户在用sudo执行你赋予的命令的时候他的身份是 “root”（可以通过 sudo -l 查看该用户执行被赋予权限时的身份），这太可怕了，简直就是把服务器送人的节奏啊。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>至此，系统中常用的权限基本讲完了，还剩两个没讲，pam 和 selinux，他俩不常用，真需要再查。</p>
+<p>2020-7-13</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>

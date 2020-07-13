@@ -6,10 +6,43 @@
     <description>Recent content in Posts on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jul 2020 20:41:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2020 15:53:04 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux权限管理</title>
+      <link>https://PolarBear-Wxx.github.io/post/linux%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 13 Jul 2020 15:53:04 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/linux%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</guid>
+      <description>小白笔记，大佬绕道，打扰了！  ​	为了降低误操作、密码泄露等风险，服务器会为用户严格定义权限等级。一般情况下，服务器应该只有一个管理员，通常是部门负责人，甚至是所有的工程师都应该是普通用户。
+文件基本权限   基本权限的修改
+  chmod 命令
+chmod	[选项]	模式	文件名
+选项：
+​	-R	递归
+模式：
+​	[ugoa] [+-=] [rwx]
+​	[mode=421]
+例子：
+chmod	u+x	cangls.av
+#赋予拥有者执行权限
+chmod	g+w,o+w	furong.av
+#赋予所属组和其他用户写权限
+chmod	a=rwx	fengjie.av
+#赋予所以人读、写、执行权限
+  权限的数字表示
+r &amp;mdash;- 4；w &amp;mdash;- 2；x &amp;mdash;- 1
+rwxr-xr-x &amp;mdash;- 755
+    权限的作用
+  权限对文件的作用
+  r：读取文件内容（cat、more、head、tail）
+  w：编辑、新增、修改文件内容（vi、echo）
+但是，写权限不包含删除文件。想不到吧？实际上，数据是文件的内容，我有写权限就可以去动文件中的数据，但是，请注意，文件是目录的内容，要想有删除文件的权限，你需要有对它的上一级目录的写权限。
+  x：可执行</description>
+    </item>
     
     <item>
       <title>Linux软件安装管理</title>
