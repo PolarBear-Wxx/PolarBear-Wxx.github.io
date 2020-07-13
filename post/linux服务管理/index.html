@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Linux服务管理 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux服务管理"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！  简介与分类   系统的运行级别
+ 0 关机 1 单用户，主要用于系统修复 2 不完全多用户（不完全的命令行模式），不含NFS服务 3 完全多用户（完全的命令行模式，就是标准字符界面） 4 未分配（系统保留） 5 图形界面 6 重启（不一定能正常停止系统的服务，不可靠，还是尽量用 shutdown；init 0 也是这样）  [root@localhost ~]# runlevel
+#查看运行级别命令
+[root@localhost ~]# init 运行级别
+#修改运行级别命令
+[root@localhost ~]# vim /etc/inittab
+&ndash; id:3:initdefault
+#系统开机后直接进去哪个运行级别
+  服务的分类
+  为什么要做服务管理呢？
+把系统中不需要的服务给他关掉，系统占用的资源是不是就少了，占的资源更少，linux系统就更稳定了，也更安全了，被攻击的可能性也就越小。我们说，服务器需要做优化，那什么是优化呢？服务管理，把不需要的服务给停掉，这就是一个重要的优化手段。
+  一般认为，Linux的服务安装方式不同，我们都知道，Linux有RPM包安装方法和源码包安装方法。因为安装方式不同，所以它们对应的启动和自启动的方式是有区别的，虽然源码包安装的服务可以通过一定的配置将其的管理方法编程和RPM包安装的服务一样，但是，不建议这样做。在RPM包默认安装的服务又可以分为独立的服务和基于xinetd服务。绝大多数的服务都是独立的服务，也就是，独立地运行在内存里，有任何的客户端（Web或者App）想要去访问这个服务，这个服务都可以直接响应，它的响应速度很快，缺点是，这些所有的服务都需要占用系统内存。而基于 xinetd 的服务 （xinetd 是一种超级守护进程），xinetd 服务本身是独立的，要占内存，它会管理一些它的后台程序，如果有用户想要访问它管理的后台程序，就要先访问它，然后它去访问它的后台程序，回应过程也要经过它，这样，基于 xinetd 的服务的相应速度就会慢一些，但是优点是，除了 xinetd 本身占内存，剩下的那些后台程序都不用占内存。（现在，基于 xinetd 的服务基本被淘汰了，想用的话要先安装并启动 xinetd 服务）
+  查询已安装的服务
+RPM包安装的服务
+&ndash; chkconfig	&ndash;list"/>
+
+    <meta property="og:title" content="Linux服务管理" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！  简介与分类   系统的运行级别
+ 0 关机 1 单用户，主要用于系统修复 2 不完全多用户（不完全的命令行模式），不含NFS服务 3 完全多用户（完全的命令行模式，就是标准字符界面） 4 未分配（系统保留） 5 图形界面 6 重启（不一定能正常停止系统的服务，不可靠，还是尽量用 shutdown；init 0 也是这样）  [root@localhost ~]# runlevel
+#查看运行级别命令
+[root@localhost ~]# init 运行级别
+#修改运行级别命令
+[root@localhost ~]# vim /etc/inittab
+&ndash; id:3:initdefault
+#系统开机后直接进去哪个运行级别
+  服务的分类
+  为什么要做服务管理呢？
+把系统中不需要的服务给他关掉，系统占用的资源是不是就少了，占的资源更少，linux系统就更稳定了，也更安全了，被攻击的可能性也就越小。我们说，服务器需要做优化，那什么是优化呢？服务管理，把不需要的服务给停掉，这就是一个重要的优化手段。
+  一般认为，Linux的服务安装方式不同，我们都知道，Linux有RPM包安装方法和源码包安装方法。因为安装方式不同，所以它们对应的启动和自启动的方式是有区别的，虽然源码包安装的服务可以通过一定的配置将其的管理方法编程和RPM包安装的服务一样，但是，不建议这样做。在RPM包默认安装的服务又可以分为独立的服务和基于xinetd服务。绝大多数的服务都是独立的服务，也就是，独立地运行在内存里，有任何的客户端（Web或者App）想要去访问这个服务，这个服务都可以直接响应，它的响应速度很快，缺点是，这些所有的服务都需要占用系统内存。而基于 xinetd 的服务 （xinetd 是一种超级守护进程），xinetd 服务本身是独立的，要占内存，它会管理一些它的后台程序，如果有用户想要访问它管理的后台程序，就要先访问它，然后它去访问它的后台程序，回应过程也要经过它，这样，基于 xinetd 的服务的相应速度就会慢一些，但是优点是，除了 xinetd 本身占内存，剩下的那些后台程序都不用占内存。（现在，基于 xinetd 的服务基本被淘汰了，想用的话要先安装并启动 xinetd 服务）
+  查询已安装的服务
+RPM包安装的服务
+&ndash; chkconfig	&ndash;list" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/" />
+<meta property="article:published_time" content="2020-07-13T21:44:23+08:00" />
+<meta property="article:modified_time" content="2020-07-13T21:44:23+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Linux服务管理</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 13, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<h4 id="简介与分类">简介与分类</h4>
+<ol>
+<li>
+<p>系统的运行级别</p>
+<ul>
+<li>0   关机</li>
+<li>1   单用户，主要用于系统修复</li>
+<li>2   不完全多用户（不完全的命令行模式），不含NFS服务</li>
+<li>3   完全多用户（完全的命令行模式，就是标准字符界面）</li>
+<li>4   未分配（系统保留）</li>
+<li>5   图形界面</li>
+<li>6   重启（不一定能正常停止系统的服务，不可靠，还是尽量用 shutdown；init 0 也是这样）</li>
+</ul>
+<p>[root@localhost ~]# runlevel</p>
+<p>#查看运行级别命令</p>
+<p>[root@localhost ~]# init 运行级别</p>
+<p>#修改运行级别命令</p>
+<p>[root@localhost ~]# vim /etc/inittab</p>
+<p>&ndash; id:3:initdefault</p>
+<p>#系统开机后直接进去哪个运行级别</p>
+</li>
+<li>
+<p>服务的分类</p>
+<ul>
+<li>
+<p>为什么要做服务管理呢？</p>
+<p>把系统中不需要的服务给他关掉，系统占用的资源是不是就少了，占的资源更少，linux系统就更稳定了，也更安全了，被攻击的可能性也就越小。我们说，服务器需要做优化，那什么是优化呢？服务管理，把不需要的服务给停掉，这就是一个重要的优化手段。</p>
+</li>
+<li>
+<p>一般认为，Linux的服务安装方式不同，我们都知道，Linux有RPM包安装方法和源码包安装方法。因为安装方式不同，所以它们对应的启动和自启动的方式是有区别的，虽然源码包安装的服务可以通过一定的配置将其的管理方法编程和RPM包安装的服务一样，但是，不建议这样做。在RPM包默认安装的服务又可以分为独立的服务和基于xinetd服务。绝大多数的服务都是独立的服务，也就是，独立地运行在内存里，有任何的客户端（Web或者App）想要去访问这个服务，这个服务都可以直接响应，它的响应速度很快，缺点是，这些所有的服务都需要占用系统内存。而基于 xinetd 的服务 （xinetd 是一种超级守护进程），xinetd 服务本身是独立的，要占内存，它会管理一些它的后台程序，如果有用户想要访问它管理的后台程序，就要先访问它，然后它去访问它的后台程序，回应过程也要经过它，这样，基于 xinetd 的服务的相应速度就会慢一些，但是优点是，除了 xinetd 本身占内存，剩下的那些后台程序都不用占内存。（现在，基于 xinetd 的服务基本被淘汰了，想用的话要先安装并启动 xinetd 服务）</p>
+</li>
+<li>
+<p>查询已安装的服务</p>
+<p>RPM包安装的服务</p>
+<p>&ndash; chkconfig	&ndash;list</p>
+<p>#查看服务自启动状态，可以看到所有RPM包安装的服务</p>
+<p>源码包安装的服务</p>
+<p>&ndash; 查看服务安装位置，一般是 /usr/local/下（usr，Unix System Resource，及UNIX系统资源的缩写）</p>
+</li>
+<li>
+<p>启动与自启动</p>
+<ul>
+<li>服务启动：就是在当前系统中让服务运行，并提供功能</li>
+<li>服务自启动：自启动是指让服务在系统开机或重启动之后，随着系统的启动而自动启动服务（chkconfig &ndash;list 可以查看）</li>
+</ul>
+</li>
+<li>
+<p>RPM安装服务和源码包安装服务的区别</p>
+<p>一句话，安装位置不同：源码包安装在指定位置，一般是 /usr/local/，RPM包安装在默认位置中</p>
+</li>
+</ul>
+</li>
+<li>
+<p>服务与端口</p>
+<ul>
+<li>
+<p>端口是什么：</p>
+<ul>
+<li>
+<p>如果把IP地址（IP地址是计算机在互联网上的唯一标识，比如门牌号）比作一间房子，端口就是出入这间房子的门。真正的房子只有几个门，但是一个IP地址的端口可以有65536个。（实际上，TCP和UDP端口都有65536个，但是我们说 apache 的端口是 80，没说是 TCP 80，这是因为，系统为了防止混乱，像这种常用的端口都是默认分配好的，即使 UDP 的 80 端口没有用，也不会再去分配给其他服务）</p>
+</li>
+<li>
+<p>可以简单地理解为，服务和端口是一一对应的，当然你可以改，但是你改了之后，除了你没人知道，人家都知道apache服务往80端口发，结果你给改了，那谁还能找到你。</p>
+</li>
+<li>
+<p>端口与服务的对应</p>
+<p>/etc/services：一万以内的端口是系统预留的，给特定服务或者系统程序用的，超过一万的端口一般是给用户自由使用的。这个文件会列出常规端口</p>
+</li>
+<li>
+<p>查询系统中开启的服务</p>
+<p>netstat	-tlunp（一般会用到 -tlun 和 -an）</p>
+<p>&ndash; -t：列出tcp数据</p>
+<p>&ndash; -u：列出udp数据</p>
+<p>&ndash; -l：列出正在监听的网络服务（不包含已经连接的网络服务）</p>
+<p>&ndash; -n：用端口号来显示服务，而不是用服务名</p>
+<p>&ndash; -p：列出该服务的进程ID（PID）</p>
+<p>&ndash; -a：会列出系统中所有的已经启动的服务</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="rpm包服务管理">RPM包服务管理</h4>
+<ol>
+<li>
+<p>独立服务的管理</p>
+<ul>
+<li>
+<p>常规的RPM包安装后的文件保存位置</p>
+<p>/etc/init.d/：启动脚本位置（这个文件可以查看有哪些独立服务）</p>
+<p>/etc/sysconfig/：初始化环境配置文件位置</p>
+<p>/etc/：配置文件位置</p>
+<p>/etc/xinetd.conf：xinetd 配置文件</p>
+<p>/etc/xinetd.d/：基于 xinetd 服务的启动脚本</p>
+<p>/var/lib/：服务产生的数据放在这里</p>
+<p>/var/log/：日志</p>
+</li>
+<li>
+<p>独立服务的启动</p>
+<p><strong>/etc/init.d/独立服务名	start|stop|status|restart</strong> （标准启动方法）</p>
+<p>或</p>
+<p>service	独立服务名	start|stop|status|restart</p>
+</li>
+<li>
+<p>独立服务的自启动</p>
+<p>chkconfig	[&ndash;level 运行级别]	[独立服务名]	[on|off]，例如：[root@localhost ~]# chkconfig &ndash;level 2345 httpd on</p>
+<p>或</p>
+<p>修改 /etc/rc.d/rc.local 文件（在系统启动之前这里的命令都会执行）（这和上面的方法不相干，选一个就行，选两个反而会报错）</p>
+<p>或</p>
+<p>使用 ntsysv 命令管理自启动（这个和第一个就是同一种启动方法的不同形式了）（也是Redhat独有的）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>基于 xinetd 服务的管理（慢慢就被淘汰了，相应慢）</p>
+<ul>
+<li>
+<p>安装 xinetd</p>
+<p>[root@localhost ~]# yum -y install xinetd</p>
+</li>
+<li>
+<p>xinetd 服务的启动</p>
+<p>[root@localhost ~]# cat /etc/xinetd.d/</p>
+<p>#这个目录下放着所有基于 xinetd 的服务（启动脚本）</p>
+<p>找到要开的服务，vi 修改它，例如 rsync，把启动文档里的 disable=yes 改为 no，然后，<strong>service xinetd restart</strong></p>
+</li>
+<li>
+<p>xinetd 服务的自启动（其实，基于 xinetd 的服务的启动和自启动已经混为一谈了，你把它启动了，他就自启动了，你把它自启动了，他就启动了，这很不合理）</p>
+<p>[root@localhost ~]# chkconfig telnet on</p>
+<p>或者</p>
+<p>ntsysv</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="源码包服务管理">源码包服务管理</h4>
+<ol>
+<li>
+<p>RPM包安装的服务能用服务管理命令 service、chkconfig、ntsysv ，其实是扫描 /etc/rc.d/init.d/，而源码包安装的启动脚本不在这记录，所以，源码包安装的服务默认都不能用这些命令，当然可以把它搞进去，但是，不建议，那样的话你就不好区分是不是源码包安装的了。</p>
+</li>
+<li>
+<p>源码包安装服务的启动：使用绝对路径，调用启动脚本来启动。不同的源码包的启动脚本不同。可以<strong>查看源码包的安装说明，查看启动脚本的方法</strong>。</p>
+<p>例如：/usr/local/apache2/bin/apachectl</p>
+</li>
+<li>
+<p>源码包服务的自启动</p>
+<p>[root@localhost ~]# vi <strong>/etc/rc.d/rc.local</strong></p>
+<p>加入</p>
+<p>/usr/local/apache2/bin/apachectl start</p>
+</li>
+<li>
+<p>让源码包服务被服务管理命令识别</p>
+<p>ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache</p>
+</li>
+<li>
+<p>让源码包的 apache 服务能被 chkconfig 与 ntsysv 命令管理自启动</p>
+<p>vi /etc/init.d/apache</p>
+<p>#chkconfig: 35 86 76</p>
+<p>#指定 httpd 脚本可以被 chkconfig 命令管理。格式是：chkconfig：运行级别 启动顺序 关闭顺序</p>
+<p>#description: source package apache</p>
+<p>#说明，内容随意</p>
+</li>
+</ol>
+<p>2020-7-13</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>

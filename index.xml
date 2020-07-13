@@ -6,10 +6,33 @@
     <description>Recent content on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jul 2020 15:53:04 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2020 21:44:23 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux服务管理</title>
+      <link>https://PolarBear-Wxx.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 13 Jul 2020 21:44:23 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/</guid>
+      <description>小白笔记，大佬绕道，打扰了！  简介与分类   系统的运行级别
+ 0 关机 1 单用户，主要用于系统修复 2 不完全多用户（不完全的命令行模式），不含NFS服务 3 完全多用户（完全的命令行模式，就是标准字符界面） 4 未分配（系统保留） 5 图形界面 6 重启（不一定能正常停止系统的服务，不可靠，还是尽量用 shutdown；init 0 也是这样）  [root@localhost ~]# runlevel
+#查看运行级别命令
+[root@localhost ~]# init 运行级别
+#修改运行级别命令
+[root@localhost ~]# vim /etc/inittab
+&amp;ndash; id:3:initdefault
+#系统开机后直接进去哪个运行级别
+  服务的分类
+  为什么要做服务管理呢？
+把系统中不需要的服务给他关掉，系统占用的资源是不是就少了，占的资源更少，linux系统就更稳定了，也更安全了，被攻击的可能性也就越小。我们说，服务器需要做优化，那什么是优化呢？服务管理，把不需要的服务给停掉，这就是一个重要的优化手段。
+  一般认为，Linux的服务安装方式不同，我们都知道，Linux有RPM包安装方法和源码包安装方法。因为安装方式不同，所以它们对应的启动和自启动的方式是有区别的，虽然源码包安装的服务可以通过一定的配置将其的管理方法编程和RPM包安装的服务一样，但是，不建议这样做。在RPM包默认安装的服务又可以分为独立的服务和基于xinetd服务。绝大多数的服务都是独立的服务，也就是，独立地运行在内存里，有任何的客户端（Web或者App）想要去访问这个服务，这个服务都可以直接响应，它的响应速度很快，缺点是，这些所有的服务都需要占用系统内存。而基于 xinetd 的服务 （xinetd 是一种超级守护进程），xinetd 服务本身是独立的，要占内存，它会管理一些它的后台程序，如果有用户想要访问它管理的后台程序，就要先访问它，然后它去访问它的后台程序，回应过程也要经过它，这样，基于 xinetd 的服务的相应速度就会慢一些，但是优点是，除了 xinetd 本身占内存，剩下的那些后台程序都不用占内存。（现在，基于 xinetd 的服务基本被淘汰了，想用的话要先安装并启动 xinetd 服务）
+  查询已安装的服务
+RPM包安装的服务
+&amp;ndash; chkconfig	&amp;ndash;list</description>
+    </item>
     
     <item>
       <title>Linux权限管理</title>
