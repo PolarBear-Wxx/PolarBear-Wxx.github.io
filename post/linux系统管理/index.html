@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Linux系统管理 // Hi,我是王同学</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.69.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Wxx" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://PolarBear-Wxx.github.io/css/main.min.61bb32028587f24ca28522d8d197970c7ef33284e5fffb45a75fcbbb2dbc4dcb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux系统管理"/>
+<meta name="twitter:description" content="小白笔记，大佬绕道，打扰了！  进程管理   进程管理简介
+ 进程是正在执行的一个程序或命令，每一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源。说通俗点，就是正在运行的程序，比如你调用 ls 命令就会打开一个进程，只不过这种进程运行的很快，瞬间就执行完了，你很难抓到它。或者，像 apache 这样的服务，会有很多进程常驻在内存当中，等待不同用户的访问。再者，你在浏览器没刷新一次网页，就会在它的服务器至少打开一个进程。 进程管理的作用：  判断服务器健康状态 查看系统中所有进程 杀死进程（大部分进程都有正常的中止方法，除非它不起作用了或者没有正常终止方式，才用进程管理强制杀死进程）      进程的查看 -ps 命令和 pstree 命令
+  查看所有进程
+ps aux
+#查看系统中所有进程，使用 BSD 操作系统格式
+ps -le
+#查看系统中所有进程，使用 Linux 标准命令格式
+选项：
+​	a：显示一个终端的所有进程，除了会话引线
+​	u：显示进程的归属用户及内存的使用情况
+​	x：显示没有控制终端的进程
+​	-l：长格式显示。显示更加详细的信息
+​	-e：显示所有进程，和 -A 作用一致
+ps命令的输出：
+ USER：该进程是由哪个用户产生的 PID：进程的ID号 %CPU：该进程占用 CPU 资源的百分比，占用越高，进程越耗费资源 %MEM：该进程占用物理内存的百分比，占用越高，进程越耗费资源 VSZ：该进程占用虚拟内存的大小，单位 KB RSS：该进程占用实际物理内存的大小，单位 KB TTY：该进程是在哪个终端中运行的。其中 tty1-tty7 代表本地控制台终端，tty1-tty6是本地的字符界面终端，tty7是图形终端。pts/0-255代表虚拟终端。 STAT：进程状态。常见状态有：  R：运行 S：睡眠 T：停止状态 s：包含子进程 &#43;：位于后台   START：该进程的启动时间 TIME：该进程占用 CPU 的运算时间，注意不是系统时间 COMMAND：产生此进程的命令名    查看进程树"/>
+
+    <meta property="og:title" content="Linux系统管理" />
+<meta property="og:description" content="小白笔记，大佬绕道，打扰了！  进程管理   进程管理简介
+ 进程是正在执行的一个程序或命令，每一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源。说通俗点，就是正在运行的程序，比如你调用 ls 命令就会打开一个进程，只不过这种进程运行的很快，瞬间就执行完了，你很难抓到它。或者，像 apache 这样的服务，会有很多进程常驻在内存当中，等待不同用户的访问。再者，你在浏览器没刷新一次网页，就会在它的服务器至少打开一个进程。 进程管理的作用：  判断服务器健康状态 查看系统中所有进程 杀死进程（大部分进程都有正常的中止方法，除非它不起作用了或者没有正常终止方式，才用进程管理强制杀死进程）      进程的查看 -ps 命令和 pstree 命令
+  查看所有进程
+ps aux
+#查看系统中所有进程，使用 BSD 操作系统格式
+ps -le
+#查看系统中所有进程，使用 Linux 标准命令格式
+选项：
+​	a：显示一个终端的所有进程，除了会话引线
+​	u：显示进程的归属用户及内存的使用情况
+​	x：显示没有控制终端的进程
+​	-l：长格式显示。显示更加详细的信息
+​	-e：显示所有进程，和 -A 作用一致
+ps命令的输出：
+ USER：该进程是由哪个用户产生的 PID：进程的ID号 %CPU：该进程占用 CPU 资源的百分比，占用越高，进程越耗费资源 %MEM：该进程占用物理内存的百分比，占用越高，进程越耗费资源 VSZ：该进程占用虚拟内存的大小，单位 KB RSS：该进程占用实际物理内存的大小，单位 KB TTY：该进程是在哪个终端中运行的。其中 tty1-tty7 代表本地控制台终端，tty1-tty6是本地的字符界面终端，tty7是图形终端。pts/0-255代表虚拟终端。 STAT：进程状态。常见状态有：  R：运行 S：睡眠 T：停止状态 s：包含子进程 &#43;：位于后台   START：该进程的启动时间 TIME：该进程占用 CPU 的运算时间，注意不是系统时间 COMMAND：产生此进程的命令名    查看进程树" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://PolarBear-Wxx.github.io/post/linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" />
+<meta property="article:published_time" content="2020-07-14T03:08:23+08:00" />
+<meta property="article:modified_time" content="2020-07-14T03:08:23+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://PolarBear-Wxx.github.io"><img class="app-header-avatar" src="/image/avatar2.jpg" alt="Wxx" /></a>
+      <h1>Hi,我是王同学</h1>
+      <p>Welcome to contact me.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/PolarBear-Wxx" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="mailto:polar_bear_brother@163.com" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Linux系统管理</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 14, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      <p><img src="./../../image/just-do-it.png" alt="just-do-it"></p>
+<h3 id="小白笔记大佬绕道打扰了">小白笔记，大佬绕道，打扰了！</h3>
+<hr>
+<h4 id="进程管理">进程管理</h4>
+<ol>
+<li>
+<p>进程管理简介</p>
+<ul>
+<li>进程是正在执行的一个程序或命令，每一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源。说通俗点，就是<strong>正在运行的程序</strong>，比如你调用 ls 命令就会打开一个进程，只不过这种进程运行的很快，瞬间就执行完了，你很难抓到它。或者，像 apache 这样的服务，会有很多进程常驻在内存当中，等待不同用户的访问。再者，你在浏览器没刷新一次网页，就会在它的服务器至少打开一个进程。</li>
+<li>进程管理的作用：
+<ul>
+<li>判断服务器健康状态</li>
+<li>查看系统中所有进程</li>
+<li>杀死进程（大部分进程都有正常的中止方法，除非它不起作用了或者没有正常终止方式，才用进程管理强制杀死进程）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>进程的查看 -ps 命令和 pstree 命令</p>
+<ul>
+<li>
+<p>查看所有进程</p>
+<p>ps aux</p>
+<p>#查看系统中所有进程，使用 BSD 操作系统格式</p>
+<p>ps -le</p>
+<p>#查看系统中所有进程，使用 Linux 标准命令格式</p>
+<p>选项：</p>
+<p>​		a：显示一个终端的所有进程，除了会话引线</p>
+<p>​		u：显示进程的归属用户及内存的使用情况</p>
+<p>​		x：显示没有控制终端的进程</p>
+<p>​		-l：长格式显示。显示更加详细的信息</p>
+<p>​		-e：显示所有进程，和 -A 作用一致</p>
+<p>ps命令的输出：</p>
+<ul>
+<li>USER：该进程是由哪个用户产生的</li>
+<li>PID：进程的ID号</li>
+<li>%CPU：该进程占用 CPU 资源的百分比，占用越高，进程越耗费资源</li>
+<li>%MEM：该进程占用物理内存的百分比，占用越高，进程越耗费资源</li>
+<li>VSZ：该进程占用虚拟内存的大小，单位 KB</li>
+<li>RSS：该进程占用实际物理内存的大小，单位 KB</li>
+<li>TTY：该进程是在哪个终端中运行的。其中 tty1-tty7 代表本地控制台终端，tty1-tty6是本地的字符界面终端，tty7是图形终端。pts/0-255代表虚拟终端。</li>
+<li>STAT：进程状态。常见状态有：
+<ul>
+<li>R：运行</li>
+<li>S：睡眠</li>
+<li>T：停止状态</li>
+<li>s：包含子进程</li>
+<li>+：位于后台</li>
+</ul>
+</li>
+<li>START：该进程的启动时间</li>
+<li>TIME：该进程占用 CPU 的运算时间，注意不是系统时间</li>
+<li>COMMAND：产生此进程的命令名</li>
+</ul>
+</li>
+<li>
+<p>查看进程树</p>
+<p>[root@localhost ~]# pstree [选项]</p>
+<p>选项：</p>
+<p>​		-p：显示进程的PID</p>
+<p>​		-u：显示进程的所属用户</p>
+</li>
+</ul>
+</li>
+<li>
+<p>进程的查看 -top</p>
+<p>查看系统健康状态</p>
+<p>[root@localhost ~]# top [选项]</p>
+<p>选项：</p>
+<p>​		-d 秒数：指定top命令每隔几秒更新。默认是3秒</p>
+<p>​		-b：使用批处理模式输出。一般和“ -n ”选项合用，例如：[root@localhost ~]# top -b -n 1 &gt; /root/top.log</p>
+<p>​		-n 次数：指定top命令执行的次数。</p>
+<p>在top命令的交互模式中可以执行的命令：</p>
+<p>​	？或 h：显示交互模式的帮助</p>
+<p>​	P：以CPU使用率排序，默认就是此项</p>
+<p>​	M：以内存的使用率排序</p>
+<p>​	N：以PID排序</p>
+<p>​	q：退出top</p>
+<p>第一行信息为任务队列信息</p>
+<table>
+<thead>
+<tr>
+<th align="center">内容</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">12:26:46</td>
+<td align="center">当前系统时间</td>
+</tr>
+<tr>
+<td align="center">up 1 day,  13:32</td>
+<td align="center">系统的运行时间，本机已运行1天13小时32分钟（有计划重启，是服务器维护基本原则）</td>
+</tr>
+<tr>
+<td align="center">2 users</td>
+<td align="center">当前登录了2个用户</td>
+</tr>
+<tr>
+<td align="center">load average:  0.00, 0.00, 0.00</td>
+<td align="center">系统在之前1分钟，5分钟，15分钟的平均负载。一般认为小于1（这是老的标准了）时，负载较小。如果大于1，系统已经超出负荷</td>
+</tr>
+</tbody>
+</table>
+<p>第二行为进程信息</p>
+<table>
+<thead>
+<tr>
+<th align="center">内容</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Task：95 total</td>
+<td align="center">系统中的进程总数</td>
+</tr>
+<tr>
+<td align="center">1 running</td>
+<td align="center">正在运行的进程数</td>
+</tr>
+<tr>
+<td align="center">94 sleeping</td>
+<td align="center">睡眠的进程</td>
+</tr>
+<tr>
+<td align="center">0 stopped</td>
+<td align="center">正在停止的进程</td>
+</tr>
+<tr>
+<td align="center">0 zombie</td>
+<td align="center">僵尸进程（既没有终止，也不能正常进行）。如果（长期）不是0，需要手工检查僵尸进程</td>
+</tr>
+</tbody>
+</table>
+<p>第三行为CPU信息</p>
+<table>
+<thead>
+<tr>
+<th align="center">内容</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Cpu(s):  0.1%us</td>
+<td align="center">用户模式占用的CPU百分比</td>
+</tr>
+<tr>
+<td align="center">0.1%sy</td>
+<td align="center">系统模式占用的CPU百分比</td>
+</tr>
+<tr>
+<td align="center">0.0%ni</td>
+<td align="center">改变过优先级的用户进程占用的CPU百分比</td>
+</tr>
+<tr>
+<td align="center">99.7%id</td>
+<td align="center">空闲CPU的CPU百分比（一般要求不能低于20%）</td>
+</tr>
+<tr>
+<td align="center">0.1%wa</td>
+<td align="center">等待输入、输出的进程占用的CPU百分比</td>
+</tr>
+<tr>
+<td align="center">0.0%hi</td>
+<td align="center">硬中断请求服务占用的CPU百分比</td>
+</tr>
+<tr>
+<td align="center">0.1%si</td>
+<td align="center">软中断请求服务占用的CPU百分比</td>
+</tr>
+<tr>
+<td align="center">0.0%st</td>
+<td align="center">st（Steal time）虚拟时间百分比。就是当有虚拟机时，虚拟CPU等待实际CPU的时间百分比</td>
+</tr>
+</tbody>
+</table>
+<p>第四行为内存信息</p>
+<table>
+<thead>
+<tr>
+<th align="center">内容</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Mem：625344k  total</td>
+<td align="center">物理内存的总量，单位KB</td>
+</tr>
+<tr>
+<td align="center">571504k  used</td>
+<td align="center">已使用的物理内存数量</td>
+</tr>
+<tr>
+<td align="center">53840k  free</td>
+<td align="center">空闲的物理内存数量，我们使用的是虚拟机，总共只分配了628M，所以只有53MB的空闲内存了</td>
+</tr>
+<tr>
+<td align="center">65800k  buffers</td>
+<td align="center">作为缓冲（加速写入）的内存数量</td>
+</tr>
+</tbody>
+</table>
+<p>第五行为交换分区信息</p>
+<table>
+<thead>
+<tr>
+<th align="center">内容</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Swap：。。。k  total</td>
+<td align="center">交换分区（虚拟内存）的总大小</td>
+</tr>
+<tr>
+<td align="center">0k  used</td>
+<td align="center">已经使用的交换分区大小</td>
+</tr>
+<tr>
+<td align="center">。。。k  free</td>
+<td align="center">空闲交换分区的大小</td>
+</tr>
+<tr>
+<td align="center">。。。k  cached</td>
+<td align="center">作为缓存（加速读取）的交换分区的大小</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>杀死进程（除非正常关闭进程的手段不起作用，否则不要使用杀死进程的命令）</p>
+<ul>
+<li>
+<p>kill命令（杀死单一进程）</p>
+<p>[root@localhost ~]# kill -l</p>
+<p>#查看可用的进程信号（例如 kill -HUP 1523 &ndash;&gt; 平滑重启1523端口  -HUP 等效于 -1）</p>
+</li>
+<li>
+<p>killall命令</p>
+<p>killall	[选项]	[信号]	进程名</p>
+<p>#按照进程名杀死进程</p>
+<p>选项：</p>
+<p>​		-i：交互式，询问是否要杀死某个进程</p>
+<p>​		-I：忽略进程名的大小写</p>
+</li>
+<li>
+<p>pkill命令（和killall作用完全一样）</p>
+<p>pkill	[选项]	[信号]	进程名</p>
+<p>#按照进程名终止进程</p>
+<p>选项：</p>
+<p>​		-t：终端号：按照<strong>终端号</strong>提出用户（不建议这样踢用户，可以先 w 看一下有哪些终端号）</p>
+<p>例如：</p>
+<p>w</p>
+<p>#使用w命令查询本机已经登录的用户</p>
+<p>pkill -9 -t pts/1</p>
+<p>#强制杀死从pts/1虚拟终端登录的进程</p>
+</li>
+</ul>
+</li>
+<li>
+<p>修改进程优先级（除非是做内核处理，裁剪开发啥的，不然这玩意没啥用，根本感觉不到）</p>
+<ul>
+<li>
+<p>Linux操作系统是一个多用户、多任务的操作系统，Linux系统中通常运行着非常多的进程。但是<strong>CPU在同一个时钟周期内只能运算一个指令（多核的话就是其中一核）</strong>。进程优先级决定了每个进程处理的先后顺序。</p>
+</li>
+<li>
+<p>PRI代表priority，NI代表Nice。这两个值都是优先级，<strong>数字越小代表该进程优先级越高</strong>。</p>
+</li>
+<li>
+<p>修改NI值时有几个注意事项（PRI是不能修改的，最终起作用的是 PRI 加 NI 的值）</p>
+<ul>
+<li>NI的值的范围是 -20 到 19</li>
+<li>普通用户调整 NI 值的范围是 0 到 19，而且只能调整自己的进程</li>
+<li>普通用户只能调高 NI 值，而不能降低，如原本 NI 值为 0，则只能调整为大于 0</li>
+<li>root用户才能设定进程 NI 值为负值，而且可以调整任何用户的进程</li>
+<li>PRI（最终值）= PRI（原始值）+ NI（ps -le 命令显示的是最终值）</li>
+<li>用户只能修改 NI 的值，不能直接修改 PRI</li>
+</ul>
+</li>
+<li>
+<p>nice命令</p>
+<p>nice	[选项]	命令</p>
+<p>#nice命令可以给新执行的命令直接赋予 NI 值，但是不能修改已经存在的进程的 NI 值</p>
+<p>选项：</p>
+<p>​		-n NI值：给命令赋予 NI 值</p>
+<p>例如：</p>
+<p>nice	-n	-5	service	httpd	start</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="工作管理">工作管理</h4>
+<ol>
+<li>
+<p>工作管理简介</p>
+<ul>
+<li>工作管理指的是在单个登录终端中（也就是登录的shell界面中）同时管理多个工作的行为。（其实就是后台运行，在Windows里面就是最小化，因为它挡住其他界面了嘛，Linux也一样，一个命令运行半天还在那卡着终端界面呢，咋弄，给他放后台去）</li>
+<li>注意事项
+<ul>
+<li>当前的登录终端，只能管理当前终端的工作，而不能管理其他登录终端的工作（后台程序会<strong>绑定终端</strong>）</li>
+<li>放入后台的命令必须可以持续运行一段时间，这样我们才能捕捉和操作这个工作</li>
+<li>放入后台执行的命令<strong>不能和前台用户有交互或需要前台输入</strong>，否则放入后台<strong>只能暂停，而不能执行</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>工作管理方法</p>
+<ul>
+<li>
+<p>把进程放入后台</p>
+<p>tar -zcf etc.tar.gz /etc &amp;</p>
+<p>#命令后面加 <strong>&amp;</strong> 把命令放入后台，<strong>并在后台执行</strong></p>
+<p>或者</p>
+<p>top</p>
+<p>#命令执行时<strong>按下 ctrl + z 快捷键</strong>，放在后台<strong>暂停</strong></p>
+</li>
+<li>
+<p>查看后台的工作</p>
+<p>jobs	[-l]</p>
+<p>选项：</p>
+<p>​		-l：显示工作的PID</p>
+<p>注意：“+” 号代表最近一个放入后台的工作，也是工作恢复时，默认恢复的工作。“-” 号代表倒数第二个放入后台的工作</p>
+</li>
+<li>
+<p>恢复后台暂停的工作到前台执行</p>
+<p>[root@localhost ~]# fg %工作号</p>
+<p>参数：</p>
+<p>&ndash; %工作号：%号可以省略，但是注意工作号和 PID 的区别</p>
+</li>
+<li>
+<p>把后台暂停的工作恢复到后台执行</p>
+<p>[root@localhost ~]# bg %工作号</p>
+<p>注意：后台恢复执行的命令，是不能和前台有交互的，否则不能恢复到后台执行</p>
+</li>
+</ul>
+</li>
+<li>
+<p>后台命令脱离终端（例如mysql就不会随着终端关闭而关闭，那是因为它实际是个守护进程Demo）</p>
+<ul>
+<li>
+<p>把命令放入后台，只能在当前登录终端执行。<strong>一旦退出或关闭终端，后台程序就会停止</strong>。</p>
+</li>
+<li>
+<p>几种方法：</p>
+<ul>
+<li>
+<p>把需要后台执行的命令加入 /etc/rc.local 文件（同时实现了自启动，多好）</p>
+</li>
+<li>
+<p>使用系统定时任务，让系统在指定的时间执行某个后台命令（不推荐这种，可能会有小问题）</p>
+</li>
+<li>
+<p>使用 <strong>nohup</strong> 命令</p>
+<p>nohup	命令	&amp;</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="系统资源查看">系统资源查看</h4>
+<ul>
+<li>
+<p>vmstat命令监控系统资源</p>
+<p>vmstat	[刷新延时 刷新次数]</p>
+<p>例如：vmstat 1 3</p>
+<p>procs：进程信息字段</p>
+<p>&ndash;	r：等待运行的进程数，数量越大，系统越繁忙</p>
+<p>&ndash;	b：不可被唤醒的进程数量，数量越大，系统越繁忙</p>
+<p>memory：内存信息字段</p>
+<p>&ndash;	swpd：虚拟内存的使用情况，单位KB</p>
+<p>&ndash;	free：空闲的内存容量，单位KB</p>
+<p>&ndash;	buff：缓冲的内存容量，单位KB</p>
+<p>&ndash;	cache：缓存的内存容量，单位KB</p>
+<p>swap：交换分区的信息字段</p>
+<p>&ndash;	si：从磁盘中交换到内存中数据的数量，单位KB</p>
+<p>&ndash;	so：从内存中交换到磁盘中数据的数量，单位KB。此两个数越大，证明数据需要经常在磁盘和内存之间交换，系统性能越差</p>
+<p>io：磁盘读写信息字段</p>
+<p>&ndash;	bi：从块设备读入数据的总量，单位是块</p>
+<p>&ndash;	bo：写到块设备的数据的总量，单位是块。此两个数越大，代表系统的 I/O 越繁忙</p>
+</li>
+<li>
+<p><strong>dmesg开机时内核检测信息</strong></p>
+<p>dmesg</p>
+<p>dmesg | grep CPU</p>
+</li>
+<li>
+<p>free命令查看<strong>内存使用状态</strong></p>
+<p>free	[-b|-k|-m|-g]</p>
+<p>选项：</p>
+<p>​		-b：以字节为单位显示</p>
+<p>​		-k：以KB为单位显示，默认就是以KB为单位显示</p>
+<p>​		-m：以MB为大内显示</p>
+<p>​		-g：以GB为单位显示</p>
+<p>第一行：total 是总内存数，used 是已经使用的内存数，free是空闲的内存数，shared是多个进程共享的内存总数，buffers是缓冲内存数，cached是缓存内存数。默认单位是KB。</p>
+<p>第二行：-/buffers/cache 的内存数，相当于第一行的used-buffers-cached。+/buffers/cache的内存数，相当于第一行的free+bbuffers+cached。</p>
+<p>第三行：total是swap的总数；used是已经使用的swap数，free是空闲的swap数，默认单位是KB。</p>
+</li>
+<li>
+<p>查看CPU信息</p>
+<p>cat /proc/cpuinfo</p>
+</li>
+<li>
+<p>uptime命令</p>
+<p>uptime</p>
+<p>#显示系统的启动时间和平均负载，也就是top命令的第一行。w命令也可以看到这个数据</p>
+</li>
+<li>
+<p>查看系统与内核相关信息</p>
+<p>uname	[选项]</p>
+<p>​		-a：查看系统所有相关信息</p>
+<p>​		-r：查看内核版本</p>
+<p>​		-s：查看内核名称</p>
+</li>
+<li>
+<p>判断当前系统的位数</p>
+<p>file /bin/ls（随便找个外部命令 file 一下）</p>
+</li>
+<li>
+<p>查询当前Linux系统的发行版本</p>
+<p>lsb_release -a</p>
+</li>
+<li>
+<p>列出进程打开或使用的文件的信息</p>
+<p>lsof	[选项]</p>
+<p>#列出进程调用或打开的文件的信息</p>
+<p>选项：</p>
+<p>​		-c：字符串：只列出以字符串开头的进程打开的文件</p>
+<p>​		-u：用户名：只列出某个用户的进程打开的文件</p>
+<p>​		-p pid：列出某个PID进程打开的文件</p>
+<p>losf | more</p>
+<p>#查询系统中所有进程调用的文件</p>
+<p>lsof /sbin/init</p>
+<p>#查询某个文件被哪个进程调用</p>
+<p>losf -c httpd</p>
+<p>#查看httpd进程调用了哪些文件</p>
+<p>losf -u root</p>
+<p>#按照用户名，查询某用户的进程调用的文件名</p>
+</li>
+</ul>
+<h4 id="系统定时任务把占用资源较大的任务放到服务器闲的时候来干">系统定时任务（把占用资源较大的任务放到服务器闲的时候来干）</h4>
+<ol>
+<li>
+<p>at一次性定时任务</p>
+<ul>
+<li>
+<p>确定at安装</p>
+<p>chkconfig &ndash;list | grep atd（httpd、atd 最后的这个 d 是 demo ，说明它是个守护进程）</p>
+<p>#at服务是否安装</p>
+<p>service atd restart</p>
+<p>#at服务的启动</p>
+</li>
+<li>
+<p>at的访问控制</p>
+<ul>
+<li>如果系统中有 /etc/at.allow 文件，那么只要写入 /etc/at/allow 文件（白名单）中的用户就可以使用at命令（/etc/at.deny 文件会被忽略）</li>
+<li>如果系统中没有  /etc/at.allow 文件，只有/etc/at.deny 文件，那么写入 /etc/at.deny 文件（黑名单）中的用户就不能使用 at 命令。对root不起作用</li>
+<li>如果系统两个文件都不存在，那么只有 root 用户可以使用 at 命令</li>
+</ul>
+</li>
+<li>
+<p>at 命令</p>
+<p>at	[选项]	时间</p>
+<p>选项：</p>
+<p>​		-m：当at工作完成后，无论是否命令有输出，都用email通知执行 at 命令的用户</p>
+<p>​		-c 工作号：显示该 at 工作的实际内容</p>
+<p>时间：</p>
+<p>​		HH:MM		例如，02:30</p>
+<p>​		HH:MM YYYY-MM-DD		例如，02:30 2019-07-25</p>
+<p>​		HH:MM[am|pm] [month] [date]		例如，02:30 July 25</p>
+<p>​		HH:MM[am|pm] + [minutes|hours|days|weeks]		例如，now + 5 minutes</p>
+<p>atq</p>
+<p>#查看当前服务器上有哪些 at 任务</p>
+<p>atrm	[工作号]</p>
+<p>#删除指定的 at 任务</p>
+</li>
+</ul>
+</li>
+<li>
+<p>crontab循环定时任务（服务器常规操作）</p>
+<ul>
+<li>
+<p>crond 服务管理与访问控制</p>
+<p>[root@localhost ~]# service crond restart</p>
+<p>[root@localhost ~]# chkconfig crond on</p>
+</li>
+<li>
+<p>访问控制：</p>
+<p>和 at 的访问控制类似，/etc/cron.allow 和 /etc/cron.deny</p>
+</li>
+<li>
+<p>用户的crontab设置（会绑定用户身份）</p>
+<p>[root@localhost ~]# crontab [选项]</p>
+<p>选项：</p>
+<p>​		-e：编辑 crontab 定时任务</p>
+<p>​		-l：查询 crontab 任务</p>
+<p>​		-r：删除当前用户所有的 crontab 任务</p>
+<p>[root@localhost ~]# crontab -e</p>
+<p>#进入crontab编辑界面。会打开 vim 编辑你的工作</p>
+<p>*****执行的任务</p>
+<p>五个星号的意义：</p>
+<p>第一个 * ：一小时当中的第几分钟，0-59</p>
+<p>第二个 * ：一天当中的第几小时，0-23</p>
+<p>第三个 * ：一个月当中的第几天，1-31</p>
+<p>第四个 * ：一年当中的第几月，1-12</p>
+<p>第五个 *：一周当中的星期几，0-7 （0和7都代表星期日）</p>
+<p>特殊符号：</p>
+<table>
+<thead>
+<tr>
+<th align="center">特殊符号</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">*</td>
+<td align="center">代表任何时间。比如第一个*就代表一小时中每分钟都执行一次的意思</td>
+</tr>
+<tr>
+<td align="center">,</td>
+<td align="center">代表不连续的时间。不如“0 8，12，16 * * * 命令”，就是代表在每天的8点0分，12点0分，16点0分都会执行一次</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">代表连续的时间范围。比如“0 5 * * 1-6”，代表在周一到周六的凌晨5点0分执行命令</td>
+</tr>
+<tr>
+<td align="center">*/n</td>
+<td align="center">代表每隔多久执行一次。比如“ */10 * * * * 命令”，代表每隔10分钟就执行一遍命令</td>
+</tr>
+</tbody>
+</table>
+<p>注意：</p>
+<ul>
+<li>crontab 操作的最小有效单位是分钟，最大有效单位是月，你可别犯傻，想设置个在2021<strong>年</strong>6月1日5点39分20<strong>秒</strong>执行的任务</li>
+<li>六个选项都不能空，必须填写。如果不确定使用“ * ”代表任意时间</li>
+<li>第几天和星期几操作的都是“天”，如果都有设置，是并的，不是且，而且，最好别同时出现，容易让管理员混乱</li>
+<li>在定时任务中，不管是直接写命令，还是在脚本中写命令，最好都是用绝对路径</li>
+<li>设置一定要谨慎，想清楚别写错了，一不小心整个每分钟备份一个几十个G的文件，那就等着死机吧</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>系统的crontab设置</p>
+<ul>
+<li>crontab -e 是要绑定当前用户身份的，如果当前是root用户，那好办，所有定时任务都能执行，但如果当前是普通用户，那就不能执行超出用户身份权限的任务了，比如关机、添加用户等命令</li>
+<li>“crontab -e” 是每个用户执行的命令，也就是说不通的用户身份可以执行自己的定时任务。可是有些定时任务需要系统执行，这时我们就需要编辑 /etc/crontab 这个配置文件了（当然这个也必须 root 才能编辑）（定时任务有自己的一套 PATH）</li>
+<li>CentOS 6 之前的这个文件跟之后的有明显的区别，好像CentOS 6之后抛弃了一些功能，其实不是这样的，这些功能其实是交给 anacron 去干了。</li>
+<li>执行系统的定时任务的方法
+<ul>
+<li>手工执行定时任务</li>
+<li>系统定时任务
+<ul>
+<li>第一种是把<strong>需要定时执行的脚本复制到 /etc/cron.{daily,weekly,monthly}目录中的任意一个</strong>（最好用这种方式）</li>
+<li>第二种是修改 /etc/crontab 配置文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>anacron配置及总结</p>
+<ul>
+<li>
+<p>anacron是用来保证在系统关机（停电啦、故障啦都有可能）的时候错过的定时任务，可以在系统开机之后再执行（是不是很贴心）</p>
+</li>
+<li>
+<p>anacron 检测周期</p>
+<ul>
+<li>anacron 会使用一天，七天，一个月作为检测周期</li>
+<li>在系统的 /var/spool/anacron/ 目录中存在 cron.{daily,weekly,monthly}文件，用于记录<strong>上次执行 cron 的时间</strong></li>
+<li>和<strong>当前时间做比较</strong>，如果两个时间的差值超过了 anacron 的指定时间差值，证明有 cron 任务被漏执行了</li>
+</ul>
+</li>
+<li>
+<p>CentOS 6.x 的区别</p>
+<ul>
+<li>在老的 CentOS 版本中，/etc/cron.{daily,weekly,monthly}这些目录既会被cron调用，也会被 anacron 调用，容易重复执行</li>
+<li>在 CentOS 6.x 中则只会被 anacron 调用，避免了重复执行</li>
+<li>在 CentOS 6.x 中，anacron 不再是服务，而是系统命令</li>
+</ul>
+</li>
+<li>
+<p>anacron配置文件</p>
+<p>vi /etc/anacrontab</p>
+<p>&ndash; RANDOM_DELAY=45	#最大随机延迟</p>
+<p>&ndash; START_HOURS_RANGE=3-22	#anacron 的执行时间范围是 3:00-22:00 （这个可以改一下，比如 3:00-5:00）</p>
+<p>&ndash; 1	5	cron.daily	nice run-parts /etc/cron.daily</p>
+<p>&ndash; 7	25	cron.weekly	nice run-parts /etc/cron.weekly</p>
+<p>&ndash; @monthly	45	cron.monthly	nice run-parts /etc/cron.monthly</p>
+<p>#天数	强制延迟（分）	工作名称	实际执行的命令</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>2020-7-14</p>
+<hr>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+  <div class="post-comment">
+        
+              
+  
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: 'x8KFUcRuWpKAAhVRy2lcobsv-gzGzoHsz',
+        appKey: 's9fa71F98KNTND8jYcRfJKEw',
+        notify: 'false', 
+        verify: 'false', 
+        avatar:'mm', 
+        placeholder: '欢迎交流讨论...',
+        visitor: 'true'
+    });
+  </script>
+  </div>
+
+
+    </main>
+  </body>
+</html>

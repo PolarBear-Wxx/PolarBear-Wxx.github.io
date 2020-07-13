@@ -6,10 +6,33 @@
     <description>Recent content on Hi,我是王同学</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jul 2020 21:44:23 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2020 03:08:23 +0800</lastBuildDate>
     
 	<atom:link href="https://PolarBear-Wxx.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux系统管理</title>
+      <link>https://PolarBear-Wxx.github.io/post/linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Tue, 14 Jul 2020 03:08:23 +0800</pubDate>
+      
+      <guid>https://PolarBear-Wxx.github.io/post/linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/</guid>
+      <description>小白笔记，大佬绕道，打扰了！  进程管理   进程管理简介
+ 进程是正在执行的一个程序或命令，每一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源。说通俗点，就是正在运行的程序，比如你调用 ls 命令就会打开一个进程，只不过这种进程运行的很快，瞬间就执行完了，你很难抓到它。或者，像 apache 这样的服务，会有很多进程常驻在内存当中，等待不同用户的访问。再者，你在浏览器没刷新一次网页，就会在它的服务器至少打开一个进程。 进程管理的作用：  判断服务器健康状态 查看系统中所有进程 杀死进程（大部分进程都有正常的中止方法，除非它不起作用了或者没有正常终止方式，才用进程管理强制杀死进程）      进程的查看 -ps 命令和 pstree 命令
+  查看所有进程
+ps aux
+#查看系统中所有进程，使用 BSD 操作系统格式
+ps -le
+#查看系统中所有进程，使用 Linux 标准命令格式
+选项：
+​	a：显示一个终端的所有进程，除了会话引线
+​	u：显示进程的归属用户及内存的使用情况
+​	x：显示没有控制终端的进程
+​	-l：长格式显示。显示更加详细的信息
+​	-e：显示所有进程，和 -A 作用一致
+ps命令的输出：
+ USER：该进程是由哪个用户产生的 PID：进程的ID号 %CPU：该进程占用 CPU 资源的百分比，占用越高，进程越耗费资源 %MEM：该进程占用物理内存的百分比，占用越高，进程越耗费资源 VSZ：该进程占用虚拟内存的大小，单位 KB RSS：该进程占用实际物理内存的大小，单位 KB TTY：该进程是在哪个终端中运行的。其中 tty1-tty7 代表本地控制台终端，tty1-tty6是本地的字符界面终端，tty7是图形终端。pts/0-255代表虚拟终端。 STAT：进程状态。常见状态有：  R：运行 S：睡眠 T：停止状态 s：包含子进程 +：位于后台   START：该进程的启动时间 TIME：该进程占用 CPU 的运算时间，注意不是系统时间 COMMAND：产生此进程的命令名    查看进程树</description>
+    </item>
     
     <item>
       <title>Linux服务管理</title>
